@@ -1,0 +1,109 @@
+<!DOCTYPE html>  <html> <head>   <title>gamecontroller.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="cider.html">                 cider.coffee               </a>                                           <a class="source" href="clock.html">                 clock.coffee               </a>                                           <a class="source" href="entity.html">                 entity.coffee               </a>                                           <a class="source" href="game.html">                 game.coffee               </a>                                           <a class="source" href="gamecontroller.html">                 gamecontroller.coffee               </a>                                           <a class="source" href="level.html">                 level.coffee               </a>                        </div>         </div>       </div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               gamecontroller.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>               <p>Each instance of <code>Game</code> automatically instantiates a new <code>GameController</code> as <code>@controller</code>.</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="k">class</span> <span class="nx">GameController</span>
+  <span class="nv">constructor: </span><span class="o">-&gt;</span>
+    <span class="vi">@_triggered = </span><span class="p">[]</span>
+    <span class="vi">@_holding = </span><span class="p">[]</span>
+
+  <span class="nv">update: </span><span class="o">=&gt;</span>
+    <span class="vi">@_triggered = </span><span class="p">[]</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>Internal handler for keydown events</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nv">_keydown: </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>Internal handler for keyup events</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nv">_keyup: </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>Check if button for <code>action</code> was just pressed. Usage:</p>
+
+<pre><code>if @game.controller.triggered 'jump'
+    @jump()
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nv">triggered: </span><span class="p">(</span><span class="nx">action</span><span class="p">)</span> <span class="o">=&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <p>Check if button for <code>action</code> is being held. Usage:</p>
+
+<pre><code>if @game.controller.holding 'shoot'
+    @shoot()
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nv">holding: </span><span class="p">(</span><span class="nx">action</span><span class="p">)</span> <span class="o">=&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <p>A map of all keys:keyCodes</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nv">_map:</span>
+    <span class="s">&#39;m1&#39;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="s">&#39;m2&#39;</span><span class="o">:</span> <span class="o">-</span><span class="mi">3</span>
+    <span class="s">&#39;mup&#39;</span><span class="o">:</span> <span class="o">-</span><span class="mi">4</span>
+    <span class="s">&#39;mdown&#39;</span><span class="o">:</span> <span class="o">-</span><span class="mi">5</span>
+
+    <span class="s">&#39;backspace&#39;</span><span class="o">:</span> <span class="mi">8</span>
+    <span class="s">&#39;tab&#39;</span><span class="o">:</span> <span class="mi">9</span>
+    <span class="s">&#39;enter&#39;</span><span class="o">:</span> <span class="mi">13</span>
+    <span class="s">&#39;pause&#39;</span><span class="o">:</span> <span class="mi">19</span>
+    <span class="s">&#39;caps&#39;</span><span class="o">:</span> <span class="mi">20</span>
+    <span class="s">&#39;esc&#39;</span><span class="o">:</span> <span class="mi">27</span>
+    <span class="s">&#39;space&#39;</span><span class="o">:</span> <span class="mi">32</span>
+    <span class="s">&#39;page up&#39;</span><span class="o">:</span> <span class="mi">33</span>
+    <span class="s">&#39;page down&#39;</span><span class="o">:</span> <span class="mi">34</span>
+    <span class="s">&#39;end&#39;</span><span class="o">:</span> <span class="mi">35</span>
+    <span class="s">&#39;home&#39;</span><span class="o">:</span> <span class="mi">36</span>
+    <span class="s">&#39;left&#39;</span><span class="o">:</span> <span class="mi">37</span>
+    <span class="s">&#39;up&#39;</span><span class="o">:</span> <span class="mi">38</span>
+    <span class="s">&#39;right&#39;</span><span class="o">:</span> <span class="mi">39</span>
+    <span class="s">&#39;down&#39;</span><span class="o">:</span> <span class="mi">40</span>
+    <span class="s">&#39;insert&#39;</span><span class="o">:</span> <span class="mi">45</span>
+    <span class="s">&#39;delete&#39;</span><span class="o">:</span> <span class="mi">46</span>
+    <span class="s">&#39;_0&#39;</span><span class="o">:</span> <span class="mi">48</span>
+    <span class="s">&#39;_1&#39;</span><span class="o">:</span> <span class="mi">49</span>
+    <span class="s">&#39;_2&#39;</span><span class="o">:</span> <span class="mi">50</span>
+    <span class="s">&#39;_3&#39;</span><span class="o">:</span> <span class="mi">51</span>
+    <span class="s">&#39;_4&#39;</span><span class="o">:</span> <span class="mi">52</span>
+    <span class="s">&#39;_5&#39;</span><span class="o">:</span> <span class="mi">53</span>
+    <span class="s">&#39;_6&#39;</span><span class="o">:</span> <span class="mi">54</span>
+    <span class="s">&#39;_7&#39;</span><span class="o">:</span> <span class="mi">55</span>
+    <span class="s">&#39;_8&#39;</span><span class="o">:</span> <span class="mi">56</span>
+    <span class="s">&#39;_9&#39;</span><span class="o">:</span> <span class="mi">57</span>
+    <span class="s">&#39;a&#39;</span><span class="o">:</span> <span class="mi">65</span>
+    <span class="s">&#39;b&#39;</span><span class="o">:</span> <span class="mi">66</span>
+    <span class="s">&#39;c&#39;</span><span class="o">:</span> <span class="mi">67</span>
+    <span class="s">&#39;d&#39;</span><span class="o">:</span> <span class="mi">68</span>
+    <span class="s">&#39;e&#39;</span><span class="o">:</span> <span class="mi">69</span>
+    <span class="s">&#39;f&#39;</span><span class="o">:</span> <span class="mi">70</span>
+    <span class="s">&#39;g&#39;</span><span class="o">:</span> <span class="mi">71</span>
+    <span class="s">&#39;h&#39;</span><span class="o">:</span> <span class="mi">72</span>
+    <span class="s">&#39;i&#39;</span><span class="o">:</span> <span class="mi">73</span>
+    <span class="s">&#39;j&#39;</span><span class="o">:</span> <span class="mi">74</span>
+    <span class="s">&#39;k&#39;</span><span class="o">:</span> <span class="mi">75</span>
+    <span class="s">&#39;l&#39;</span><span class="o">:</span> <span class="mi">76</span>
+    <span class="s">&#39;m&#39;</span><span class="o">:</span> <span class="mi">77</span>
+    <span class="s">&#39;n&#39;</span><span class="o">:</span> <span class="mi">78</span>
+    <span class="s">&#39;o&#39;</span><span class="o">:</span> <span class="mi">79</span>
+    <span class="s">&#39;p&#39;</span><span class="o">:</span> <span class="mi">80</span>
+    <span class="s">&#39;q&#39;</span><span class="o">:</span> <span class="mi">81</span>
+    <span class="s">&#39;r&#39;</span><span class="o">:</span> <span class="mi">82</span>
+    <span class="s">&#39;s&#39;</span><span class="o">:</span> <span class="mi">83</span>
+    <span class="s">&#39;t&#39;</span><span class="o">:</span> <span class="mi">84</span>
+    <span class="s">&#39;u&#39;</span><span class="o">:</span> <span class="mi">85</span>
+    <span class="s">&#39;v&#39;</span><span class="o">:</span> <span class="mi">86</span>
+    <span class="s">&#39;w&#39;</span><span class="o">:</span> <span class="mi">87</span>
+    <span class="s">&#39;x&#39;</span><span class="o">:</span> <span class="mi">88</span>
+    <span class="s">&#39;y&#39;</span><span class="o">:</span> <span class="mi">89</span>
+    <span class="s">&#39;z&#39;</span><span class="o">:</span> <span class="mi">90</span>
+    <span class="s">&#39;num 0&#39;</span><span class="o">:</span> <span class="mi">96</span>
+    <span class="s">&#39;numpad 1&#39;</span><span class="o">:</span> <span class="mi">97</span>
+    <span class="s">&#39;numpad 2&#39;</span><span class="o">:</span> <span class="mi">98</span>
+    <span class="s">&#39;numpad 3&#39;</span><span class="o">:</span> <span class="mi">99</span>
+    <span class="s">&#39;numpad 4&#39;</span><span class="o">:</span> <span class="mi">100</span>
+    <span class="s">&#39;numpad 5&#39;</span><span class="o">:</span> <span class="mi">101</span>
+    <span class="s">&#39;numpad 6&#39;</span><span class="o">:</span> <span class="mi">102</span>
+    <span class="s">&#39;numpad 7&#39;</span><span class="o">:</span> <span class="mi">103</span>
+    <span class="s">&#39;numpad 8&#39;</span><span class="o">:</span> <span class="mi">104</span>
+    <span class="s">&#39;numpad 9&#39;</span><span class="o">:</span> <span class="mi">105</span>
+    <span class="s">&#39;multiply&#39;</span><span class="o">:</span> <span class="mi">106</span>
+    <span class="s">&#39;add&#39;</span><span class="o">:</span> <span class="mi">107</span>
+    <span class="s">&#39;subtract&#39;</span><span class="o">:</span> <span class="mi">109</span>
+    <span class="s">&#39;decimal&#39;</span><span class="o">:</span> <span class="mi">110</span>
+    <span class="s">&#39;divide&#39;</span><span class="o">:</span> <span class="mi">111</span>
+    <span class="s">&#39;f1&#39;</span><span class="o">:</span> <span class="mi">112</span>
+    <span class="s">&#39;f2&#39;</span><span class="o">:</span> <span class="mi">113</span>
+    <span class="s">&#39;f3&#39;</span><span class="o">:</span> <span class="mi">114</span>
+    <span class="s">&#39;f4&#39;</span><span class="o">:</span> <span class="mi">115</span>
+    <span class="s">&#39;f5&#39;</span><span class="o">:</span> <span class="mi">116</span>
+    <span class="s">&#39;f6&#39;</span><span class="o">:</span> <span class="mi">117</span>
+    <span class="s">&#39;f7&#39;</span><span class="o">:</span> <span class="mi">118</span>
+    <span class="s">&#39;f8&#39;</span><span class="o">:</span> <span class="mi">119</span>
+    <span class="s">&#39;f9&#39;</span><span class="o">:</span> <span class="mi">120</span>
+    <span class="s">&#39;f10&#39;</span><span class="o">:</span> <span class="mi">121</span>
+    <span class="s">&#39;f11&#39;</span><span class="o">:</span> <span class="mi">122</span>
+    <span class="s">&#39;f12&#39;</span><span class="o">:</span> <span class="mi">123</span>
+    <span class="s">&#39;shift&#39;</span><span class="o">:</span> <span class="mi">16</span>
+    <span class="s">&#39;ctrl&#39;</span><span class="o">:</span> <span class="mi">17</span>
+    <span class="s">&#39;alt&#39;</span><span class="o">:</span> <span class="mi">18</span>
+    <span class="s">&#39;plus&#39;</span><span class="o">:</span> <span class="mi">187</span>
+    <span class="s">&#39;comma&#39;</span><span class="o">:</span> <span class="mi">188</span>
+    <span class="s">&#39;minus&#39;</span><span class="o">:</span> <span class="mi">189</span>
+    <span class="s">&#39;period&#39;</span><span class="o">:</span> <span class="mi">190</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 

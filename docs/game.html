@@ -1,0 +1,109 @@
+<!DOCTYPE html>  <html> <head>   <title>game.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="cider.html">                 cider.coffee               </a>                                           <a class="source" href="clock.html">                 clock.coffee               </a>                                           <a class="source" href="entity.html">                 entity.coffee               </a>                                           <a class="source" href="game.html">                 game.coffee               </a>                                           <a class="source" href="gamecontroller.html">                 gamecontroller.coffee               </a>                                           <a class="source" href="level.html">                 level.coffee               </a>                        </div>         </div>       </div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               game.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>               <p>Cider's main game class; lives at <code>c.Game</code>. Example usage:</p>
+
+<pre><code>class myGame extends c.Game
+    constructor: -&gt;
+         super
+
+         someLevel = new c.Level this
+         @loadLevel someLevel
+
+         for i in [0..10]
+              new MyEntity this
+
+new myGame
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre><span class="k">class</span> <span class="nx">Game</span>
+  <span class="nv">constructor: </span><span class="nf">(options = {}) -&gt;</span>
+    <span class="vi">@_unique = </span><span class="mi">1</span>
+
+    <span class="vi">@clock = </span><span class="k">new</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Clock</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p><code>Array</code> containing all <code>Entity</code> objects associated with this game. Usually you'll probably want to use methods like <code>@game.getEntityById()</code> and <code>@game.getEntitiesByClassName()</code> instead of accessing this directly, but you may come across a situation where it's handy.</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="vi">@entities = </span><span class="p">[]</span></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p><code>Object</code> containing all resources (images, sound files, etc) needed for this game. Used inside other classes like this: <code>@game.resources['hero sprite']</code>, as well as for preloading all necessary files on page load. Each value can be a string or an array of strings.</p>
+
+<pre><code>@resources =
+    'hero sprite': '/img/sprites/hero.png'
+    'ominous boss music': ['/audio/boss.mp3', '/audio/boss.ogg']
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="vi">@resources = </span><span class="p">{}</span></pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>Camera size in CSS pixels. This is the viewport into the game world.</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="vi">@cSize = </span><span class="p">{</span><span class="nv">x: </span><span class="mi">640</span><span class="p">,</span> <span class="nv">y: </span><span class="mi">320</span><span class="p">}</span></pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <p>Tag name, classes, and ID for this game's camera element, probably only useful for styling and such, if you need to do that.</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="vi">@tagName = </span><span class="s">&#39;div&#39;</span>
+    <span class="vi">@className = </span><span class="s">&#39;&#39;</span>
+    <span class="vi">@id = </span><span class="s">&#39;cider-camera&#39;</span></pre></div>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <p>Other default properties. Gravity defaults to 0 (no gravity), and cPos gets reset to <code>x0/y0</code> every time <code>@game.loadLevel()</code> is called.</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="vi">@gravity = </span><span class="mi">0</span>
+    <span class="vi">@cPos = </span><span class="p">{</span><span class="nv">x: </span><span class="mi">0</span><span class="p">,</span> <span class="nv">y: </span><span class="mi">0</span><span class="p">}</span>
+    <span class="vi">@debug = </span><span class="kc">false</span></pre></div>             </td>           </tr>                               <tr id="section-7">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-7">&#182;</a>               </div>               <p>Overwrite defaults with any passed options.</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nx">c</span><span class="p">.</span><span class="nx">extend</span> <span class="k">this</span><span class="p">,</span> <span class="nx">options</span></pre></div>             </td>           </tr>                               <tr id="section-8">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-8">&#182;</a>               </div>               <p>Set up the DOM elements.</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nx">@createElements</span><span class="p">()</span>
+    <span class="nx">@initializeElements</span><span class="p">()</span></pre></div>             </td>           </tr>                               <tr id="section-9">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-9">&#182;</a>               </div>               <p>If this game is in debug mode, display FPS and other debug data.</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="k">if</span> <span class="nx">@debug</span>
+      <span class="nx">@initializeDebugMode</span><span class="p">()</span>
+      <span class="vi">@lastFrameStart = </span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span></pre></div>             </td>           </tr>                               <tr id="section-10">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-10">&#182;</a>               </div>               <p>Kick off our run loop.</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nx">@run</span><span class="p">()</span></pre></div>             </td>           </tr>                               <tr id="section-11">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-11">&#182;</a>               </div>               <p>This only gets called if the constructor passed <code>debug: true</code>. All it does is set up a container for FPS (and eventually other data).</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nv">initializeDebugMode: </span><span class="o">=&gt;</span>
+    <span class="vi">@debugEl = </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span> <span class="s">&#39;div&#39;</span>
+
+    <span class="nv">style = </span><span class="nx">@debugEl</span><span class="p">.</span><span class="nx">style</span>
+
+    <span class="vi">@debugEl.id = </span><span class="s">&#39;cider-debug&#39;</span>
+
+    <span class="nv">style.position = </span><span class="s">&#39;absolute&#39;</span>
+    <span class="nv">style.bottom = </span><span class="s">&#39;0px&#39;</span>
+    <span class="nv">style.right = </span><span class="s">&#39;0px&#39;</span>
+
+    <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span> <span class="nx">@debugEl</span></pre></div>             </td>           </tr>                               <tr id="section-12">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-12">&#182;</a>               </div>               <p>Set up the camera and game world elements.</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nv">createElements: </span><span class="o">=&gt;</span>
+    <span class="nv">cameraEl = </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span> <span class="s">&#39;div&#39;</span>
+    <span class="nv">cameraEl.id = </span><span class="nx">@id</span>
+    <span class="nv">cameraEl.className = </span><span class="nx">@className</span>
+
+    <span class="vi">@cameraEl = </span><span class="nx">cameraEl</span>
+
+    <span class="nv">el = </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span> <span class="nx">@tagName</span>
+    <span class="nv">el.id = </span><span class="s">&#39;cider-world&#39;</span>
+
+    <span class="vi">@el = </span><span class="nx">el</span>
+
+  <span class="nv">initializeElements: </span><span class="o">=&gt;</span>
+    <span class="nv">cEs = </span><span class="nx">@cameraEl</span><span class="p">.</span><span class="nx">style</span>
+    <span class="nv">cEs.width = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">@cSize</span><span class="p">.</span><span class="nx">x</span><span class="si">}</span><span class="s">px&quot;</span>
+    <span class="nv">cEs.height = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">@cSize</span><span class="p">.</span><span class="nx">y</span><span class="si">}</span><span class="s">px&quot;</span>
+    <span class="nv">cEs.overflow = </span><span class="s">&#39;hidden&#39;</span>
+    <span class="nv">cEs.position = </span><span class="s">&#39;relative&#39;</span>
+
+    <span class="nv">es = </span><span class="nx">@el</span><span class="p">.</span><span class="nx">style</span>
+    <span class="nv">es.overflow = </span><span class="s">&#39;hidden&#39;</span>
+    <span class="nv">es.position = </span><span class="s">&#39;absolute&#39;</span>
+
+    <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span> <span class="nx">@cameraEl</span>
+    <span class="nx">@cameraEl</span><span class="p">.</span><span class="nx">appendChild</span> <span class="nx">@el</span></pre></div>             </td>           </tr>                               <tr id="section-13">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-13">&#182;</a>               </div>               <p>This actually repositions the game world and not the camera itself, but has the same effect as moving the camera.</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nv">positionCamera: </span><span class="o">=&gt;</span>
+    <span class="nv">es = </span><span class="nx">@el</span><span class="p">.</span><span class="nx">style</span>
+    <span class="nv">es.left = </span><span class="s">&quot;</span><span class="si">#{</span><span class="o">-</span><span class="nx">@cPos</span><span class="p">.</span><span class="nx">x</span><span class="si">}</span><span class="s">px&quot;</span>
+    <span class="nv">es.top = </span><span class="s">&quot;</span><span class="si">#{</span><span class="o">-</span><span class="nx">@cPos</span><span class="p">.</span><span class="nx">y</span><span class="si">}</span><span class="s">px&quot;</span></pre></div>             </td>           </tr>                               <tr id="section-14">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-14">&#182;</a>               </div>               <p>Load a new <code>Level</code> object, and reconfigure game settings as appropriate.</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nv">loadLevel: </span><span class="p">(</span><span class="nx">level</span><span class="p">)</span> <span class="o">=&gt;</span>
+    <span class="vi">@currentLevel = </span><span class="nx">level</span>
+    <span class="vi">@cPos = </span><span class="p">{</span><span class="nv">x: </span><span class="mi">0</span><span class="p">,</span> <span class="nv">y: </span><span class="mi">0</span><span class="p">}</span>
+
+    <span class="nv">es = </span><span class="nx">@el</span><span class="p">.</span><span class="nx">style</span>
+    <span class="nv">es.width = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">level</span><span class="p">.</span><span class="nx">size</span><span class="p">.</span><span class="nx">x</span> <span class="o">*</span> <span class="nx">level</span><span class="p">.</span><span class="nx">tileSize</span><span class="si">}</span><span class="s">px&quot;</span>
+    <span class="nv">es.height = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">level</span><span class="p">.</span><span class="nx">size</span><span class="p">.</span><span class="nx">y</span> <span class="o">*</span> <span class="nx">level</span><span class="p">.</span><span class="nx">tileSize</span><span class="si">}</span><span class="s">px&quot;</span></pre></div>             </td>           </tr>                               <tr id="section-15">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-15">&#182;</a>               </div>               <p>Pause the game (no entities will be updated during this time).</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nv">pause: </span><span class="o">=&gt;</span>
+    <span class="vi">@paused = </span><span class="kc">true</span></pre></div>             </td>           </tr>                               <tr id="section-16">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-16">&#182;</a>               </div>               <p>Unpause the game (entity updates resume).</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nv">unpause: </span><span class="o">=&gt;</span>
+    <span class="vi">@paused = </span><span class="kc">false</span></pre></div>             </td>           </tr>                               <tr id="section-17">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-17">&#182;</a>               </div>               <p>The run loop, which updates our global clock, calculates debug information, and most importantly calls <code>update()</code> and <code>draw()</code> for all game entities.</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nv">run: </span><span class="o">=&gt;</span>
+    <span class="nx">c</span><span class="p">.</span><span class="nx">raf</span> <span class="nx">@run</span>
+
+    <span class="nx">c</span><span class="p">.</span><span class="nx">Clock</span><span class="p">.</span><span class="nx">step</span><span class="p">()</span>
+    <span class="vi">@tick = </span><span class="nx">@clock</span><span class="p">.</span><span class="nx">tick</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="nx">@paused</span> <span class="k">then</span> <span class="k">return</span>
+
+    <span class="k">if</span> <span class="nx">@debug</span>
+      <span class="vi">@fps = </span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">((</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">-</span> <span class="nx">@lastFrameStart</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">))</span>
+      <span class="vi">@lastFrameStart = </span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span></pre></div>             </td>           </tr>                               <tr id="section-18">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-18">&#182;</a>               </div>               <p>Update the game's camera position</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nx">@positionCamera</span><span class="p">()</span>
+
+    <span class="nx">@update</span><span class="p">()</span>
+    <span class="nx">@draw</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="nx">@debug</span> <span class="o">&amp;&amp;</span> <span class="o">~~</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span>
+      <span class="vi">@debugEl.innerText = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">@fps</span><span class="si">}</span><span class="s"> FPS&quot;</span>
+
+  <span class="nv">update: </span><span class="o">=&gt;</span>
+    <span class="nx">@updateEntities</span><span class="p">()</span>
+
+  <span class="nv">draw: </span><span class="o">=&gt;</span>
+    <span class="nx">@drawEntities</span><span class="p">()</span>
+
+  <span class="nv">updateEntities: </span><span class="o">=&gt;</span>
+    <span class="nx">entity</span><span class="p">.</span><span class="nx">update</span><span class="p">()</span> <span class="k">for</span> <span class="nx">entity</span> <span class="k">in</span> <span class="nx">@entities</span>
+
+  <span class="nv">drawEntities: </span><span class="o">=&gt;</span>
+    <span class="nx">entity</span><span class="p">.</span><span class="nx">draw</span><span class="p">()</span> <span class="k">for</span> <span class="nx">entity</span> <span class="k">in</span> <span class="nx">@entities</span>
+
+  <span class="nv">createEntity: </span><span class="p">(</span><span class="nx">entity</span><span class="p">)</span> <span class="o">=&gt;</span>
+    <span class="nx">@entities</span><span class="p">.</span><span class="nx">push</span> <span class="nx">entity</span>
+
+  <span class="nv">destroyEntity: </span><span class="p">(</span><span class="nx">entity</span><span class="p">)</span> <span class="o">=&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-19">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-19">&#182;</a>               </div>               <p>@entities.push entity</p>             </td>             <td class="code">               <div class="highlight"><pre></pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 

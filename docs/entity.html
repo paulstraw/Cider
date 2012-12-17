@@ -1,0 +1,37 @@
+<!DOCTYPE html>  <html> <head>   <title>entity.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="cider.html">                 cider.coffee               </a>                                           <a class="source" href="clock.html">                 clock.coffee               </a>                                           <a class="source" href="entity.html">                 entity.coffee               </a>                                           <a class="source" href="game.html">                 game.coffee               </a>                                           <a class="source" href="gamecontroller.html">                 gamecontroller.coffee               </a>                                           <a class="source" href="level.html">                 level.coffee               </a>                        </div>         </div>       </div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               entity.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="k">class</span> <span class="nx">Entity</span>
+  <span class="nv">constructor: </span><span class="nf">(@game, options = {}) -&gt;</span>
+    <span class="nx">@game</span><span class="p">.</span><span class="nx">createEntity</span> <span class="k">this</span>
+
+    <span class="vi">@tagName = </span><span class="s">&#39;div&#39;</span>
+    <span class="vi">@className = </span><span class="s">&#39;&#39;</span>
+    <span class="vi">@id = </span><span class="s">&#39;&#39;</span>
+    <span class="vi">@pos = </span><span class="p">{</span><span class="nv">x: </span><span class="mi">0</span><span class="p">,</span> <span class="nv">y: </span><span class="mi">0</span><span class="p">}</span>
+    <span class="vi">@size = </span><span class="p">{</span><span class="nv">x: </span><span class="mi">0</span><span class="p">,</span> <span class="nv">y: </span><span class="mi">0</span><span class="p">}</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>Overwrite defaults with any passed options.</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nx">c</span><span class="p">.</span><span class="nx">extend</span> <span class="k">this</span><span class="p">,</span> <span class="nx">options</span>
+
+    <span class="nx">@createElement</span><span class="p">()</span>
+    <span class="nx">@initializeElement</span><span class="p">()</span></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>vel
+accel</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nv">createElement: </span><span class="o">=&gt;</span>
+    <span class="nv">el = </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span> <span class="nx">@tagName</span>
+    <span class="nv">el.className = </span><span class="nx">@className</span>
+    <span class="nv">el.id = </span><span class="nx">@id</span>
+
+    <span class="vi">@el = </span><span class="nx">el</span>
+
+  <span class="nv">initializeElement: </span><span class="o">=&gt;</span>
+    <span class="nv">es = </span><span class="nx">@el</span><span class="p">.</span><span class="nx">style</span>
+    <span class="nv">es.position = </span><span class="s">&#39;absolute&#39;</span>
+    <span class="nv">es.background = </span><span class="s">&#39;#f00&#39;</span>
+    <span class="nx">@game</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">appendChild</span> <span class="nx">@el</span>
+
+  <span class="nv">drawElement: </span><span class="o">=&gt;</span>
+    <span class="nv">es = </span><span class="nx">@el</span><span class="p">.</span><span class="nx">style</span>
+    <span class="nv">es.left = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">@pos</span><span class="p">.</span><span class="nx">x</span><span class="si">}</span><span class="s">px&quot;</span>
+    <span class="nv">es.top = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">@pos</span><span class="p">.</span><span class="nx">y</span><span class="si">}</span><span class="s">px&quot;</span>
+    <span class="nv">es.width = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">@size</span><span class="p">.</span><span class="nx">x</span><span class="si">}</span><span class="s">px&quot;</span>
+    <span class="nv">es.height = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">@size</span><span class="p">.</span><span class="nx">y</span><span class="si">}</span><span class="s">px&quot;</span>
+
+  <span class="nv">update: </span><span class="o">=&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>c.log 'updating entity'</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nv">draw: </span><span class="o">=&gt;</span>
+    <span class="nx">@drawElement</span><span class="p">()</span></pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <p>c.log 'drawing entity'</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nv">setStyle: </span><span class="p">(</span><span class="nx">prop</span><span class="p">,</span> <span class="nx">val</span><span class="p">)</span> <span class="o">=&gt;</span>
+    <span class="nx">@el</span><span class="p">.</span><span class="nx">style</span><span class="p">[</span><span class="nx">prop</span><span class="p">]</span> <span class="o">=</span> <span class="nx">val</span><span class="p">;</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 

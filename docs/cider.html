@@ -1,0 +1,32 @@
+<!DOCTYPE html>  <html> <head>   <title>cider.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="cider.html">                 cider.coffee               </a>                                           <a class="source" href="clock.html">                 clock.coffee               </a>                                           <a class="source" href="entity.html">                 entity.coffee               </a>                                           <a class="source" href="game.html">                 game.coffee               </a>                                           <a class="source" href="gamecontroller.html">                 gamecontroller.coffee               </a>                                           <a class="source" href="level.html">                 level.coffee               </a>                        </div>         </div>       </div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               cider.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>               <p>@codekit-prepend 'clock.coffee';
+@codekit-prepend 'level.coffee';
+@codekit-prepend 'gamecontroller.coffee';
+@codekit-prepend 'game.coffee';
+@codekit-prepend 'entity.coffee';</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nv">Cider =</span>
+  <span class="nv">Game: </span><span class="nx">Game</span>
+  <span class="nv">Entity: </span><span class="nx">Entity</span>
+  <span class="nv">Clock: </span><span class="nx">Clock</span>
+  <span class="nv">Level: </span><span class="nx">Level</span>
+  <span class="nv">raf: </span><span class="nx">do</span> <span class="o">-&gt;</span>
+    <span class="nv">func = </span><span class="nb">window</span><span class="p">.</span><span class="nx">requestAnimationFrame</span> <span class="o">||</span>
+      <span class="nb">window</span><span class="p">.</span><span class="nx">webkitRequestAnimationFrame</span> <span class="o">||</span>
+      <span class="nb">window</span><span class="p">.</span><span class="nx">mozRequestAnimationFrame</span> <span class="o">||</span>
+      <span class="nb">window</span><span class="p">.</span><span class="nx">oRequestAnimationFrame</span> <span class="o">||</span>
+      <span class="nb">window</span><span class="p">.</span><span class="nx">msRequestAnimationFrame</span> <span class="o">||</span>
+      <span class="nf">(callback) -&gt;</span>
+        <span class="nb">window</span><span class="p">.</span><span class="nx">setTimeout</span> <span class="nx">callback</span><span class="p">,</span> <span class="mi">1000</span> <span class="o">/</span> <span class="mi">60</span>
+
+    <span class="k">return</span> <span class="nf">(cb, el) -&gt;</span>
+      <span class="nx">func</span><span class="p">.</span><span class="nx">apply</span> <span class="nb">window</span><span class="p">,</span> <span class="p">[</span><span class="nx">cb</span><span class="p">,</span> <span class="nx">el</span><span class="p">]</span>
+  <span class="nv">extend: </span><span class="nf">(dest) -&gt;</span>
+    <span class="k">for</span> <span class="nx">source</span> <span class="k">in</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span> <span class="nx">arguments</span><span class="p">,</span> <span class="mi">1</span>
+      <span class="nx">dest</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">val</span> <span class="k">for</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">val</span> <span class="k">of</span> <span class="nx">source</span>
+    <span class="nx">dest</span>
+  <span class="nv">log: </span><span class="o">-&gt;</span>
+    <span class="k">if</span> <span class="nb">window</span><span class="p">.</span><span class="nx">console</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">)</span>
+
+
+<span class="nb">window</span><span class="p">.</span><span class="nv">c = </span><span class="nb">window</span><span class="p">.</span><span class="nv">Cider = </span><span class="nx">Cider</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 
