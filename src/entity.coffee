@@ -31,8 +31,8 @@ class Entity
 		@body = @game.world.CreateBody bodyDef
 
 		fixtureDef = new b2FixtureDef
-		fixtureDef.density = 2
-		fixtureDef.friction = 1
+		fixtureDef.density = 1
+		fixtureDef.friction = 0.2
 		fixtureDef.restitution = 0.2
 
 		fixtureDef.shape = new b2PolygonShape

@@ -144,7 +144,6 @@ class Game
 		# Create a Box2D body and fixture for our physics simulation
 		bodyDef = new b2BodyDef
 
-		c.log xPos, yPos
 		bodyDef.position = new b2Vec2(
 			(xPos + tileSize / 2) / c.b2Scale,
 			(yPos + tileSize / 2) / c.b2Scale

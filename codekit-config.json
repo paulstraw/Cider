@@ -106,6 +106,15 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
+    "\/docs\/entity.html" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/docs\/entity.html",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
     "\/src\/modernizr.coffee" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
@@ -117,15 +126,6 @@
       "outputAbbreviatedPath" : "\/src\/modernizr.js",
       "outputStyle" : 0,
       "fileType" : 32
-    },
-    "\/docs\/entity.html" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/docs\/entity.html",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
     },
     "\/cider.js" : {
       "ignoreWasSetByUser" : 0,
