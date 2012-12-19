@@ -36,10 +36,11 @@ class Game
 		@className = ''
 		@id = 'cider-camera'
 
-		# Other default properties. Gravity defaults to 0 (no gravity), and cPos gets reset to `x0/y0` every time `@game.loadLevel()` is called.
-		@gravity = 0
+		# Other default properties. Gravity defaults to `{x:0, y:9.8}` (Earth gravity), and cPos gets reset to `{x: 0, y: 0}` every time `@game.loadLevel()` is called.
+		@gravity = {x: 0, y: 9.8}
 		@cPos = {x: 0, y: 0}
 		@debug = false
+		@debugDraw = false
 
 		# Overwrite defaults with any passed options.
 		c.extend this, options
@@ -105,12 +106,78 @@ class Game
 
 	# Load a new `Level` object, and reconfigure game settings as appropriate.
 	loadLevel: (level) =>
+		# Recreate the world every time we load a level.
+		@world = new b2World(new b2Vec2(@gravity.x, @gravity.y), true)
+
+		if @debugDraw
+			debugDraw = new Box2D.Dynamics.b2DebugDraw
+			debugDraw.SetSprite document.getElementsByTagName("canvas")[0].getContext("2d")
+			debugDraw.SetDrawScale c.b2Scale
+			debugDraw.SetFillAlpha 0.3
+			debugDraw.SetLineThickness 1
+			debugDraw.SetFlags b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit
+			@world.SetDebugDraw debugDraw
+
 		@currentLevel = level
 		@cPos = {x: 0, y: 0}
+
+		@loadMap map for map in level.maps
 
 		es = @el.style
 		es.width = "#{level.size.x * level.tileSize}px"
 		es.height = "#{level.size.y * level.tileSize}px"
+
+	# Loads and renders a map into the game world.
+	loadMap: (map) =>
+		for row, i in map.data
+			for col, j in row
+				@createMapTile map, row[j], i, j
+
+	createMapTile: (map, tile, row, col) =>
+		# If no tile was passed, we don't need to draw anything
+		unless tile then return
+
+		tileSize = map.tileSize
+		xPos = col * tileSize
+		yPos = row * tileSize
+
+		# Create a Box2D body and fixture for our physics simulation
+		bodyDef = new b2BodyDef
+
+		c.log xPos, yPos
+		bodyDef.position = new b2Vec2(
+			(xPos + tileSize / 2) / c.b2Scale,
+			(yPos + tileSize / 2) / c.b2Scale
+		)
+		bodyDef.type = b2Body.b2_staticBody
+
+		body = @world.CreateBody bodyDef
+
+		fixtureDef = new b2FixtureDef
+		fixtureDef.density = 2
+		fixtureDef.friction = 1
+		fixtureDef.restitution = 0.2
+
+		fixtureDef.shape = new b2PolygonShape
+		fixtureDef.shape.SetAsBox(
+			tileSize / 2 / c.b2Scale,
+			tileSize / 2 / c.b2Scale
+		)
+
+		body.CreateFixture fixtureDef
+
+
+		tileContainer = document.createElement 'div'
+		tcStyle = tileContainer.style
+
+		tileContainer.className = 'tile'
+
+		tcStyle.width = tcStyle.height = "#{tileSize}px"
+		tcStyle.position = 'absolute'
+		tcStyle.left = "#{xPos}px"
+		tcStyle.top = "#{yPos}px"
+
+		@el.appendChild tileContainer
 
 	# Pause the game (no entities will be updated during this time).
 	pause: =>
@@ -136,6 +203,10 @@ class Game
 		# Update the game's camera position
 		@positionCamera()
 
+		if @world
+			# Move our physics world ahead to match our tick (`tick, velocity iterations, position iterations`).
+			@world.Step @tick / 1000, 8, 3
+
 		@update()
 		@draw()
 
@@ -143,6 +214,11 @@ class Game
 			@debugEl.innerText = "#{@fps} FPS"
 
 	update: =>
+		if @world
+			if @debugDraw
+				@world.DrawDebugData()
+
+			@world.ClearForces()
 		@updateEntities()
 
 	draw: =>
