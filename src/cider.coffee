@@ -15,6 +15,7 @@ window.b2MassData = Box2D.Collision.Shapes.b2MassData
 window.b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape
 window.b2CircleShape = Box2D.Collision.Shapes.b2CircleShape
 window.b2DebugDraw = Box2D.Dynamics.b2DebugDraw
+window.b2ContactListener = Box2D.Dynamics.b2ContactListener
 
 Cider =
 	Game: Game

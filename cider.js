@@ -386,7 +386,22 @@
 
     Game.prototype.positionCamera = function() {
       var es;
+      if (!this.currentLevel) {
+        return;
+      }
       es = this.el.style;
+      if (this.cPos.x < 0) {
+        this.cPos.x = 0;
+      }
+      if (this.cPos.x > this.currentLevel.pxSize.x - this.cSize.x) {
+        this.cPos.x = this.currentLevel.pxSize.x - this.cSize.x;
+      }
+      if (this.cPos.y < 0) {
+        this.cPos.y = 0;
+      }
+      if (this.cPos.y > this.currentLevel.pxSize.y - this.cSize.y) {
+        this.cPos.y = this.currentLevel.pxSize.y - this.cSize.y;
+      }
       es.left = "" + (-this.cPos.x) + "px";
       return es.top = "" + (-this.cPos.y) + "px";
     };
@@ -491,7 +506,7 @@
       }
       this.update();
       this.draw();
-      if (this.debug && ~~(Math.random() * 100) === 4) {
+      if (this.debug && ~~(Math.random() * 30) === 4) {
         return this.debugEl.innerText = "" + this.fps + " FPS";
       }
     };
@@ -633,8 +648,8 @@
       var newPos;
       newPos = this.body.GetPosition();
       this.angle = this.body.GetAngle() * (180 / Math.PI);
-      this.pos.x = newPos.x * c.b2Scale;
-      return this.pos.y = newPos.y * c.b2Scale;
+      this.pos.x = Math.round(newPos.x * c.b2Scale);
+      return this.pos.y = Math.round(newPos.y * c.b2Scale);
     };
 
     Entity.prototype.draw = function() {
@@ -674,6 +689,8 @@
   window.b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
 
   window.b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
+
+  window.b2ContactListener = Box2D.Dynamics.b2ContactListener;
 
   Cider = {
     Game: Game,

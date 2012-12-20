@@ -100,7 +100,16 @@ class Game
 
 	# This actually repositions the game world and not the camera itself, but has the same effect as moving the camera.
 	positionCamera: =>
+		unless @currentLevel then return
+
 		es = @el.style
+
+		if @cPos.x < 0 then @cPos.x = 0
+		if @cPos.x > @currentLevel.pxSize.x - @cSize.x then @cPos.x = @currentLevel.pxSize.x - @cSize.x
+
+		if @cPos.y < 0 then @cPos.y = 0
+		if @cPos.y > @currentLevel.pxSize.y - @cSize.y then @cPos.y = @currentLevel.pxSize.y - @cSize.y
+
 		es.left = "#{-@cPos.x}px"
 		es.top = "#{-@cPos.y}px"
 
@@ -209,7 +218,7 @@ class Game
 		@update()
 		@draw()
 
-		if @debug && ~~(Math.random() * 100) == 4
+		if @debug && ~~(Math.random() * 30) == 4
 			@debugEl.innerText = "#{@fps} FPS"
 
 	update: =>

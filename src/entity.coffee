@@ -72,12 +72,9 @@ class Entity
 		newPos = @body.GetPosition()
 
 		@angle = @body.GetAngle() * (180 / Math.PI)
-		@pos.x = (newPos.x * c.b2Scale)
-		@pos.y = (newPos.y * c.b2Scale)
+		@pos.x = Math.round(newPos.x * c.b2Scale)
+		@pos.y = Math.round(newPos.y * c.b2Scale)
 
-		# unless @whatever
-		# 	@whatever = true
-		# 	c.log 'ooo', @body, @body.GetPosition(), @body.GetAngle()
 		#c.log 'updating entity'
 
 	draw: =>
