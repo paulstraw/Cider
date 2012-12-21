@@ -5,6 +5,18 @@
 #@codekit-prepend 'game.coffee';
 #@codekit-prepend 'entity.coffee';
 
+# window.b2Vec2 = Box2D.b2Vec2
+# window.b2BodyDef = Box2D.b2BodyDef
+# window.b2Body = Box2D.b2Body
+# window.b2FixtureDef = Box2D.b2FixtureDef
+# window.b2Fixture = Box2D.b2Fixture
+# window.b2World = Box2D.b2World
+# window.b2MassData = Box2D.b2MassData
+# window.b2PolygonShape = Box2D.b2PolygonShape
+# window.b2CircleShape = Box2D.b2CircleShape
+# window.b2DebugDraw = Box2D.b2DebugDraw
+# window.b2ContactListener = Box2D.b2ContactListener
+
 window.b2Vec2 = Box2D.Common.Math.b2Vec2
 window.b2BodyDef = Box2D.Dynamics.b2BodyDef
 window.b2Body = Box2D.Dynamics.b2Body

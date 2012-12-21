@@ -597,6 +597,11 @@
         y: 0
       };
       this.angle = 0;
+      this.angularDamping = 0;
+      this.gravityScale = 1;
+      this.density = 1;
+      this.restitution = 0.2;
+      this.friction = 0.2;
       c.extend(this, options);
       this.createBody();
       this.createElement();
@@ -608,11 +613,13 @@
       bodyDef = new b2BodyDef;
       bodyDef.position = new b2Vec2((this.pos.x + this.size.x / 2) / c.b2Scale, (this.pos.y + this.size.y / 2) / c.b2Scale);
       bodyDef.type = b2Body.b2_dynamicBody;
+      bodyDef.angularDamping = this.angularDamping;
+      bodyDef.gravityScale = this.gravityScale;
       this.body = this.game.world.CreateBody(bodyDef);
       fixtureDef = new b2FixtureDef;
-      fixtureDef.density = 1;
-      fixtureDef.friction = 0.2;
-      fixtureDef.restitution = 0.2;
+      fixtureDef.density = this.density;
+      fixtureDef.friction = this.friction;
+      fixtureDef.restitution = this.restitution;
       fixtureDef.shape = new b2PolygonShape;
       fixtureDef.shape.SetAsBox(this.size.x / 2 / c.b2Scale, this.size.y / 2 / c.b2Scale);
       return this.body.CreateFixture(fixtureDef);

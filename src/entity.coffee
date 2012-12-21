@@ -6,8 +6,19 @@ class Entity
 		@className = ''
 		@id = ''
 		@pos = {x: 0, y: 0}
+
+		# Properties used for drawing and Box2D body creation.
 		@size = {x: 0, y: 0}
 		@angle = 0
+
+		# Properties for Box2D body creation.
+		@angularDamping = 0
+		@gravityScale = 1
+
+		# Properties for Box2D fixture creation.
+		@density = 1
+		@restitution = 0.2
+		@friction = 0.2
 
 		# Overwrite defaults with any passed options.
 		c.extend this, options
@@ -28,12 +39,16 @@ class Entity
 		)
 		bodyDef.type = b2Body.b2_dynamicBody
 
+		bodyDef.angularDamping = @angularDamping
+		bodyDef.gravityScale = @gravityScale
+
 		@body = @game.world.CreateBody bodyDef
 
 		fixtureDef = new b2FixtureDef
-		fixtureDef.density = 1
-		fixtureDef.friction = 0.2
-		fixtureDef.restitution = 0.2
+
+		fixtureDef.density = @density
+		fixtureDef.friction = @friction
+		fixtureDef.restitution = @restitution
 
 		fixtureDef.shape = new b2PolygonShape
 		fixtureDef.shape.SetAsBox(
@@ -60,7 +75,7 @@ class Entity
 
 	drawElement: =>
 		es = @el.style
-		#console.log 'ohelo'
+
 		es.left = "#{@pos.x - @size.x / 2}px"
 		es.top = "#{@pos.y - @size.y / 2}px"
 		#es[c.prefixed.transform] = "translate3d(#{@pos.x}px, #{@pos.y}px, 0px)"
@@ -71,17 +86,13 @@ class Entity
 	update: =>
 		newPos = @body.GetPosition()
 
+		# Update physics properties and position needed for drawing based on Box2D data.
 		@angle = @body.GetAngle() * (180 / Math.PI)
 		@pos.x = Math.round(newPos.x * c.b2Scale)
 		@pos.y = Math.round(newPos.y * c.b2Scale)
 
-		#c.log 'updating entity'
-
 	draw: =>
 		@drawElement()
-		#c.log 'drawing entity'
 
 	setStyle: (prop, val) =>
 		@el.style[prop] = val;
-
-
