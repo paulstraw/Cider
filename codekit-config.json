@@ -77,6 +77,24 @@
       "outputStyle" : 0,
       "fileType" : 32
     },
+    "\/docs\/level.html" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/docs\/level.html",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
+    "\/docs\/cider.html" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/docs\/cider.html",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
     "\/box2d.js" : {
       "ignoreWasSetByUser" : 1,
       "ignore" : 1,
@@ -88,21 +106,12 @@
       "outputAbbreviatedPath" : "\/box2d-ck.js",
       "fileType" : 64
     },
-    "\/docs\/cider.html" : {
+    "\/docs\/entity.html" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/docs\/cider.html",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
-    },
-    "\/docs\/level.html" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/docs\/level.html",
+      "inputAbbreviatedPath" : "\/docs\/entity.html",
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
@@ -117,15 +126,6 @@
       "outputAbbreviatedPath" : "\/src\/modernizr.js",
       "outputStyle" : 0,
       "fileType" : 32
-    },
-    "\/docs\/entity.html" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/docs\/entity.html",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
     },
     "\/cider.js" : {
       "ignoreWasSetByUser" : 0,

@@ -20,6 +20,10 @@ onReady = ->
 			@game.cPos.x = @pos.x - @game.cSize.x / 2
 			@game.cPos.y = @pos.y - @game.cSize.y / 2
 
+		collidePost: (other, impulse) =>
+			if impulse > 18
+				other.destroy()
+
 	class myGame extends c.Game
 		constructor: ->
 			super
@@ -82,9 +86,6 @@ onReady = ->
 
 			# Just a simple setInterval here to play with Box2D a bit.
 			player = new Player this,
-				collidePost: (other, impulse) =>
-					if impulse > 18
-						other.destroy()
 				pos:
 					x: ~~(Math.random() * 590)
 					y: ~~(Math.random() * 270)

@@ -7,6 +7,7 @@ class Entity
 		@className = ''
 		@id = ''
 		@pos = {x: 0, y: 0}
+		@vel = {x: 0, y: 0}
 
 		# Properties used for drawing and Box2D body creation.
 		@size = {x: 0, y: 0}
@@ -88,12 +89,16 @@ class Entity
 		es.WebkitTransform = "rotate(#{@angle}deg)"
 
 	update: =>
-		newPos = @body.GetPosition()
+		body = @body
+		newPos = body.GetPosition()
+		newVel = body.GetLinearVelocity()
 
 		# Update physics properties and position needed for drawing based on Box2D data.
-		@angle = @body.GetAngle() * (180 / Math.PI)
+		@angle = body.GetAngle() * (180 / Math.PI)
 		@pos.x = Math.round(newPos.x * c.b2Scale)
 		@pos.y = Math.round(newPos.y * c.b2Scale)
+		@vel.x = newVel.x
+		@vel.y = newVel.y
 
 	# This gets called by the game when this entity collides with something else. By default, it's a noop; you'll probably want to make it do something interesting.
 	collidePost: (other, impulse) =>

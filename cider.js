@@ -628,6 +628,10 @@
         x: 0,
         y: 0
       };
+      this.vel = {
+        x: 0,
+        y: 0
+      };
       this.size = {
         x: 0,
         y: 0
@@ -689,11 +693,15 @@
     };
 
     Entity.prototype.update = function() {
-      var newPos;
-      newPos = this.body.GetPosition();
-      this.angle = this.body.GetAngle() * (180 / Math.PI);
+      var body, newPos, newVel;
+      body = this.body;
+      newPos = body.GetPosition();
+      newVel = body.GetLinearVelocity();
+      this.angle = body.GetAngle() * (180 / Math.PI);
       this.pos.x = Math.round(newPos.x * c.b2Scale);
-      return this.pos.y = Math.round(newPos.y * c.b2Scale);
+      this.pos.y = Math.round(newPos.y * c.b2Scale);
+      this.vel.x = newVel.x;
+      return this.vel.y = newVel.y;
     };
 
     Entity.prototype.collidePost = function(other, impulse) {};
