@@ -14,12 +14,13 @@
 
 class Game
 	constructor: (options = {}) ->
-		@_unique = 1
+		# _entityIdCounter is used to generate entityIds, which are used for things like notifying entities of collisions
+		@_entityIdCounter = 1
 
 		@clock = new c.Clock
 
-		# `Array` containing all `Entity` objects associated with this game. Usually you'll probably want to use methods like `@game.getEntityById()` and `@game.getEntitiesByClassName()` instead of accessing this directly, but you may come across a situation where it's handy.
-		@entities = []
+		# `Object` containing all `Entity` objects associated with this game. Usually you'll probably want to use methods like `@game.getEntityById()` and `@game.getEntitiesByClassName()` instead of accessing this directly, but you may come across a situation where it's handy.
+		@entities = {}
 
 		# `Object` containing all resources (images, sound files, etc) needed for this game. Used inside other classes like this: `@game.resources['hero sprite']`, as well as for preloading all necessary files on page load. Each value can be a string or an array of strings.
 		#
@@ -44,6 +45,9 @@ class Game
 
 		# Overwrite defaults with any passed options.
 		c.extend this, options
+
+		# `bodyTrash` is just a queue to remember which entities have died, since we can't remove them from the physics simulation during its `Step` phase.
+		@bodyTrash = []
 
 		# Set up the DOM elements.
 		@createElements()
@@ -70,6 +74,25 @@ class Game
 		style.right = '0px'
 
 		document.body.appendChild @debugEl
+
+	initializeCollisionListeners: =>
+		listener = new b2ContactListener
+
+		# listener.BeginContact = (contact) =>
+		# 	console.log contact
+		# listener.EndContact = (contact) =>
+		# 	console.log contact
+		# listener.PreSolve = (contact, oldManifold) =>
+		# 	console.log contact, oldManifold
+		listener.PostSolve = (contact, impulse) =>
+			eA = @entities[contact.GetFixtureA().GetBody().GetUserData()]
+			eB = @entities[contact.GetFixtureB().GetBody().GetUserData()]
+
+			if eA && eB
+				eA.collidePost eB, impulse.normalImpulses[0]
+				eB.collidePost eA, impulse.normalImpulses[0]
+
+		@world.SetContactListener listener
 
 	# Set up the camera and game world elements.
 	createElements: =>
@@ -117,6 +140,8 @@ class Game
 	loadLevel: (level) =>
 		# Recreate the world every time we load a level.
 		@world = new b2World(new b2Vec2(@gravity.x, @gravity.y), true)
+
+		@initializeCollisionListeners()
 
 		if @debugDraw
 			debugDraw = new Box2D.Dynamics.b2DebugDraw
@@ -211,10 +236,6 @@ class Game
 		# Update the game's camera position
 		@positionCamera()
 
-		if @world
-			# Move our physics world ahead to match our tick (`tick, velocity iterations, position iterations`).
-			@world.Step @tick / 1000, 8, 3
-
 		@update()
 		@draw()
 
@@ -223,23 +244,35 @@ class Game
 
 	update: =>
 		if @world
+			@world.DestroyBody body for body in @bodyTrash
+
+			# Move our physics world ahead to match our tick (`tick, velocity iterations, position iterations`).
+			@world.Step @tick / 1000, 8, 3
+			@world.ClearForces()
+
 			if @debugDraw
 				@world.DrawDebugData()
 
-			@world.ClearForces()
 		@updateEntities()
 
 	draw: =>
 		@drawEntities()
 
 	updateEntities: =>
-		entity.update() for entity in @entities
+		entity.update() for eId, entity of @entities
 
 	drawEntities: =>
-		entity.draw() for entity in @entities
+		entity.draw() for eId, entity of @entities
 
 	createEntity: (entity) =>
-		@entities.push entity
+		eId = "e#{@_entityIdCounter++}"
+
+		@entities[eId] = entity
+
+		return eId
 
 	destroyEntity: (entity) =>
-		#@entities.push entity
+		# We can't actually remove the body from the simulation until this `Step` is finished, so we'll just take care of it at the beginning of the next `update`.
+		@bodyTrash.push entity.body
+
+		delete @entities[entity._entityId]

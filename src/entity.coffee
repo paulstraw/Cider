@@ -1,6 +1,7 @@
 class Entity
 	constructor: (@game, options = {}) ->
-		@game.createEntity this
+		# _entityId is used internally by Cider for things like notifying entities of collisions.
+		@_entityId = @game.createEntity this
 
 		@tagName = 'div'
 		@className = ''
@@ -38,6 +39,9 @@ class Entity
 			(@pos.y + @size.y / 2) / c.b2Scale
 		)
 		bodyDef.type = b2Body.b2_dynamicBody
+
+		# Set up userData on bodyDef so we can trace the body back to its Cider object (for collision and stuff).
+		bodyDef.userData = @_entityId
 
 		bodyDef.angularDamping = @angularDamping
 		bodyDef.gravityScale = @gravityScale
@@ -90,6 +94,17 @@ class Entity
 		@angle = @body.GetAngle() * (180 / Math.PI)
 		@pos.x = Math.round(newPos.x * c.b2Scale)
 		@pos.y = Math.round(newPos.y * c.b2Scale)
+
+	# This gets called by the game when this entity collides with something else. By default, it's a noop; you'll probably want to make it do something interesting.
+	collidePost: (other, impulse) =>
+
+	# Call this when your entity has died, or needs to be removed for some other reason. You can do animations or whatever else you need in here, but remember to call `parent`!
+	destroy: =>
+		@_destroyElement()
+		@game.destroyEntity this
+
+	_destroyElement: =>
+		@game.el.removeChild @el
 
 	draw: =>
 		@drawElement()

@@ -82,6 +82,9 @@ onReady = ->
 
 			# Just a simple setInterval here to play with Box2D a bit.
 			player = new Player this,
+				collidePost: (other, impulse) =>
+					if impulse > 18
+						other.destroy()
 				pos:
 					x: ~~(Math.random() * 590)
 					y: ~~(Math.random() * 270)

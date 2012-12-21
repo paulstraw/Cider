@@ -315,11 +315,13 @@
 
       this.createElements = __bind(this.createElements, this);
 
+      this.initializeCollisionListeners = __bind(this.initializeCollisionListeners, this);
+
       this.initializeDebugMode = __bind(this.initializeDebugMode, this);
 
-      this._unique = 1;
+      this._entityIdCounter = 1;
       this.clock = new c.Clock;
-      this.entities = [];
+      this.entities = {};
       this.resources = {};
       this.cSize = {
         x: 640,
@@ -339,6 +341,7 @@
       this.debug = false;
       this.debugDraw = false;
       c.extend(this, options);
+      this.bodyTrash = [];
       this.createElements();
       this.initializeElements();
       if (this.debug) {
@@ -357,6 +360,22 @@
       style.bottom = '0px';
       style.right = '0px';
       return document.body.appendChild(this.debugEl);
+    };
+
+    Game.prototype.initializeCollisionListeners = function() {
+      var listener,
+        _this = this;
+      listener = new b2ContactListener;
+      listener.PostSolve = function(contact, impulse) {
+        var eA, eB;
+        eA = _this.entities[contact.GetFixtureA().GetBody().GetUserData()];
+        eB = _this.entities[contact.GetFixtureB().GetBody().GetUserData()];
+        if (eA && eB) {
+          eA.collidePost(eB, impulse.normalImpulses[0]);
+          return eB.collidePost(eA, impulse.normalImpulses[0]);
+        }
+      };
+      return this.world.SetContactListener(listener);
     };
 
     Game.prototype.createElements = function() {
@@ -409,6 +428,7 @@
     Game.prototype.loadLevel = function(level) {
       var debugDraw, es, map, _i, _len, _ref;
       this.world = new b2World(new b2Vec2(this.gravity.x, this.gravity.y), true);
+      this.initializeCollisionListeners();
       if (this.debugDraw) {
         debugDraw = new Box2D.Dynamics.b2DebugDraw;
         debugDraw.SetSprite(document.getElementsByTagName("canvas")[0].getContext("2d"));
@@ -501,9 +521,6 @@
         this.lastFrameStart = Date.now();
       }
       this.positionCamera();
-      if (this.world) {
-        this.world.Step(this.tick / 1000, 8, 3);
-      }
       this.update();
       this.draw();
       if (this.debug && ~~(Math.random() * 30) === 4) {
@@ -512,11 +529,18 @@
     };
 
     Game.prototype.update = function() {
+      var body, _i, _len, _ref;
       if (this.world) {
+        _ref = this.bodyTrash;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          body = _ref[_i];
+          this.world.DestroyBody(body);
+        }
+        this.world.Step(this.tick / 1000, 8, 3);
+        this.world.ClearForces();
         if (this.debugDraw) {
           this.world.DrawDebugData();
         }
-        this.world.ClearForces();
       }
       return this.updateEntities();
     };
@@ -526,32 +550,38 @@
     };
 
     Game.prototype.updateEntities = function() {
-      var entity, _i, _len, _ref, _results;
+      var eId, entity, _ref, _results;
       _ref = this.entities;
       _results = [];
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        entity = _ref[_i];
+      for (eId in _ref) {
+        entity = _ref[eId];
         _results.push(entity.update());
       }
       return _results;
     };
 
     Game.prototype.drawEntities = function() {
-      var entity, _i, _len, _ref, _results;
+      var eId, entity, _ref, _results;
       _ref = this.entities;
       _results = [];
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        entity = _ref[_i];
+      for (eId in _ref) {
+        entity = _ref[eId];
         _results.push(entity.draw());
       }
       return _results;
     };
 
     Game.prototype.createEntity = function(entity) {
-      return this.entities.push(entity);
+      var eId;
+      eId = "e" + (this._entityIdCounter++);
+      this.entities[eId] = entity;
+      return eId;
     };
 
-    Game.prototype.destroyEntity = function(entity) {};
+    Game.prototype.destroyEntity = function(entity) {
+      this.bodyTrash.push(entity.body);
+      return delete this.entities[entity._entityId];
+    };
 
     return Game;
 
@@ -574,6 +604,12 @@
 
       this.draw = __bind(this.draw, this);
 
+      this._destroyElement = __bind(this._destroyElement, this);
+
+      this.destroy = __bind(this.destroy, this);
+
+      this.collidePost = __bind(this.collidePost, this);
+
       this.update = __bind(this.update, this);
 
       this.drawElement = __bind(this.drawElement, this);
@@ -584,7 +620,7 @@
 
       this.createBody = __bind(this.createBody, this);
 
-      this.game.createEntity(this);
+      this._entityId = this.game.createEntity(this);
       this.tagName = 'div';
       this.className = '';
       this.id = '';
@@ -613,6 +649,7 @@
       bodyDef = new b2BodyDef;
       bodyDef.position = new b2Vec2((this.pos.x + this.size.x / 2) / c.b2Scale, (this.pos.y + this.size.y / 2) / c.b2Scale);
       bodyDef.type = b2Body.b2_dynamicBody;
+      bodyDef.userData = this._entityId;
       bodyDef.angularDamping = this.angularDamping;
       bodyDef.gravityScale = this.gravityScale;
       this.body = this.game.world.CreateBody(bodyDef);
@@ -657,6 +694,17 @@
       this.angle = this.body.GetAngle() * (180 / Math.PI);
       this.pos.x = Math.round(newPos.x * c.b2Scale);
       return this.pos.y = Math.round(newPos.y * c.b2Scale);
+    };
+
+    Entity.prototype.collidePost = function(other, impulse) {};
+
+    Entity.prototype.destroy = function() {
+      this._destroyElement();
+      return this.game.destroyEntity(this);
+    };
+
+    Entity.prototype._destroyElement = function() {
+      return this.game.el.removeChild(this.el);
     };
 
     Entity.prototype.draw = function() {
