@@ -4,18 +4,7 @@
 #@codekit-prepend 'gamecontroller.coffee';
 #@codekit-prepend 'game.coffee';
 #@codekit-prepend 'entity.coffee';
-
-# window.b2Vec2 = Box2D.b2Vec2
-# window.b2BodyDef = Box2D.b2BodyDef
-# window.b2Body = Box2D.b2Body
-# window.b2FixtureDef = Box2D.b2FixtureDef
-# window.b2Fixture = Box2D.b2Fixture
-# window.b2World = Box2D.b2World
-# window.b2MassData = Box2D.b2MassData
-# window.b2PolygonShape = Box2D.b2PolygonShape
-# window.b2CircleShape = Box2D.b2CircleShape
-# window.b2DebugDraw = Box2D.b2DebugDraw
-# window.b2ContactListener = Box2D.b2ContactListener
+#@codekit-prepend 'platformerEntity.coffee';
 
 window.b2Vec2 = Box2D.Common.Math.b2Vec2
 window.b2BodyDef = Box2D.Dynamics.b2BodyDef
@@ -26,15 +15,19 @@ window.b2World = Box2D.Dynamics.b2World
 window.b2MassData = Box2D.Collision.Shapes.b2MassData
 window.b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape
 window.b2CircleShape = Box2D.Collision.Shapes.b2CircleShape
+window.b2EdgeShape = Box2D.Collision.Shapes.b2EdgeShape
 window.b2DebugDraw = Box2D.Dynamics.b2DebugDraw
 window.b2ContactListener = Box2D.Dynamics.b2ContactListener
 
 Cider =
 	Game: Game
 	Entity: Entity
+	PlatformerEntity: PlatformerEntity
 	Clock: Clock
 	Level: Level
 	Map: Map
+	GameController: GameController
+	key: ciderKeys
 	#This converts pixels to meters (what Box2D uses for measurements). By default, one pixel equals 1/100th of a meter.
 	b2Scale: 30
 	mapType: Object.freeze

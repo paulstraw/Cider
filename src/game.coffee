@@ -53,10 +53,18 @@ class Game
 		@createElements()
 		@initializeElements()
 
+		# Now that our DOM stuff is set up, create a new `GameController` for this game.
+		@controller = new c.GameController this
+
 		# If this game is in debug mode, display FPS and other debug data.
 		if @debug
 			@initializeDebugMode()
 			@lastFrameStart = Date.now()
+
+		# Create canvas for debugDraw, if applicable.
+		if @debugDraw
+			@debugCanvas = document.createElement 'canvas'
+			document.body.appendChild @debugCanvas
 
 		# Kick off our run loop.
 		@run()
@@ -78,16 +86,32 @@ class Game
 	initializeCollisionListeners: =>
 		listener = new b2ContactListener
 
-		# listener.BeginContact = (contact) =>
-		# 	console.log contact
-		# listener.EndContact = (contact) =>
-		# 	console.log contact
-		# listener.PreSolve = (contact, oldManifold) =>
-		# 	console.log contact, oldManifold
+		# BeginContact/EndContact are used internally by `PlatformerEntity` to determine if it's currently standing.
+		listener.BeginContact = (contact) =>
+			eA = @entities[contact.GetFixtureA().GetBody().GetUserData()]
+			eB = @entities[contact.GetFixtureB().GetBody().GetUserData()]
+
+			eA.contactBegin(contact) if eA
+			eB.contactBegin(contact) if eB
+
+		listener.EndContact = (contact) =>
+			eA = @entities[contact.GetFixtureA().GetBody().GetUserData()]
+			eB = @entities[contact.GetFixtureB().GetBody().GetUserData()]
+
+			eA.contactEnd(contact) if eA
+			eB.contactEnd(contact) if eB
+
+		# `PreSolve` is useful for preventing collisions with the collision map (one-way platforms, etc).
+		listener.PreSolve = (contact, oldManifold) =>
+			# This would cancel the collision, allowing the entities to pass through each other
+			#    if someLogic
+			#         contact.SetEnabled false
+
 		listener.PostSolve = (contact, impulse) =>
 			eA = @entities[contact.GetFixtureA().GetBody().GetUserData()]
 			eB = @entities[contact.GetFixtureB().GetBody().GetUserData()]
 
+			# For now, we only call `collidePost` on entity collisions. Entity/map collision is handled inside `PreSolve` (`collidePre` in the entity class).
 			if eA && eB
 				eA.collidePost eB, impulse.normalImpulses[0]
 				eB.collidePost eA, impulse.normalImpulses[0]
@@ -104,6 +128,7 @@ class Game
 
 		el = document.createElement @tagName
 		el.id = 'cider-world'
+		el.setAttribute 'tabindex', '1'
 
 		@el = el
 
@@ -144,8 +169,11 @@ class Game
 		@initializeCollisionListeners()
 
 		if @debugDraw
+			@debugCanvas.width = level.pxSize.x
+			@debugCanvas.height = level.pxSize.y
+
 			debugDraw = new Box2D.Dynamics.b2DebugDraw
-			debugDraw.SetSprite document.getElementsByTagName("canvas")[0].getContext("2d")
+			debugDraw.SetSprite @debugCanvas.getContext("2d")
 			debugDraw.SetDrawScale c.b2Scale
 			debugDraw.SetFillAlpha 0.3
 			debugDraw.SetLineThickness 1
@@ -189,7 +217,7 @@ class Game
 		fixtureDef = new b2FixtureDef
 		fixtureDef.density = 2
 		fixtureDef.friction = 1
-		fixtureDef.restitution = 0.2
+		fixtureDef.restitution = 0
 
 		fixtureDef.shape = new b2PolygonShape
 		fixtureDef.shape.SetAsBox(
@@ -233,9 +261,6 @@ class Game
 			@fps = Math.round(1 / ((Date.now() - @lastFrameStart) / 1000))
 			@lastFrameStart = Date.now()
 
-		# Update the game's camera position
-		@positionCamera()
-
 		@update()
 		@draw()
 
@@ -254,6 +279,12 @@ class Game
 				@world.DrawDebugData()
 
 		@updateEntities()
+
+		# Update the game's camera position
+		@positionCamera()
+
+		# Update the controller to clear out its list of triggered actions (these get reset after every frame).
+		@controller.update()
 
 	draw: =>
 		@drawEntities()

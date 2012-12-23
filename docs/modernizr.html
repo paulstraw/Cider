@@ -1,0 +1,97 @@
+<!DOCTYPE html>  <html> <head>   <title>modernizr.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="cider.html">                 cider.coffee               </a>                                           <a class="source" href="clock.html">                 clock.coffee               </a>                                           <a class="source" href="entity.html">                 entity.coffee               </a>                                           <a class="source" href="game.html">                 game.coffee               </a>                                           <a class="source" href="gamecontroller.html">                 gamecontroller.coffee               </a>                                           <a class="source" href="level.html">                 level.coffee               </a>                                           <a class="source" href="map.html">                 map.coffee               </a>                                           <a class="source" href="modernizr.html">                 modernizr.coffee               </a>                                           <a class="source" href="platformerEntity.html">                 platformerEntity.coffee               </a>                        </div>         </div>       </div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               modernizr.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>               <p>Modernizr 2.6.2 (Custom Build) | MIT &amp; BSD
+Build: http://modernizr.com/download/#-prefixed-testprop-testallprops-domprefixes</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nv">modernizr = </span><span class="nf">(a, b, c) -&gt;</span>
+  <span class="nv">w = </span><span class="nf">(a) -&gt;</span>
+    <span class="nv">i.cssText = </span><span class="nx">a</span>
+  <span class="nv">x = </span><span class="nf">(a, b) -&gt;</span>
+    <span class="nx">w</span> <span class="nx">prefixes</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">a</span> <span class="o">+</span> <span class="s">&quot;;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="nx">b</span> <span class="o">or</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+  <span class="nv">y = </span><span class="nf">(a, b) -&gt;</span>
+    <span class="k">typeof</span> <span class="nx">a</span> <span class="o">is</span> <span class="nx">b</span>
+  <span class="nv">z = </span><span class="nf">(a, b) -&gt;</span>
+    <span class="o">!!~</span><span class="p">(</span><span class="s">&quot;&quot;</span> <span class="o">+</span> <span class="nx">a</span><span class="p">).</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span>
+  <span class="nv">A = </span><span class="nf">(a, b) -&gt;</span>
+    <span class="k">for</span> <span class="nx">d</span> <span class="k">of</span> <span class="nx">a</span>
+      <span class="nv">e = </span><span class="nx">a</span><span class="p">[</span><span class="nx">d</span><span class="p">]</span>
+      <span class="k">return</span> <span class="p">(</span><span class="k">if</span> <span class="nx">b</span> <span class="o">is</span> <span class="s">&quot;pfx&quot;</span> <span class="k">then</span> <span class="nx">e</span> <span class="k">else</span> <span class="o">not</span> <span class="mi">0</span><span class="p">)</span>  <span class="k">if</span> <span class="o">not</span> <span class="nx">z</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="s">&quot;-&quot;</span><span class="p">)</span> <span class="o">and</span> <span class="nx">i</span><span class="p">[</span><span class="nx">e</span><span class="p">]</span> <span class="o">isnt</span> <span class="nx">c</span>
+    <span class="o">not</span> <span class="mi">1</span>
+  <span class="nv">B = </span><span class="nf">(a, b, d) -&gt;</span>
+    <span class="k">for</span> <span class="nx">e</span> <span class="k">of</span> <span class="nx">a</span>
+      <span class="nv">f = </span><span class="nx">b</span><span class="p">[</span><span class="nx">a</span><span class="p">[</span><span class="nx">e</span><span class="p">]]</span>
+      <span class="k">return</span> <span class="p">(</span><span class="k">if</span> <span class="nx">d</span> <span class="o">is</span> <span class="o">not</span> <span class="mi">1</span> <span class="k">then</span> <span class="nx">a</span><span class="p">[</span><span class="nx">e</span><span class="p">]</span> <span class="k">else</span> <span class="p">(</span><span class="k">if</span> <span class="nx">y</span><span class="p">(</span><span class="nx">f</span><span class="p">,</span> <span class="s">&quot;function&quot;</span><span class="p">)</span> <span class="k">then</span> <span class="nx">f</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">d</span> <span class="o">or</span> <span class="nx">b</span><span class="p">)</span> <span class="k">else</span> <span class="nx">f</span><span class="p">))</span>  <span class="k">if</span> <span class="nx">f</span> <span class="o">isnt</span> <span class="nx">c</span>
+    <span class="o">not</span> <span class="mi">1</span>
+  <span class="nv">C = </span><span class="nf">(a, b, c) -&gt;</span>
+    <span class="nv">d = </span><span class="nx">a</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="nx">toUpperCase</span><span class="p">()</span> <span class="o">+</span> <span class="nx">a</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="nv">e = </span><span class="p">(</span><span class="nx">a</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="nx">m</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">d</span> <span class="o">+</span> <span class="s">&quot; &quot;</span><span class="p">)</span> <span class="o">+</span> <span class="nx">d</span><span class="p">).</span><span class="nx">split</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">)</span>
+    <span class="p">(</span><span class="k">if</span> <span class="nx">y</span><span class="p">(</span><span class="nx">b</span><span class="p">,</span> <span class="s">&quot;string&quot;</span><span class="p">)</span> <span class="o">or</span> <span class="nx">y</span><span class="p">(</span><span class="nx">b</span><span class="p">,</span> <span class="s">&quot;undefined&quot;</span><span class="p">)</span> <span class="k">then</span> <span class="nx">A</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="k">else</span> <span class="p">(</span><span class="nv">e = </span><span class="p">(</span><span class="nx">a</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="nx">n</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">d</span> <span class="o">+</span> <span class="s">&quot; &quot;</span><span class="p">)</span> <span class="o">+</span> <span class="nx">d</span><span class="p">).</span><span class="nx">split</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">)</span>
+    <span class="nx">B</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span>
+    <span class="p">))</span>
+  <span class="nv">d = </span><span class="s">&quot;2.6.2&quot;</span>
+  <span class="nv">e = </span><span class="p">{}</span>
+  <span class="nv">f = </span><span class="nx">b</span><span class="p">.</span><span class="nx">documentElement</span>
+  <span class="nv">g = </span><span class="s">&quot;modernizr&quot;</span>
+  <span class="nv">h = </span><span class="nx">b</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="nx">g</span><span class="p">)</span>
+  <span class="nv">i = </span><span class="nx">h</span><span class="p">.</span><span class="nx">style</span>
+  <span class="nv">j = </span><span class="kc">undefined</span>
+  <span class="nv">k = </span><span class="p">{}.</span><span class="nx">toString</span>
+  <span class="nv">l = </span><span class="s">&quot;Webkit Moz O ms&quot;</span>
+  <span class="nv">m = </span><span class="nx">l</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">)</span>
+  <span class="nv">n = </span><span class="nx">l</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">)</span>
+  <span class="nv">o = </span><span class="p">{}</span>
+  <span class="nv">p = </span><span class="p">{}</span>
+  <span class="nv">q = </span><span class="p">{}</span>
+  <span class="nv">r = </span><span class="p">[]</span>
+  <span class="nv">s = </span><span class="nx">r</span><span class="p">.</span><span class="nx">slice</span>
+  <span class="nv">t = </span><span class="kc">undefined</span>
+  <span class="nv">u = </span><span class="p">{}.</span><span class="nx">hasOwnProperty</span>
+  <span class="nv">v = </span><span class="kc">undefined</span>
+  <span class="p">(</span><span class="k">if</span> <span class="o">not</span> <span class="nx">y</span><span class="p">(</span><span class="nx">u</span><span class="p">,</span> <span class="s">&quot;undefined&quot;</span><span class="p">)</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">y</span><span class="p">(</span><span class="nx">u</span><span class="p">.</span><span class="nx">call</span><span class="p">,</span> <span class="s">&quot;undefined&quot;</span><span class="p">)</span> <span class="k">then</span> <span class="nv">v = </span><span class="nf">(a, b) -&gt;</span>
+    <span class="nx">u</span><span class="p">.</span><span class="nx">call</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span>
+   <span class="k">else</span> <span class="nv">v = </span><span class="nf">(a, b) -&gt;</span>
+    <span class="nx">b</span> <span class="k">of</span> <span class="nx">a</span> <span class="o">and</span> <span class="nx">y</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">constructor</span><span class="o">::</span><span class="p">[</span><span class="nx">b</span><span class="p">],</span> <span class="s">&quot;undefined&quot;</span><span class="p">)</span>
+  <span class="p">)</span>
+  <span class="nb">Function</span><span class="o">::</span><span class="nx">bind</span> <span class="o">or</span> <span class="p">(</span><span class="nb">Function</span><span class="o">::</span><span class="nv">bind = </span><span class="nf">(b) -&gt;</span>
+    <span class="nv">c = </span><span class="k">this</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nx">TypeError</span>  <span class="nx">unless</span> <span class="k">typeof</span> <span class="nx">c</span> <span class="o">is</span> <span class="s">&quot;function&quot;</span>
+    <span class="nv">d = </span><span class="nx">s</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments_</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="nv">e = </span><span class="o">-&gt;</span>
+      <span class="k">if</span> <span class="k">this</span> <span class="k">instanceof</span> <span class="nx">e</span>
+        <span class="nv">a = </span><span class="o">-&gt;</span>
+
+        <span class="nv">a:: = c::</span>
+        <span class="nv">f = </span><span class="k">new</span> <span class="nx">a</span>
+        <span class="nv">g = </span><span class="nx">c</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">f</span><span class="p">,</span> <span class="nx">d</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments_</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="p">(</span><span class="k">if</span> <span class="nb">Object</span><span class="p">(</span><span class="nx">g</span><span class="p">)</span> <span class="o">is</span> <span class="nx">g</span> <span class="k">then</span> <span class="nx">g</span> <span class="k">else</span> <span class="nx">f</span><span class="p">)</span>
+      <span class="nx">c</span><span class="p">.</span><span class="nx">apply</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">d</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments_</span><span class="p">))</span>
+
+    <span class="nx">e</span>
+  <span class="p">)</span>
+
+  <span class="k">for</span> <span class="nx">D</span> <span class="k">of</span> <span class="nx">o</span>
+    <span class="nx">v</span><span class="p">(</span><span class="nx">o</span><span class="p">,</span> <span class="nx">D</span><span class="p">)</span> <span class="o">and</span> <span class="p">(</span><span class="nv">t = </span><span class="nx">D</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span>
+    <span class="nx">e</span><span class="p">[</span><span class="nx">t</span><span class="p">]</span> <span class="o">=</span> <span class="nx">o</span><span class="p">[</span><span class="nx">D</span><span class="p">]()</span>
+    <span class="nx">r</span><span class="p">.</span><span class="nx">push</span><span class="p">(((</span><span class="k">if</span> <span class="nx">e</span><span class="p">[</span><span class="nx">t</span><span class="p">]</span> <span class="k">then</span> <span class="s">&quot;&quot;</span> <span class="k">else</span> <span class="s">&quot;no-&quot;</span><span class="p">))</span> <span class="o">+</span> <span class="nx">t</span><span class="p">)</span>
+    <span class="p">)</span>
+  <span class="nv">e.addTest = </span><span class="nf">(a, b) -&gt;</span>
+    <span class="nx">unless</span> <span class="k">typeof</span> <span class="nx">a</span> <span class="o">is</span> <span class="s">&quot;object&quot;</span>
+      <span class="nv">a = </span><span class="nx">a</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span>
+      <span class="k">return</span> <span class="nx">e</span>  <span class="k">if</span> <span class="nx">e</span><span class="p">[</span><span class="nx">a</span><span class="p">]</span> <span class="o">isnt</span> <span class="nx">c</span>
+      <span class="nv">b = </span><span class="p">(</span><span class="k">if</span> <span class="k">typeof</span> <span class="nx">b</span> <span class="o">is</span> <span class="s">&quot;function&quot;</span> <span class="k">then</span> <span class="nx">b</span><span class="p">()</span> <span class="k">else</span> <span class="nx">b</span><span class="p">)</span>
+      <span class="k">typeof</span> <span class="nx">enableClasses</span> <span class="o">isnt</span> <span class="s">&quot;undefined&quot;</span> <span class="o">and</span> <span class="nx">enableClasses</span> <span class="o">and</span> <span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">className</span> <span class="o">+=</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="p">((</span><span class="k">if</span> <span class="nx">b</span> <span class="k">then</span> <span class="s">&quot;&quot;</span> <span class="k">else</span> <span class="s">&quot;no-&quot;</span><span class="p">))</span> <span class="o">+</span> <span class="nx">a</span><span class="p">)</span>
+      <span class="nx">e</span><span class="p">[</span><span class="nx">a</span><span class="p">]</span> <span class="o">=</span> <span class="nx">b</span>
+    <span class="nx">e</span>
+
+  <span class="nx">w</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+  <span class="nv">h = j = </span><span class="kc">null</span>
+  <span class="nv">e._version = </span><span class="nx">d</span>
+  <span class="nv">e._domPrefixes = </span><span class="nx">n</span>
+  <span class="nv">e._cssomPrefixes = </span><span class="nx">m</span>
+  <span class="nv">e.testProp = </span><span class="nf">(a) -&gt;</span>
+    <span class="nx">A</span> <span class="p">[</span><span class="nx">a</span><span class="p">]</span>
+
+  <span class="nv">e.testAllProps = </span><span class="nx">C</span>
+  <span class="nv">e.prefixed = </span><span class="nf">(a, b, c) -&gt;</span>
+    <span class="p">(</span><span class="k">if</span> <span class="nx">b</span> <span class="k">then</span> <span class="nx">C</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span> <span class="k">else</span> <span class="nx">C</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="s">&quot;pfx&quot;</span><span class="p">))</span>
+
+  <span class="nx">e</span>
+<span class="nb">window</span><span class="p">.</span><span class="nv">Modernizr = </span><span class="nx">modernizr</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">@</span><span class="nb">document</span><span class="p">)</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 

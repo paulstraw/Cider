@@ -20,6 +20,27 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
+    "\/docs\/map.html" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/docs\/map.html",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
+    "\/src\/platformerEntity.coffee" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/src\/platformerEntity.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 1,
+      "outputAbbreviatedPath" : "\/src\/platformerEntity.js",
+      "outputStyle" : 0,
+      "fileType" : 32
+    },
     "\/src\/gamecontroller.coffee" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
@@ -65,17 +86,16 @@
       "outputStyle" : 0,
       "fileType" : 32
     },
-    "\/src\/cider.coffee" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
+    "\/box2d.js" : {
+      "ignoreWasSetByUser" : 1,
+      "ignore" : 1,
       "hidden" : 0,
-      "outputPathIsSetByUser" : 1,
-      "inputAbbreviatedPath" : "\/src\/cider.coffee",
-      "checkOutputStyle" : 0,
-      "minifyOutput" : 0,
-      "outputAbbreviatedPath" : "\/cider.js",
-      "outputStyle" : 0,
-      "fileType" : 32
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/box2d.js",
+      "outputStyle" : 1,
+      "syntaxCheckerStyle" : 0,
+      "outputAbbreviatedPath" : "\/box2d-ck.js",
+      "fileType" : 64
     },
     "\/docs\/level.html" : {
       "ignoreWasSetByUser" : 0,
@@ -95,16 +115,17 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
-    "\/box2d.js" : {
-      "ignoreWasSetByUser" : 1,
-      "ignore" : 1,
+    "\/src\/cider.coffee" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
       "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/box2d.js",
-      "outputStyle" : 1,
-      "syntaxCheckerStyle" : 0,
-      "outputAbbreviatedPath" : "\/box2d-ck.js",
-      "fileType" : 64
+      "outputPathIsSetByUser" : 1,
+      "inputAbbreviatedPath" : "\/src\/cider.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 0,
+      "outputAbbreviatedPath" : "\/cider.js",
+      "outputStyle" : 0,
+      "fileType" : 32
     },
     "\/docs\/entity.html" : {
       "ignoreWasSetByUser" : 0,
@@ -112,6 +133,15 @@
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
       "inputAbbreviatedPath" : "\/docs\/entity.html",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
+    "\/docs\/platformerEntity.html" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/docs\/platformerEntity.html",
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
@@ -147,17 +177,14 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 16
     },
-    "\/demo.coffee" : {
+    "\/docs\/modernizr.html" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/demo.coffee",
-      "checkOutputStyle" : 0,
-      "minifyOutput" : 0,
-      "outputAbbreviatedPath" : "\/demo.js",
-      "outputStyle" : 0,
-      "fileType" : 32
+      "inputAbbreviatedPath" : "\/docs\/modernizr.html",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
     },
     "\/demo.js" : {
       "ignoreWasSetByUser" : 0,
@@ -169,6 +196,18 @@
       "syntaxCheckerStyle" : 1,
       "outputAbbreviatedPath" : "\/demo-ck.js",
       "fileType" : 64
+    },
+    "\/demo.coffee" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/demo.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 0,
+      "outputAbbreviatedPath" : "\/demo.js",
+      "outputStyle" : 0,
+      "fileType" : 32
     },
     "\/index.html" : {
       "ignoreWasSetByUser" : 0,

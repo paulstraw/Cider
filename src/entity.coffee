@@ -15,12 +15,14 @@ class Entity
 
 		# Properties for Box2D body creation.
 		@angularDamping = 0
+		@linearDamping = 0
 		@gravityScale = 1
+		@fixedRotation = false unless @fixedRotation?
 
 		# Properties for Box2D fixture creation.
 		@density = 1
-		@restitution = 0.2
-		@friction = 0.2
+		@restitution = 0 unless @restitution?
+		@friction = 0.5 unless @friction?
 
 		# Overwrite defaults with any passed options.
 		c.extend this, options
@@ -45,7 +47,9 @@ class Entity
 		bodyDef.userData = @_entityId
 
 		bodyDef.angularDamping = @angularDamping
+		bodyDef.linearDamping = @linearDamping
 		bodyDef.gravityScale = @gravityScale
+		bodyDef.fixedRotation = @fixedRotation
 
 		@body = @game.world.CreateBody bodyDef
 
@@ -102,6 +106,30 @@ class Entity
 
 	# This gets called by the game when this entity collides with something else. By default, it's a noop; you'll probably want to make it do something interesting.
 	collidePost: (other, impulse) =>
+
+
+	collidePre: (contact) =>
+
+
+	contactBegin: (contact) =>
+
+
+	contactEnd: (contact) =>
+
+
+	_edgeIsStanding: (edge) =>
+		return edge.contact.m_manifold.m_localPlaneNormal.y > 0
+
+	isStanding: =>
+		standing = false
+		edge = @body.m_contactList
+
+		if edge
+			while edge.next?
+				edge = edge.next
+				standing = true if @_edgeIsStanding edge
+
+		return standing
 
 	# Call this when your entity has died, or needs to be removed for some other reason. You can do animations or whatever else you need in here, but remember to call `parent`!
 	destroy: =>
