@@ -29,18 +29,6 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
-    "\/src\/platformerEntity.coffee" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/src\/platformerEntity.coffee",
-      "checkOutputStyle" : 0,
-      "minifyOutput" : 1,
-      "outputAbbreviatedPath" : "\/src\/platformerEntity.js",
-      "outputStyle" : 0,
-      "fileType" : 32
-    },
     "\/src\/gamecontroller.coffee" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
@@ -50,6 +38,18 @@
       "checkOutputStyle" : 0,
       "minifyOutput" : 1,
       "outputAbbreviatedPath" : "\/src\/gamecontroller.js",
+      "outputStyle" : 0,
+      "fileType" : 32
+    },
+    "\/src\/platformerEntity.coffee" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/src\/platformerEntity.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 1,
+      "outputAbbreviatedPath" : "\/src\/platformerEntity.js",
       "outputStyle" : 0,
       "fileType" : 32
     },
@@ -86,35 +86,6 @@
       "outputStyle" : 0,
       "fileType" : 32
     },
-    "\/box2d.js" : {
-      "ignoreWasSetByUser" : 1,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/box2d.js",
-      "outputStyle" : 1,
-      "syntaxCheckerStyle" : 0,
-      "outputAbbreviatedPath" : "\/box2d-ck.js",
-      "fileType" : 64
-    },
-    "\/docs\/level.html" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/docs\/level.html",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
-    },
-    "\/docs\/cider.html" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/docs\/cider.html",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
-    },
     "\/src\/cider.coffee" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
@@ -126,6 +97,47 @@
       "outputAbbreviatedPath" : "\/cider.js",
       "outputStyle" : 0,
       "fileType" : 32
+    },
+    "\/src\/init.coffee" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/src\/init.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 1,
+      "outputAbbreviatedPath" : "\/src\/init.js",
+      "outputStyle" : 0,
+      "fileType" : 32
+    },
+    "\/docs\/cider.html" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/docs\/cider.html",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
+    "\/docs\/level.html" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/docs\/level.html",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
+    "\/box2d.js" : {
+      "ignoreWasSetByUser" : 1,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/box2d.js",
+      "outputStyle" : 1,
+      "syntaxCheckerStyle" : 0,
+      "outputAbbreviatedPath" : "\/box2d-ck.js",
+      "fileType" : 64
     },
     "\/docs\/entity.html" : {
       "ignoreWasSetByUser" : 0,
@@ -157,6 +169,15 @@
       "outputStyle" : 0,
       "fileType" : 32
     },
+    "\/pong.html" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/pong.html",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
     "\/cider.js" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
@@ -167,6 +188,18 @@
       "syntaxCheckerStyle" : 1,
       "outputAbbreviatedPath" : "\/cider-ck.js",
       "fileType" : 64
+    },
+    "\/pong.coffee" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/pong.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 1,
+      "outputAbbreviatedPath" : "\/pong.js",
+      "outputStyle" : 0,
+      "fileType" : 32
     },
     "\/docs\/docco.css" : {
       "ignoreWasSetByUser" : 0,
@@ -197,6 +230,38 @@
       "outputAbbreviatedPath" : "\/demo-ck.js",
       "fileType" : 64
     },
+    "\/pong.js" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/pong.js",
+      "outputStyle" : 1,
+      "syntaxCheckerStyle" : 1,
+      "outputAbbreviatedPath" : "\/pong-ck.js",
+      "fileType" : 64
+    },
+    "\/index.html" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/index.html",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
+    "\/src\/loader.coffee" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/src\/loader.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 1,
+      "outputAbbreviatedPath" : "\/src\/loader.js",
+      "outputStyle" : 0,
+      "fileType" : 32
+    },
     "\/demo.coffee" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
@@ -209,26 +274,16 @@
       "outputStyle" : 0,
       "fileType" : 32
     },
-    "\/index.html" : {
+    "\/img\/main.png" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/index.html",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
-    },
-    "\/src\/level.coffee" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/src\/level.coffee",
-      "checkOutputStyle" : 0,
-      "minifyOutput" : 1,
-      "outputAbbreviatedPath" : "\/src\/level.js",
-      "outputStyle" : 0,
-      "fileType" : 32
+      "inputAbbreviatedPath" : "\/img\/main.png",
+      "processed" : 0,
+      "outputAbbreviatedPath" : "\/img\/main.png",
+      "initialSize" : 5381,
+      "fileType" : 8192
     },
     "\/src\/entity.coffee" : {
       "ignoreWasSetByUser" : 0,
@@ -239,6 +294,18 @@
       "checkOutputStyle" : 0,
       "minifyOutput" : 1,
       "outputAbbreviatedPath" : "\/src\/entity.js",
+      "outputStyle" : 0,
+      "fileType" : 32
+    },
+    "\/src\/level.coffee" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/src\/level.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 1,
+      "outputAbbreviatedPath" : "\/src\/level.js",
       "outputStyle" : 0,
       "fileType" : 32
     },
@@ -347,10 +414,10 @@
       "newcap" : 1,
       "forin" : 0,
       "regexdash" : 0,
-      "dojo" : 0,
-      "browser" : 1,
-      "eqnull" : 0,
       "node" : 0,
+      "dojo" : 0,
+      "eqnull" : 0,
+      "browser" : 1,
       "mootools" : 0,
       "iterator" : 0,
       "undef" : 1,

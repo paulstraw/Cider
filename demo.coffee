@@ -41,6 +41,7 @@ onReady = ->
 			@body.ApplyImpulse(new b2Vec2(impulse, 0), @body.GetPosition());
 
 			if @game.controller.triggered('up') && @standing
+				@game.resources['jump sound'].trigger()
 				@body.ApplyImpulse(new b2Vec2(0, -6), @body.GetPosition())
 
 
@@ -53,6 +54,12 @@ onReady = ->
 
 	class myGame extends c.Game
 		constructor: ->
+			@resources =
+				'someImage': 'img/main.png'
+				'jump sound': [
+					'audio/jump.mp3'
+				]
+
 			super
 
 			map = new c.Map([
@@ -163,8 +170,6 @@ onReady = ->
 		gravity: {x: 0, y: 24}
 		debug: true
 		# debugDraw: true
-		resources:
-			stuff: 'things'
 
 	#console.log gameInstance
 

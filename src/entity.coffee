@@ -18,6 +18,7 @@ class Entity
 		@linearDamping = 0
 		@gravityScale = 1
 		@fixedRotation = false unless @fixedRotation?
+		@bodyType = b2Body.b2_dynamicBody
 
 		# Properties for Box2D fixture creation.
 		@density = 1
@@ -41,7 +42,7 @@ class Entity
 			(@pos.x + @size.x / 2) / c.b2Scale,
 			(@pos.y + @size.y / 2) / c.b2Scale
 		)
-		bodyDef.type = b2Body.b2_dynamicBody
+		bodyDef.type = @bodyType
 
 		# Set up userData on bodyDef so we can trace the body back to its Cider object (for collision and stuff).
 		bodyDef.userData = @_entityId

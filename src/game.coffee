@@ -22,12 +22,12 @@ class Game
 		# `Object` containing all `Entity` objects associated with this game. Usually you'll probably want to use methods like `@game.getEntityById()` and `@game.getEntitiesByClassName()` instead of accessing this directly, but you may come across a situation where it's handy.
 		@entities = {}
 
-		# `Object` containing all resources (images, sound files, etc) needed for this game. Used inside other classes like this: `@game.resources['hero sprite']`, as well as for preloading all necessary files on page load. Each value can be a string or an array of strings.
+		# `Object` containing all resources (images, sound files, etc) needed for this game. Used inside other classes like this: `@game.resources['hero sprite']`, as well as for preloading all necessary files on page load. For images, values should be a string. For sounds, values should be an array of strings.
 		#
 		#     @resources =
 		#         'hero sprite': '/img/sprites/hero.png'
 		#         'ominous boss music': ['/audio/boss.mp3', '/audio/boss.ogg']
-		@resources = {}
+		@resources = {} unless @resources?
 
 		# Camera size in CSS pixels. This is the viewport into the game world.
 		@cSize = {x: 640, y: 320}
@@ -55,6 +55,9 @@ class Game
 
 		# Now that our DOM stuff is set up, create a new `GameController` for this game.
 		@controller = new c.GameController this
+
+		# Set up a loader.
+		@loader = new c.Loader this, @resources
 
 		# If this game is in debug mode, display FPS and other debug data.
 		if @debug
@@ -131,6 +134,15 @@ class Game
 		el.setAttribute 'tabindex', '1'
 
 		@el = el
+
+	# Does what it says on the tin.
+	getEntityById: (id) =>
+		match = null
+
+		for eId, entity of @entities
+			match = entity if entity.id == id
+
+		return match
 
 	initializeElements: =>
 		cEs = @cameraEl.style

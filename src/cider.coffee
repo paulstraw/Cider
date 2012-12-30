@@ -1,3 +1,5 @@
+#@codekit-prepend 'init.coffee';
+#@codekit-prepend 'loader.coffee';
 #@codekit-prepend 'clock.coffee';
 #@codekit-prepend 'map.coffee';
 #@codekit-prepend 'level.coffee';
@@ -18,8 +20,10 @@ window.b2CircleShape = Box2D.Collision.Shapes.b2CircleShape
 window.b2EdgeShape = Box2D.Collision.Shapes.b2EdgeShape
 window.b2DebugDraw = Box2D.Dynamics.b2DebugDraw
 window.b2ContactListener = Box2D.Dynamics.b2ContactListener
+window.b2PrismaticJointDef = Box2D.Dynamics.Joints.b2PrismaticJointDef
 
 Cider =
+	Loader: Loader
 	Game: Game
 	Entity: Entity
 	PlatformerEntity: PlatformerEntity
