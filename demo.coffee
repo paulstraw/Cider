@@ -25,9 +25,9 @@ onReady = ->
 
 			@spriteSheet = new c.SpriteSheet @game.resources.keen, 20, 32
 			@standRight = new c.Animation @spriteSheet, 1000, [0]
-			@walkRight = new c.Animation @spriteSheet, 200, [1,2,3,4]
+			@walkRight = new c.Animation @spriteSheet, 150, [1,2,3,4]
 			@standLeft = new c.Animation @spriteSheet, 1000, [9]
-			@walkLeft = new c.Animation @spriteSheet, 200, [8,7,6,5]
+			@walkLeft = new c.Animation @spriteSheet, 150, [8,7,6,5]
 			@dir = 'right'
 
 		update: =>

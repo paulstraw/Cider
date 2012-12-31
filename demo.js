@@ -43,9 +43,9 @@
         this.game.controller.attach(c.key.right, 'right');
         this.spriteSheet = new c.SpriteSheet(this.game.resources.keen, 20, 32);
         this.standRight = new c.Animation(this.spriteSheet, 1000, [0]);
-        this.walkRight = new c.Animation(this.spriteSheet, 200, [1, 2, 3, 4]);
+        this.walkRight = new c.Animation(this.spriteSheet, 150, [1, 2, 3, 4]);
         this.standLeft = new c.Animation(this.spriteSheet, 1000, [9]);
-        this.walkLeft = new c.Animation(this.spriteSheet, 200, [8, 7, 6, 5]);
+        this.walkLeft = new c.Animation(this.spriteSheet, 150, [8, 7, 6, 5]);
         this.dir = 'right';
       }
 
