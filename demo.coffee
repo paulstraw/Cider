@@ -24,8 +24,11 @@ onReady = ->
 			@game.controller.attach c.key.right, 'right'
 
 			@spriteSheet = new c.SpriteSheet @game.resources.keen, 20, 32
+			@standRight = new c.Animation @spriteSheet, 1000, [0]
 			@walkRight = new c.Animation @spriteSheet, 200, [1,2,3,4]
-			@setAnim(@walkRight)
+			@standLeft = new c.Animation @spriteSheet, 1000, [9]
+			@walkLeft = new c.Animation @spriteSheet, 200, [8,7,6,5]
+			@dir = 'right'
 
 		update: =>
 			super
@@ -36,10 +39,18 @@ onReady = ->
 			desiredVelocity = 0
 			if @game.controller.holding('left')
 				desiredVelocity = Math.max(@vel.x - 0.5, -5)
+
+				@dir = 'left'
+				@setAnim @walkLeft
 			else if @game.controller.holding('right')
 				desiredVelocity = Math.min(@vel.x + 0.5, 5)
+
+				@dir = 'right'
+				@setAnim @walkRight
 			else
-				desiredVelocity = @vel.x * 0.8
+				desiredVelocity = @vel.x * 0.5
+
+				@setAnim if @dir == 'right' then @standRight else @standLeft
 
 			velChange = desiredVelocity - @vel.x
 			impulse = @body.GetMass() * velChange

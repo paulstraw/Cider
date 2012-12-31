@@ -42,8 +42,11 @@
         this.game.controller.attach(c.key.left, 'left');
         this.game.controller.attach(c.key.right, 'right');
         this.spriteSheet = new c.SpriteSheet(this.game.resources.keen, 20, 32);
+        this.standRight = new c.Animation(this.spriteSheet, 1000, [0]);
         this.walkRight = new c.Animation(this.spriteSheet, 200, [1, 2, 3, 4]);
-        this.setAnim(this.walkRight);
+        this.standLeft = new c.Animation(this.spriteSheet, 1000, [9]);
+        this.walkLeft = new c.Animation(this.spriteSheet, 200, [8, 7, 6, 5]);
+        this.dir = 'right';
       }
 
       Player.prototype.update = function() {
@@ -54,10 +57,15 @@
         desiredVelocity = 0;
         if (this.game.controller.holding('left')) {
           desiredVelocity = Math.max(this.vel.x - 0.5, -5);
+          this.dir = 'left';
+          this.setAnim(this.walkLeft);
         } else if (this.game.controller.holding('right')) {
           desiredVelocity = Math.min(this.vel.x + 0.5, 5);
+          this.dir = 'right';
+          this.setAnim(this.walkRight);
         } else {
-          desiredVelocity = this.vel.x * 0.8;
+          desiredVelocity = this.vel.x * 0.5;
+          this.setAnim(this.dir === 'right' ? this.standRight : this.standLeft);
         }
         velChange = desiredVelocity - this.vel.x;
         impulse = this.body.GetMass() * velChange;
