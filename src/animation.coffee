@@ -35,10 +35,7 @@ class Animation
 		@offset.y = - (currentRow * @height)
 
 	draw: (entity) =>
-		es = entity.el.style
-		# c.log es
-		es.backgroundImage = "url(#{@src})"
-		es.backgroundPosition = "#{@offset.x}px #{@offset.y}px"
+		entity.el.style.backgroundPosition = "#{@offset.x}px #{@offset.y}px"
 
 	# update: function() {
 	# 	var frameTotal = Math.floor(this.timer.delta() / this.frameTime);

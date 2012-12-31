@@ -25,7 +25,7 @@ onReady = ->
 
 			@spriteSheet = new c.SpriteSheet @game.resources.keen, 20, 32
 			@walkRight = new c.Animation @spriteSheet, 200, [1,2,3,4]
-			@currentAnim = @walkRight
+			@setAnim(@walkRight)
 
 		update: =>
 			super

@@ -43,7 +43,7 @@
         this.game.controller.attach(c.key.right, 'right');
         this.spriteSheet = new c.SpriteSheet(this.game.resources.keen, 20, 32);
         this.walkRight = new c.Animation(this.spriteSheet, 200, [1, 2, 3, 4]);
-        this.currentAnim = this.walkRight;
+        this.setAnim(this.walkRight);
       }
 
       Player.prototype.update = function() {

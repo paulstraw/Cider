@@ -330,10 +330,7 @@
     };
 
     Animation.prototype.draw = function(entity) {
-      var es;
-      es = entity.el.style;
-      es.backgroundImage = "url(" + this.src + ")";
-      return es.backgroundPosition = "" + this.offset.x + "px " + this.offset.y + "px";
+      return entity.el.style.backgroundPosition = "" + this.offset.x + "px " + this.offset.y + "px";
     };
 
     return Animation;
@@ -897,10 +894,6 @@
 
       this.destroy = __bind(this.destroy, this);
 
-      this.isStanding = __bind(this.isStanding, this);
-
-      this._edgeIsStanding = __bind(this._edgeIsStanding, this);
-
       this.contactEnd = __bind(this.contactEnd, this);
 
       this.contactBegin = __bind(this.contactBegin, this);
@@ -910,6 +903,8 @@
       this.collidePost = __bind(this.collidePost, this);
 
       this.update = __bind(this.update, this);
+
+      this.setAnim = __bind(this.setAnim, this);
 
       this.drawElement = __bind(this.drawElement, this);
 
@@ -1002,6 +997,11 @@
       return es.WebkitTransform = "rotate(" + this.angle + "deg)";
     };
 
+    Entity.prototype.setAnim = function(anim) {
+      this.currentAnim = anim;
+      return this.el.style.backgroundImage = "url(" + anim.src + ")";
+    };
+
     Entity.prototype.update = function() {
       var body, newPos, newVel;
       body = this.body;
@@ -1024,25 +1024,6 @@
     Entity.prototype.contactBegin = function(contact) {};
 
     Entity.prototype.contactEnd = function(contact) {};
-
-    Entity.prototype._edgeIsStanding = function(edge) {
-      return edge.contact.m_manifold.m_localPlaneNormal.y > 0;
-    };
-
-    Entity.prototype.isStanding = function() {
-      var edge, standing;
-      standing = false;
-      edge = this.body.m_contactList;
-      if (edge) {
-        while (edge.next != null) {
-          edge = edge.next;
-          if (this._edgeIsStanding(edge)) {
-            standing = true;
-          }
-        }
-      }
-      return standing;
-    };
 
     Entity.prototype.destroy = function() {
       this._destroyElement();

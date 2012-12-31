@@ -93,6 +93,10 @@ class Entity
 		es.height = "#{@size.y}px"
 		es.WebkitTransform = "rotate(#{@angle}deg)"
 
+	setAnim: (anim) =>
+		@currentAnim = anim
+		@el.style.backgroundImage = "url(#{anim.src})"
+
 	update: =>
 		body = @body
 		newPos = body.GetPosition()
@@ -119,20 +123,6 @@ class Entity
 
 	contactEnd: (contact) =>
 
-
-	_edgeIsStanding: (edge) =>
-		return edge.contact.m_manifold.m_localPlaneNormal.y > 0
-
-	isStanding: =>
-		standing = false
-		edge = @body.m_contactList
-
-		if edge
-			while edge.next?
-				edge = edge.next
-				standing = true if @_edgeIsStanding edge
-
-		return standing
 
 	# Call this when your entity has died, or needs to be removed for some other reason. You can do animations or whatever else you need in here, but remember to call `parent`!
 	destroy: =>
