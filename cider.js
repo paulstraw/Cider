@@ -537,6 +537,8 @@
 
       this.createMapTile = __bind(this.createMapTile, this);
 
+      this.createMapBody = __bind(this.createMapBody, this);
+
       this.ready = __bind(this.ready, this);
 
       this.loadMap = __bind(this.loadMap, this);
@@ -737,28 +739,46 @@
     };
 
     Game.prototype.loadMap = function(map) {
-      var col, i, j, row, _i, _len, _ref, _results;
-      _ref = map.data;
-      _results = [];
-      for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
-        row = _ref[i];
-        _results.push((function() {
-          var _j, _len1, _results1;
-          _results1 = [];
-          for (j = _j = 0, _len1 = row.length; _j < _len1; j = ++_j) {
-            col = row[j];
-            _results1.push(this.createMapTile(map, row[j], i, j));
-          }
-          return _results1;
-        }).call(this));
+      var col, i, j, row, _i, _j, _len, _len1, _ref, _ref1, _results, _results1;
+      if (map.type === c.mapType.collision) {
+        _ref = map.data;
+        _results = [];
+        for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+          row = _ref[i];
+          _results.push((function() {
+            var _j, _len1, _results1;
+            _results1 = [];
+            for (j = _j = 0, _len1 = row.length; _j < _len1; j = ++_j) {
+              col = row[j];
+              _results1.push(this.createMapBody(map, row[j], i, j));
+            }
+            return _results1;
+          }).call(this));
+        }
+        return _results;
+      } else if (map.type === c.mapType.regular) {
+        _ref1 = map.data;
+        _results1 = [];
+        for (i = _j = 0, _len1 = _ref1.length; _j < _len1; i = ++_j) {
+          row = _ref1[i];
+          _results1.push((function() {
+            var _k, _len2, _results2;
+            _results2 = [];
+            for (j = _k = 0, _len2 = row.length; _k < _len2; j = ++_k) {
+              col = row[j];
+              _results2.push(this.createMapTile(map, row[j], i, j));
+            }
+            return _results2;
+          }).call(this));
+        }
+        return _results1;
       }
-      return _results;
     };
 
     Game.prototype.ready = function() {};
 
-    Game.prototype.createMapTile = function(map, tile, row, col) {
-      var body, bodyDef, fixtureDef, tcStyle, tileContainer, tileSize, xPos, yPos;
+    Game.prototype.createMapBody = function(map, tile, row, col) {
+      var body, bodyDef, fixtureDef, tileSize, xPos, yPos;
       if (!tile) {
         return;
       }
@@ -775,14 +795,33 @@
       fixtureDef.restitution = 0;
       fixtureDef.shape = new b2PolygonShape;
       fixtureDef.shape.SetAsBox(tileSize / 2 / c.b2Scale, tileSize / 2 / c.b2Scale);
-      body.CreateFixture(fixtureDef);
+      return body.CreateFixture(fixtureDef);
+    };
+
+    Game.prototype.createMapTile = function(map, tile, row, col) {
+      var currentColumn, currentRow, img, offX, offY, tcStyle, tileContainer, tileSize, tilesPerRow, xPos, yPos;
+      if (!tile) {
+        return;
+      }
+      tileSize = map.tileSize;
+      xPos = col * tileSize;
+      yPos = row * tileSize;
       tileContainer = document.createElement('div');
       tcStyle = tileContainer.style;
-      tileContainer.className = 'tile';
+      img = map.tileset;
+      tileSize = map.tileSize;
+      tilesPerRow = img.width / tileSize;
+      currentRow = Math.ceil(tile / tilesPerRow) - 1;
+      currentColumn = tile % tilesPerRow - 1;
+      offX = -(currentColumn * tileSize);
+      offY = -(currentRow * tileSize);
       tcStyle.width = tcStyle.height = "" + tileSize + "px";
       tcStyle.position = 'absolute';
       tcStyle.left = "" + xPos + "px";
       tcStyle.top = "" + yPos + "px";
+      tcStyle.backgroundImage = "url(" + img.src + ")";
+      tcStyle.backgroundPosition = "" + offX + "px " + offY + "px";
+      tcStyle.zIndex = map.zIndex || 1;
       return this.el.appendChild(tileContainer);
     };
 
@@ -926,6 +965,7 @@
         x: 0,
         y: 0
       };
+      this.zIndex = 2;
       this.size = {
         x: 0,
         y: 0
@@ -984,6 +1024,7 @@
       es = this.el.style;
       es.position = 'absolute';
       es.background = '#f00';
+      es.zIndex = this.zIndex;
       return this.game.el.appendChild(this.el);
     };
 

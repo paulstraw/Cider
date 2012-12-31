@@ -8,6 +8,7 @@ class Entity
 		@id = ''
 		@pos = {x: 0, y: 0}
 		@vel = {x: 0, y: 0}
+		@zIndex = 2
 
 		# Properties used for drawing and Box2D body creation.
 		@size = {x: 0, y: 0}
@@ -79,6 +80,7 @@ class Entity
 		es = @el.style
 		es.position = 'absolute'
 		es.background = '#f00'
+		es.zIndex = @zIndex
 		# es.WebkitPerspective = 1000
 		# es.WebkitBackfaceVisibility = 'hidden'
 		@game.el.appendChild @el

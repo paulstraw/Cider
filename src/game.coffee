@@ -203,15 +203,20 @@ class Game
 
 	# Loads and renders a map into the game world.
 	loadMap: (map) =>
-		for row, i in map.data
-			for col, j in row
-				@createMapTile map, row[j], i, j
+		if map.type == c.mapType.collision
+			for row, i in map.data
+				for col, j in row
+					@createMapBody map, row[j], i, j
+		else if map.type == c.mapType.regular
+			for row, i in map.data
+				for col, j in row
+					@createMapTile map, row[j], i, j
 
 	# Ready gets called once all `resources` are loaded. Kick off your game here
 	ready: =>
 
 
-	createMapTile: (map, tile, row, col) =>
+	createMapBody: (map, tile, row, col) =>
 		# If no tile was passed, we don't need to draw anything
 		unless tile then return
 
@@ -243,16 +248,33 @@ class Game
 
 		body.CreateFixture fixtureDef
 
+	createMapTile: (map, tile, row, col) =>
+		# If no tile was passed, we don't need to draw anything
+		unless tile then return
+
+		tileSize = map.tileSize
+		xPos = col * tileSize
+		yPos = row * tileSize
 
 		tileContainer = document.createElement 'div'
 		tcStyle = tileContainer.style
 
-		tileContainer.className = 'tile'
+		# TODO this could be way more efficient; we really only need to calculate this stuff once per map.
+		img = map.tileset
+		tileSize = map.tileSize
+		tilesPerRow = img.width / tileSize
+		currentRow = Math.ceil((tile) / tilesPerRow) - 1
+		currentColumn = tile % tilesPerRow - 1
+		offX = - (currentColumn * tileSize)
+		offY = - (currentRow * tileSize)
 
 		tcStyle.width = tcStyle.height = "#{tileSize}px"
 		tcStyle.position = 'absolute'
 		tcStyle.left = "#{xPos}px"
 		tcStyle.top = "#{yPos}px"
+		tcStyle.backgroundImage = "url(#{img.src})"
+		tcStyle.backgroundPosition = "#{offX}px #{offY}px"
+		tcStyle.zIndex = map.zIndex || 1
 
 		@el.appendChild tileContainer
 
