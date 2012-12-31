@@ -98,6 +98,8 @@ class Entity
 		newPos = body.GetPosition()
 		newVel = body.GetLinearVelocity()
 
+		if @currentAnim then @currentAnim.update()
+
 		# Update physics properties and position needed for drawing based on Box2D data.
 		@angle = body.GetAngle() * (180 / Math.PI)
 		@pos.x = Math.round(newPos.x * c.b2Scale)
@@ -142,6 +144,7 @@ class Entity
 
 	draw: =>
 		@drawElement()
+		if @currentAnim then @currentAnim.draw this
 
 	setStyle: (prop, val) =>
 		@el.style[prop] = val;

@@ -18,9 +18,14 @@ onReady = ->
 			super
 
 			# Key bindings!
-			@game.controller.attach c.key.up, 'up'
+			@game.controller.attach c.key.up, 'jump'
+			@game.controller.attach c.key.space, 'jump'
 			@game.controller.attach c.key.left, 'left'
 			@game.controller.attach c.key.right, 'right'
+
+			@spriteSheet = new c.SpriteSheet @game.resources.keen, 20, 32
+			@walkRight = new c.Animation @spriteSheet, 200, [1,2,3,4]
+			@currentAnim = @walkRight
 
 		update: =>
 			super
@@ -40,10 +45,9 @@ onReady = ->
 			impulse = @body.GetMass() * velChange
 			@body.ApplyImpulse(new b2Vec2(impulse, 0), @body.GetPosition());
 
-			if @game.controller.triggered('up') && @standing
+			if @game.controller.triggered('jump') && @standing
 				@game.resources['jump sound'].trigger()
-				@body.ApplyImpulse(new b2Vec2(0, -6), @body.GetPosition())
-
+				@body.ApplyImpulse(new b2Vec2(0, -7.5), @body.GetPosition())
 
 
 		collidePost: (other, impulse) =>
@@ -56,12 +60,14 @@ onReady = ->
 		constructor: ->
 			@resources =
 				'someImage': 'img/main.png'
+				'keen': 'img/keen.png'
 				'jump sound': [
 					'audio/jump.mp3'
 				]
 
 			super
 
+		ready: =>
 			map = new c.Map([
 				[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 				#[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1]
@@ -156,13 +162,8 @@ onReady = ->
 					x: 32
 					y: 848
 				size:
-					x: 16
+					x: 20
 					y: 32
-
-			# setInterval ->
-			# 	body = player.body
-			# 	body.ApplyForce(new b2Vec2(Math.random() * 12000 - 6000, Math.random() * 12000 - 6000), body.GetPosition())
-			# , 3000
 
 
 
@@ -170,8 +171,6 @@ onReady = ->
 		gravity: {x: 0, y: 24}
 		debug: true
 		# debugDraw: true
-
-	#console.log gameInstance
 
 
 document.addEventListener 'DOMContentLoaded', onReady, false

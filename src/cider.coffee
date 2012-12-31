@@ -3,6 +3,7 @@
 #@codekit-prepend 'clock.coffee';
 #@codekit-prepend 'map.coffee';
 #@codekit-prepend 'level.coffee';
+#@codekit-prepend 'animation.coffee';
 #@codekit-prepend 'gamecontroller.coffee';
 #@codekit-prepend 'game.coffee';
 #@codekit-prepend 'entity.coffee';
@@ -25,6 +26,8 @@ window.b2PrismaticJointDef = Box2D.Dynamics.Joints.b2PrismaticJointDef
 Cider =
 	Loader: Loader
 	Game: Game
+	Animation: Animation
+	SpriteSheet: SpriteSheet
 	Entity: Entity
 	PlatformerEntity: PlatformerEntity
 	Clock: Clock

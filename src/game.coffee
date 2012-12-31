@@ -207,6 +207,10 @@ class Game
 			for col, j in row
 				@createMapTile map, row[j], i, j
 
+	# Ready gets called once all `resources` are loaded. Kick off your game here
+	ready: =>
+
+
 	createMapTile: (map, tile, row, col) =>
 		# If no tile was passed, we don't need to draw anything
 		unless tile then return

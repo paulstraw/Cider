@@ -48,6 +48,8 @@ class Loader
 		el.volume = 1
 		el.currentTime = 0
 
+		@_updateComplete()
+
 	_soundError: (e) =>
 		el = e.target
 
@@ -79,4 +81,4 @@ class Loader
 		@completed++
 		@percentComplete = Math.round(@completed / @resourceCount * 100)
 
-		console.log @percentComplete
+		if @percentComplete == 100 then @game.ready()
