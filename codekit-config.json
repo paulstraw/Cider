@@ -61,15 +61,6 @@
       "outputStyle" : 0,
       "fileType" : 32
     },
-    "\/docs\/clock.html" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/docs\/clock.html",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
-    },
     "\/src\/level.coffee" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
@@ -81,6 +72,15 @@
       "outputAbbreviatedPath" : "\/src\/level.js",
       "outputStyle" : 0,
       "fileType" : 32
+    },
+    "\/docs\/clock.html" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/docs\/clock.html",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
     },
     "\/docs\/game.html" : {
       "ignoreWasSetByUser" : 0,
@@ -132,6 +132,17 @@
       "inputAbbreviatedPath" : "\/docs\/docco.css",
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 16
+    },
+    "\/img\/box.png" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/img\/box.png",
+      "processed" : 0,
+      "outputAbbreviatedPath" : "\/img\/box.png",
+      "initialSize" : 2612,
+      "fileType" : 8192
     },
     "\/demo.coffee" : {
       "ignoreWasSetByUser" : 0,

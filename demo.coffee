@@ -5,10 +5,8 @@ onReady = ->
 		constructor: ->
 			super
 
-			#start with a randomized direction
-			@dir =
-				x: if ~~(Math.random() * 2) then 1 else -1
-				y: if ~~(Math.random() * 2) then 1 else -1
+			@spriteSheet = new c.SpriteSheet @game.resources.box, 48, 48
+			@setAnim new c.Animation(@spriteSheet, 1000, [0])
 
 		update: =>
 			super
@@ -72,6 +70,7 @@ onReady = ->
 			@resources =
 				'someImage': 'img/main.png'
 				'keen': 'img/keen.png'
+				'box': 'img/box.png'
 				'bg tiles': 'img/bgtiles.png'
 				'fg tiles': 'img/fgtiles.png'
 				'jump sound': [
@@ -204,8 +203,8 @@ onReady = ->
 						x: ~~(Math.random() * 590)
 						y: ~~(Math.random() * 270)
 					size:
-						x: 50
-						y: 50
+						x: 48
+						y: 48
 
 			# setTimeout @pause, 5000
 			# setTimeout @unpause, 10000

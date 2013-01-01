@@ -1023,7 +1023,6 @@
       var es;
       es = this.el.style;
       es.position = 'absolute';
-      es.background = '#f00';
       es.zIndex = this.zIndex;
       return this.game.el.appendChild(this.el);
     };

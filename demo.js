@@ -15,10 +15,8 @@
       function MyEntity() {
         this.update = __bind(this.update, this);
         MyEntity.__super__.constructor.apply(this, arguments);
-        this.dir = {
-          x: ~~(Math.random() * 2) ? 1 : -1,
-          y: ~~(Math.random() * 2) ? 1 : -1
-        };
+        this.spriteSheet = new c.SpriteSheet(this.game.resources.box, 48, 48);
+        this.setAnim(new c.Animation(this.spriteSheet, 1000, [0]));
       }
 
       MyEntity.prototype.update = function() {
@@ -95,6 +93,7 @@
         this.resources = {
           'someImage': 'img/main.png',
           'keen': 'img/keen.png',
+          'box': 'img/box.png',
           'bg tiles': 'img/bgtiles.png',
           'fg tiles': 'img/fgtiles.png',
           'jump sound': ['audio/jump.mp3']
@@ -135,8 +134,8 @@
               y: ~~(Math.random() * 270)
             },
             size: {
-              x: 50,
-              y: 50
+              x: 48,
+              y: 48
             }
           });
         }

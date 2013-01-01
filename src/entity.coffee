@@ -79,7 +79,6 @@ class Entity
 	initializeElement: =>
 		es = @el.style
 		es.position = 'absolute'
-		es.background = '#f00'
 		es.zIndex = @zIndex
 		# es.WebkitPerspective = 1000
 		# es.WebkitBackfaceVisibility = 'hidden'
