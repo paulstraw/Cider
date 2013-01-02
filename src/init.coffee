@@ -5,5 +5,5 @@ Audio.prototype.stop = ->
 	this.currentTime = 0
 
 Audio.prototype.trigger = ->
-	this.currentTime = 0
+	this.stop()
 	this.play()

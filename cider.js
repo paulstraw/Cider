@@ -12,7 +12,7 @@
   };
 
   Audio.prototype.trigger = function() {
-    this.currentTime = 0;
+    this.stop();
     return this.play();
   };
 
