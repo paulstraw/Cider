@@ -84,11 +84,10 @@
     Loader.prototype._soundLoaded = function(e) {
       var el;
       el = e.target;
+      el.pause();
+      el.currentTime = 0;
       el.removeEventListener('canplaythrough', this._soundLoad);
       el.removeEventListener('error', this._soundError);
-      el.pause();
-      el.volume = 1;
-      el.currentTime = 0;
       return this._updateComplete();
     };
 
@@ -119,9 +118,17 @@
     };
 
     Loader.prototype._updateComplete = function() {
+      var el, name, _ref;
       this.completed++;
       this.percentComplete = Math.round(this.completed / this.resourceCount * 100);
       if (this.percentComplete === 100) {
+        _ref = this.resources;
+        for (name in _ref) {
+          el = _ref[name];
+          if (el.tagName === 'AUDIO') {
+            el.volume = 1;
+          }
+        }
         return this.game.ready();
       }
     };

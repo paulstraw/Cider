@@ -40,13 +40,11 @@ class Loader
 
 	_soundLoaded: (e) =>
 		el = e.target
+		el.pause()
+		el.currentTime = 0
 
 		el.removeEventListener 'canplaythrough', @_soundLoad
 		el.removeEventListener 'error', @_soundError
-
-		el.pause()
-		el.volume = 1
-		el.currentTime = 0
 
 		@_updateComplete()
 
@@ -81,4 +79,9 @@ class Loader
 		@completed++
 		@percentComplete = Math.round(@completed / @resourceCount * 100)
 
-		if @percentComplete == 100 then @game.ready()
+		if @percentComplete == 100
+			# Setting volumes back here seems to get rid of the short clip playing after everything's loaded.
+			for name, el of @resources
+				if el.tagName == 'AUDIO' then el.volume = 1
+
+			@game.ready()

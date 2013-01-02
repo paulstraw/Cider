@@ -61,6 +61,15 @@
       "outputStyle" : 0,
       "fileType" : 32
     },
+    "\/docs\/clock.html" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/docs\/clock.html",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
     "\/src\/level.coffee" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
@@ -72,15 +81,6 @@
       "outputAbbreviatedPath" : "\/src\/level.js",
       "outputStyle" : 0,
       "fileType" : 32
-    },
-    "\/docs\/clock.html" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/docs\/clock.html",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
     },
     "\/docs\/game.html" : {
       "ignoreWasSetByUser" : 0,

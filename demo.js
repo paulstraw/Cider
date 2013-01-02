@@ -96,7 +96,8 @@
           'box': 'img/box.png',
           'bg tiles': 'img/bgtiles.png',
           'fg tiles': 'img/fgtiles.png',
-          'jump sound': ['audio/jump.mp3']
+          'jump sound': ['audio/jump.mp3'],
+          'music': ['audio/music.mp3']
         };
         myGame.__super__.constructor.apply(this, arguments);
       }
@@ -125,6 +126,9 @@
           maps: [collMap, bgMap, fgMap]
         });
         this.loadLevel(someLevel);
+        this.resources['music'].loop = true;
+        this.resources['music'].volume = 0.5;
+        this.resources['music'].trigger();
         for (i = _i = 1; _i <= 5; i = ++_i) {
           new MyEntity(this, {
             friction: 1,
