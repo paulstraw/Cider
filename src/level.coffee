@@ -16,4 +16,4 @@ class Level
 		@pxSize = {x: @size.x * @tileSize, y: @size.y * @tileSize}
 
 	addMap: (map) =>
-		map.tileSize = @tileSize
+		map.tileSize ?= @tileSize

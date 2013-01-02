@@ -19,6 +19,8 @@ class Game
 
 		@clock = new c.Clock
 
+		@levelLoader = new c.LevelLoader this
+
 		# `Object` containing all `Entity` objects associated with this game. Usually you'll probably want to use methods like `@game.getEntityById()` and `@game.getEntitiesByClassName()` instead of accessing this directly, but you may come across a situation where it's handy.
 		@entities = {}
 
@@ -164,6 +166,7 @@ class Game
 
 		es = @el.style
 
+		# Don't allow the camera to go outside level boundries.
 		if @cPos.x < 0 then @cPos.x = 0
 		if @cPos.x > @currentLevel.pxSize.x - @cSize.x then @cPos.x = @currentLevel.pxSize.x - @cSize.x
 
@@ -173,12 +176,27 @@ class Game
 		es.left = "#{-@cPos.x}px"
 		es.top = "#{-@cPos.y}px"
 
+		maps = @el.getElementsByClassName 'cider-map'
+		for map in maps
+			distance = parseInt map.getAttribute('data-distance'), 10
+			unless distance == 1
+				ms = map.style
+				ms.left = "#{@cPos.x / distance}px"
+				ms.top = "#{@cPos.y / distance}px"
+
 	# Load a new `Level` object, and reconfigure game settings as appropriate.
 	loadLevel: (level) =>
 		# Recreate the world every time we load a level.
 		@world = new b2World(new b2Vec2(@gravity.x, @gravity.y), true)
+		@el.innerHTML = ''
 
 		@initializeCollisionListeners()
+		@currentLevel = level
+		@cPos = {x: 0, y: 0}
+
+		es = @el.style
+		es.width = "#{level.size.x * level.tileSize}px"
+		es.height = "#{level.size.y * level.tileSize}px"
 
 		if @debugDraw
 			@debugCanvas.width = level.pxSize.x
@@ -192,91 +210,12 @@ class Game
 			debugDraw.SetFlags b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit
 			@world.SetDebugDraw debugDraw
 
-		@currentLevel = level
-		@cPos = {x: 0, y: 0}
-
-		@loadMap map for map in level.maps
-
-		es = @el.style
-		es.width = "#{level.size.x * level.tileSize}px"
-		es.height = "#{level.size.y * level.tileSize}px"
-
-	# Loads and renders a map into the game world.
-	loadMap: (map) =>
-		if map.type == c.mapType.collision
-			for row, i in map.data
-				for col, j in row
-					@createMapBody map, row[j], i, j
-		else if map.type == c.mapType.regular
-			for row, i in map.data
-				for col, j in row
-					@createMapTile map, row[j], i, j
+		# Tell our LevelLoader to load this level, which creates all the bodies for collision maps, and the display elements.
+		@levelLoader.load level
 
 	# Ready gets called once all `resources` are loaded. Kick off your game here
 	ready: =>
 
-
-	createMapBody: (map, tile, row, col) =>
-		# If no tile was passed, we don't need to draw anything
-		unless tile then return
-
-		tileSize = map.tileSize
-		xPos = col * tileSize
-		yPos = row * tileSize
-
-		# Create a Box2D body and fixture for our physics simulation
-		bodyDef = new b2BodyDef
-
-		bodyDef.position = new b2Vec2(
-			(xPos + tileSize / 2) / c.b2Scale,
-			(yPos + tileSize / 2) / c.b2Scale
-		)
-		bodyDef.type = b2Body.b2_staticBody
-
-		body = @world.CreateBody bodyDef
-
-		fixtureDef = new b2FixtureDef
-		fixtureDef.density = 2
-		fixtureDef.friction = 1
-		fixtureDef.restitution = 0
-
-		fixtureDef.shape = new b2PolygonShape
-		fixtureDef.shape.SetAsBox(
-			tileSize / 2 / c.b2Scale,
-			tileSize / 2 / c.b2Scale
-		)
-
-		body.CreateFixture fixtureDef
-
-	createMapTile: (map, tile, row, col) =>
-		# If no tile was passed, we don't need to draw anything
-		unless tile then return
-
-		tileSize = map.tileSize
-		xPos = col * tileSize
-		yPos = row * tileSize
-
-		tileContainer = document.createElement 'div'
-		tcStyle = tileContainer.style
-
-		# TODO this could be way more efficient; we really only need to calculate this stuff once per map.
-		img = map.tileset
-		tileSize = map.tileSize
-		tilesPerRow = img.width / tileSize
-		currentRow = Math.ceil((tile) / tilesPerRow) - 1
-		currentColumn = tile % tilesPerRow - 1
-		offX = - (currentColumn * tileSize)
-		offY = - (currentRow * tileSize)
-
-		tcStyle.width = tcStyle.height = "#{tileSize}px"
-		tcStyle.position = 'absolute'
-		tcStyle.left = "#{xPos}px"
-		tcStyle.top = "#{yPos}px"
-		tcStyle.backgroundImage = "url(#{img.src})"
-		tcStyle.backgroundPosition = "#{offX}px #{offY}px"
-		tcStyle.zIndex = map.zIndex || 1
-
-		@el.appendChild tileContainer
 
 	# Pause the game (no entities will be updated during this time).
 	pause: =>

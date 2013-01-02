@@ -8,7 +8,7 @@ class Entity
 		@id = ''
 		@pos = {x: 0, y: 0}
 		@vel = {x: 0, y: 0}
-		@zIndex = 2
+		@zIndex = 99
 
 		# Properties used for drawing and Box2D body creation.
 		@size = {x: 0, y: 0}

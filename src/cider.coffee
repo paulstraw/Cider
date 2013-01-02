@@ -5,6 +5,7 @@
 #@codekit-prepend 'level.coffee';
 #@codekit-prepend 'animation.coffee';
 #@codekit-prepend 'gamecontroller.coffee';
+#@codekit-prepend 'levelLoader.coffee';
 #@codekit-prepend 'game.coffee';
 #@codekit-prepend 'entity.coffee';
 #@codekit-prepend 'platformerEntity.coffee';
@@ -25,6 +26,7 @@ window.b2PrismaticJointDef = Box2D.Dynamics.Joints.b2PrismaticJointDef
 
 Cider =
 	Loader: Loader
+	LevelLoader: LevelLoader
 	Game: Game
 	Animation: Animation
 	SpriteSheet: SpriteSheet

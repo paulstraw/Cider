@@ -5,6 +5,8 @@ class Map
 
 		@type = c.mapType.regular
 
+		@distance = 1
+
 		c.extend this, options
 
-		if @type != c.mapType.collision && !@tileset then throw new Error 'Non-collision Cider Maps require a tileset'
+		if @type != c.mapType.collision && !@tileset then throw new Error 'Non-collision Cider Maps require a tileset.'
