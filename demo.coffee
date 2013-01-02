@@ -228,9 +228,9 @@ onReady = ->
 				maps: [collMap, bgMap, fgMap, starMap]
 			@loadLevel someLevel
 
-			# @resources['music'].loop = true
-			# @resources['music'].volume = 0.5
-			# @resources['music'].trigger()
+			@resources['music'].loop = true
+			@resources['music'].volume = 0.5
+			@resources['music'].trigger()
 
 			for i in [1..5]
 				new MyEntity this,

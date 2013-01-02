@@ -133,6 +133,9 @@
           maps: [collMap, bgMap, fgMap, starMap]
         });
         this.loadLevel(someLevel);
+        this.resources['music'].loop = true;
+        this.resources['music'].volume = 0.5;
+        this.resources['music'].trigger();
         for (i = _i = 1; _i <= 5; i = ++_i) {
           new MyEntity(this, {
             friction: 1,
