@@ -73,7 +73,7 @@ onReady = ->
 				'box': 'img/box.png'
 				'bg tiles': 'img/bgtiles.png'
 				'fg tiles': 'img/fgtiles.png'
-				'stars': 'img/stars.png'
+				'stars': 'img/stars.gif'
 				'jump sound': [
 					'audio/jump.mp3'
 				]
