@@ -5,6 +5,7 @@
 #@codekit-prepend 'init.coffee';
 
 #@codekit-prepend 'tileCursor.coffee';
+#@codekit-prepend 'tilePicker.coffee';
 #@codekit-prepend 'renderer.coffee';
 #@codekit-prepend 'buzzGame.coffee';
 #@codekit-prepend 'layerList.coffee';
@@ -19,6 +20,7 @@ $(document).ready ->
 		levelOptions: new LevelOptions()
 		level: new Level()
 		renderer: new Renderer()
+		tilePicker: new TilePicker()
 		Layer: Layer
 
 	$.ajax

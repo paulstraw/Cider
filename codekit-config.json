@@ -87,6 +87,18 @@
       "initialSize" : 3671,
       "fileType" : 8192
     },
+    "\/buzz\/src\/tilePicker.coffee" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/buzz\/src\/tilePicker.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 1,
+      "outputAbbreviatedPath" : "\/buzz\/src\/tilePicker.js",
+      "outputStyle" : 0,
+      "fileType" : 32
+    },
     "\/img\/main.png" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,

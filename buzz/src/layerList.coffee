@@ -35,6 +35,8 @@ class LayerList
 		window.buzz.currentLayer = layer
 		window.buzz.layerOptions.load layer
 
+		window.buzz.renderer.switchLayer()
+
 
 	deleteLayer: (e) =>
 		e.stopPropagation()
@@ -46,6 +48,8 @@ class LayerList
 		window.buzz.layerOptions.unload layer
 		window.buzz.currentLayer = null
 		delete window.buzz.layers[layerId]
+
+		window.buzz.renderer.switchLayer()
 
 		layerEl.off()
 		layerEl.slideUp 180, ->

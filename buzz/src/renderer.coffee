@@ -62,3 +62,12 @@ class Renderer
 		if e.target == @cursor.el[0] then return
 
 		@cursor.moveToClosest e.offsetX, e.offsetY
+
+	switchLayer: =>
+		if window.buzz.currentLayer
+			layer = window.buzz.currentLayer
+			@cursor.setSize(layer.tileSize)
+			@cursor.setTileset(layer.tileset)
+		else
+			@cursor.setSize(@level.tileSize)
+			@cursor.setTileset(null)

@@ -44,7 +44,7 @@ div#rendering-container {
 	div#inner {
 		position: absolute; cursor: none;
 
-		div.cursor { border: 1px solid #0d0; position: absolute; }
+		div.cursor { border: 1px solid #0d0; position: absolute; @include opacity(0.5); }
 
 		div#level-container {
 			border: 1px dashed #aaa;
@@ -52,8 +52,17 @@ div#rendering-container {
 	}
 }
 
+div#tile-picker {
+	display: none; background: rgba(255, 255, 255, 0.8); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999;
+
+	div.inner {
+		position: absolute; top: 50%; left: 50%;
+		div.cursor { border: 1px solid #0d0; @include opacity(0.8); position: absolute; }
+	}
+}
+
 aside {
-	position: absolute; top: 0; right: 0; padding-top: 36px; width: 180px; height: 100%; background: #E6EAEF; color: #333; border-left: 1px solid #B1B1B1;
+	position: absolute; top: 0; right: 0; padding-top: 36px; width: 180px; height: 100%; color: #333; border-left: 1px solid #B1B1B1; @include background-y(#E8ECF1, #D5DBE3, #E1E5EB);
 
 	h2 { color: #717E8B; text-transform: uppercase; font-size: 12px; padding: 6px 10px 2px; @include text-shadow(0 1px #fff); }
 
@@ -90,7 +99,7 @@ aside {
 		}
 
 		ul {
-			max-height: 142px; overflow-y: auto; width: 100%;
+			height: 142px; overflow-y: auto; width: 100%;
 
 			li {
 				list-style: none; padding: 5px 10px; cursor: pointer; position: relative; height: 26px;

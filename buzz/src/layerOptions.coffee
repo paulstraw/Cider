@@ -66,7 +66,7 @@ class LayerOptions
 		if @layer.type == c.mapType.collision
 			@el.find('.tileset-container').hide()
 
-		tilesetHtml = _.reduce window.buzz.resources, (memo, resource, name) =>
+		tilesetHtml = '<option value="">Select…</option>' + _.reduce window.buzz.resources, (memo, resource, name) =>
 			return memo + "<option #{if @layer.tilesetUrl == resource.src then 'selected'} value=\"#{resource.src}\">#{name}</option>"
 		, ''
 		@el.find('.tileset').html(tilesetHtml)
@@ -88,16 +88,19 @@ class LayerOptions
 
 		if type == c.mapType.collision
 			$('.tileset-container').hide()
-			@layer.tileset = ''
+			@layer.tileset = 'cider collision'
 			@layer.tilesetUrl = 'img/collision.png'
 		else
 			$('.tileset-container').show()
+
+		window.buzz.renderer.switchLayer()
 
 		@layer.type = type
 
 	updateLayerTileSize: (e) =>
 		changed = $(e.target)
 		@layer.tileSize = parseInt(changed.val(), 10)
+		window.buzz.renderer.switchLayer()
 
 	updateLayerDistance: (e) =>
 		changed = $(e.target)
@@ -106,6 +109,7 @@ class LayerOptions
 	updateLayerTileset: (e) =>
 		@layer.tileset = @el.find(".tileset option[value=\"#{$(e.target).val()}\"]").text()
 		@layer.tilesetUrl = $(e.target).val()
+		window.buzz.renderer.switchLayer()
 
 	updateLayerZindex: (e) =>
 		changed = $(e.target)
