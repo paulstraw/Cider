@@ -1,5 +1,5 @@
 class Loader
-	constructor: (@game, @resources = {}) ->
+	constructor: (@parent, @resources = {}, @resourcesPrefix = '') ->
 		@percentComplete = 0
 		@completed = 0
 		@resourceCount = Object.keys(@resources).length
@@ -13,7 +13,7 @@ class Loader
 
 			for resourceUrl in val
 				sourceElement = document.createElement('source')
-				sourceElement.src = resourceUrl
+				sourceElement.src = @resourcesPrefix + (resourceUrl)
 
 				audioElement.appendChild sourceElement
 
@@ -29,7 +29,7 @@ class Loader
 			imgElement.addEventListener 'load', @_imageLoaded
 			imgElement.addEventListener 'error', @_imageError
 			# There's no need to have a `_loadImage` method or similar, because images start loading as soon as we set their `src` attribute.
-			imgElement.src = val
+			imgElement.src = @resourcesPrefix + (val)
 
 			@resources[key] = imgElement
 
@@ -84,4 +84,4 @@ class Loader
 			for name, el of @resources
 				if el.tagName == 'AUDIO' then el.volume = 1
 
-			@game.ready()
+			@parent?.ready?()

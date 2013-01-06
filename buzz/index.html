@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="description" content="Buzz » A level editor for Cider">
+		<meta name="designer" content="Paul Straw">
+		<meta name="developer" content="Paul Straw">
+
+		<title>Buzz</title>
+
+		<link rel="shortcut icon" href="img/favicon.png">
+		<link rel="stylesheet" media="screen, projection" href="buzz.css">
+
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script src="underscore.js"></script>
+		<script src="buzz.js"></script>
+	</head>
+
+	<body>
+		<div class="left">
+			<header>
+				<h1>Buzz <span class="level-name"></span></h1>
+
+				<menu id="global-toolbar">
+					<li>
+						<select id="zoom-level">
+							<option value="0.5">50%</option>
+							<option value="1" selected>100%</option>
+							<option value="2">200%</option>
+						</select>
+					</li>
+					<li>
+						<button id="import">Import</button>
+					</li>
+					<li>
+						<button id="export">Export</button>
+					</li>
+				</menu>
+			</header>
+			<div id="level">
+
+			</div>
+		</div>
+		<aside>
+			<div id="level-options">
+				<h2>Level</h2>
+				<ul class="options-container">
+					<li>
+						<div class="key">Tile Size</div>
+						<div class="val">
+							<input type="number" class="tileSize">
+						</div>
+					</li>
+					<li>
+						<div class="key">Size</div>
+						<div class="val">
+							<input type="number" class="x">
+							<input type="number" class="y">
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<div id="layer-list">
+				<h2>
+					Layers
+					<button id="add-layer">+</button>
+				</h2>
+				<ul>
+				</ul>
+			</div>
+
+			<div id="selected-options">
+
+			</div>
+		</aside>
+	</body>
+</html>

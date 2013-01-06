@@ -1,0 +1,134 @@
+//Mixins go in here
+@mixin text-shadow ($val1: none, $val2: none, $val3: none, $val4: none, $val5: none, $val6: none) {
+	$val: $val1, $val2, $val3, $val4, $val5, $val6;
+
+	@if $val6 == none {
+		$val: $val1, $val2, $val3, $val4, $val6;
+	}
+	@if $val5 == none {
+		$val: $val1, $val2, $val3, $val4;
+	}
+	@if $val4 == none {
+		$val: $val1, $val2, $val3;
+	}
+	@if $val3 == none {
+		$val: $val1, $val2;
+	}
+	@if $val2 == none {
+		$val: $val1;
+	}
+
+	text-shadow: $val;
+	-webkit-text-shadow: $val;
+	-moz-text-shadow: $val;
+	-o-text-shadow: $val;
+}
+
+@mixin border-radius ($radius) {
+	border-radius: $radius;
+	-webkit-border-radius: $radius;
+	-moz-border-radius: $radius;
+	-o-border-radius: $radius;
+}
+
+@mixin background-clip ($clip) {
+	background-clip: $clip !important;
+	-webkit-background-clip: $clip !important;
+	-moz-background-clip: $clip !important;
+	-o-background-clip: $clip !important;
+	-ms-background-clip: $clip !important;
+}
+
+@mixin box-shadow ($val1: none, $val2: none, $val3: none, $val4: none, $val5: none) {
+
+	$val: $val1, $val2, $val3, $val4, $val5;
+
+	@if $val5 == none {
+		$val: $val1, $val2, $val3, $val4;
+	}
+	@if $val4 == none {
+		$val: $val1, $val2, $val3;
+	}
+	@if $val3 == none {
+		$val: $val1, $val2;
+	}
+	@if $val2 == none {
+		$val: $val1;
+	}
+
+	box-shadow: $val;
+	-webkit-box-shadow: $val;
+	-moz-box-shadow: $val;
+	-o-box-shadow: $val;
+}
+
+@mixin transition ($properties) {
+	transition: $properties;
+	-webkit-transition: $properties;
+	-moz-transition: $properties;
+	-o-transition: $properties;
+	-ms-transition: $properties;
+}
+
+@mixin transform ($properties) {
+	transform: $properties;
+	-webkit-transform: $properties;
+	-moz-transform: $properties;
+	-o-transform: $properties;
+	-ms-transform: $properties;
+}
+
+@mixin background-y ($top, $bottom, $fallback: transparent) {
+	background-color: $fallback;
+	background-image: -webkit-gradient(linear, left top, left bottom, from($top), to($bottom));
+	background-image: -webkit-linear-gradient($top, $bottom);
+	background-image: -moz-linear-gradient(center top, $top 0%, $bottom 100%);
+	background-image: -moz-gradient(center top, $top 0%, $bottom 100%);
+	background-image: -o-linear-gradient(top, $top 0%, $bottom 100%);
+	background-image: -ms-linear-gradient(top, $top 0%, $bottom 100%);
+}
+
+@mixin background-y-image ($top, $bottom, $image, $fallback) {
+	background-color: $fallback;
+	background-image: $image;
+	background-image: -webkit-gradient(linear, left top, left bottom, from($top), to($bottom)), $image;
+	background-image: -webkit-linear-gradient($top, $bottom), $image;
+	background-image: -moz-linear-gradient(center top, $top 0%, $bottom 100%), $image;
+	background-image: -moz-gradient(center top, $top 0%, $bottom 100%), $image;
+	background-image: -o-linear-gradient(top, $top 0%, $bottom 100%), $image;
+	background-image: -ms-linear-gradient(top, $top 0%, $bottom 100%), $image;
+}
+
+@mixin background-y-multi ($fallback: transparent, $val1: none, $val2: none, $val3: none, $val4: none, $val5: none) {
+	$val: $val1, $val2, $val3, $val4, $val5;
+
+	@if $val5 == none {
+		$val: $val1, $val2, $val3, $val4;
+	}
+	@if $val4 == none {
+		$val: $val1, $val2, $val3;
+	}
+	@if $val3 == none {
+		$val: $val1, $val2;
+	}
+	@if $val2 == none {
+		$val: $val1;
+	}
+
+	background: $fallback;
+	background-image: -webkit-linear-gradient($val);
+	background-image: -moz-linear-gradient(center top, $val);
+	background-image: -moz-gradient(center top, $val);
+	background-image: -o-linear-gradient(center top, $val);
+	background-image: -ms-linear-gradient(center top, $val);
+	background-image: linear-gradient(top, $val);
+}
+
+@mixin opacity ($opacity) {
+	$ieval: $opacity * 100;
+
+	zoom: 1;
+	opacity: $opacity;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$ieval})";
+	filter: alpha(opacity=$ieval);
+}

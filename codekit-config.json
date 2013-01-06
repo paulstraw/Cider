@@ -14,15 +14,26 @@
       "outputStyle" : 0,
       "fileType" : 32
     },
-    "\/src\/clock.coffee" : {
+    "\/buzz\/buzz.js" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/src\/clock.coffee",
+      "inputAbbreviatedPath" : "\/buzz\/buzz.js",
+      "outputStyle" : 1,
+      "syntaxCheckerStyle" : 1,
+      "outputAbbreviatedPath" : "\/buzz\/buzz-ck.js",
+      "fileType" : 64
+    },
+    "\/src\/entity.coffee" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/src\/entity.coffee",
       "checkOutputStyle" : 0,
       "minifyOutput" : 1,
-      "outputAbbreviatedPath" : "\/src\/clock.js",
+      "outputAbbreviatedPath" : "\/src\/entity.js",
       "outputStyle" : 0,
       "fileType" : 32
     },
@@ -82,6 +93,29 @@
       "outputStyle" : 0,
       "fileType" : 32
     },
+    "\/buzz\/src\/levelLoader.js" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/buzz\/src\/levelLoader.js",
+      "outputStyle" : 1,
+      "syntaxCheckerStyle" : 1,
+      "outputAbbreviatedPath" : "\/buzz\/src\/levelLoader-ck.js",
+      "fileType" : 64
+    },
+    "\/buzz\/src\/init.coffee" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/buzz\/src\/init.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 1,
+      "outputAbbreviatedPath" : "\/buzz\/src\/init.js",
+      "outputStyle" : 0,
+      "fileType" : 32
+    },
     "\/docs\/game.html" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
@@ -90,6 +124,27 @@
       "inputAbbreviatedPath" : "\/docs\/game.html",
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
+    },
+    "\/buzz\/buzz.css" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/buzz\/buzz.css",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 16
+    },
+    "\/buzz\/scss\/mixins.scss" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/buzz\/scss\/mixins.scss",
+      "outputStyle" : 0,
+      "shouldRunBless" : 0,
+      "outputAbbreviatedPath" : "\/buzz\/css\/mixins.css",
+      "fileType" : 4,
+      "debugStyle" : 0
     },
     "\/box2d.js" : {
       "ignoreWasSetByUser" : 1,
@@ -101,6 +156,18 @@
       "syntaxCheckerStyle" : 0,
       "outputAbbreviatedPath" : "\/box2d-ck.js",
       "fileType" : 64
+    },
+    "\/buzz\/src\/layerOptions.coffee" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/buzz\/src\/layerOptions.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 1,
+      "outputAbbreviatedPath" : "\/buzz\/src\/layerOptions.js",
+      "outputStyle" : 0,
+      "fileType" : 32
     },
     "\/img\/keen.png" : {
       "ignoreWasSetByUser" : 0,
@@ -168,12 +235,44 @@
       "outputStyle" : 0,
       "fileType" : 32
     },
+    "\/buzz\/img\/collision.png" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/buzz\/img\/collision.png",
+      "processed" : 0,
+      "outputAbbreviatedPath" : "\/buzz\/img\/collision.png",
+      "initialSize" : 2589,
+      "fileType" : 8192
+    },
     "\/docs\/level.html" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
       "inputAbbreviatedPath" : "\/docs\/level.html",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
+    "\/buzz\/src\/buzz.coffee" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 1,
+      "inputAbbreviatedPath" : "\/buzz\/src\/buzz.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 0,
+      "outputAbbreviatedPath" : "\/buzz\/buzz.js",
+      "outputStyle" : 0,
+      "fileType" : 32
+    },
+    "\/docs\/gamecontroller.html" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/docs\/gamecontroller.html",
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
@@ -189,15 +288,6 @@
       "outputStyle" : 0,
       "fileType" : 32
     },
-    "\/docs\/gamecontroller.html" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/docs\/gamecontroller.html",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
-    },
     "\/docs\/cider.html" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
@@ -206,6 +296,18 @@
       "inputAbbreviatedPath" : "\/docs\/cider.html",
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
+    },
+    "\/buzz\/src\/buzzGame.coffee" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/buzz\/src\/buzzGame.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 1,
+      "outputAbbreviatedPath" : "\/buzz\/src\/buzzGame.js",
+      "outputStyle" : 0,
+      "fileType" : 32
     },
     "\/cider.js" : {
       "ignoreWasSetByUser" : 0,
@@ -238,6 +340,18 @@
       "outputAbbreviatedPath" : "\/pong-ck.js",
       "fileType" : 64
     },
+    "\/COPYING.coffee" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/COPYING.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 1,
+      "outputAbbreviatedPath" : "\/COPYING.js",
+      "outputStyle" : 0,
+      "fileType" : 32
+    },
     "\/src\/game.coffee" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
@@ -250,6 +364,17 @@
       "outputStyle" : 0,
       "fileType" : 32
     },
+    "\/buzz\/underscore.js" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/buzz\/underscore.js",
+      "outputStyle" : 1,
+      "syntaxCheckerStyle" : 1,
+      "outputAbbreviatedPath" : "\/buzz\/underscore-ck.js",
+      "fileType" : 64
+    },
     "\/img\/fgtiles.png" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
@@ -261,14 +386,17 @@
       "initialSize" : 1660,
       "fileType" : 8192
     },
-    "\/index.html" : {
+    "\/buzz\/src\/layerList.coffee" : {
       "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
+      "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/index.html",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
+      "inputAbbreviatedPath" : "\/buzz\/src\/layerList.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 1,
+      "outputAbbreviatedPath" : "\/buzz\/src\/layerList.js",
+      "outputStyle" : 0,
+      "fileType" : 32
     },
     "\/pong.coffee" : {
       "ignoreWasSetByUser" : 0,
@@ -293,17 +421,17 @@
       "initialSize" : 5381,
       "fileType" : 8192
     },
-    "\/src\/gamecontroller.coffee" : {
+    "\/buzz\/scss\/buzz.scss" : {
       "ignoreWasSetByUser" : 0,
-      "ignore" : 1,
+      "ignore" : 0,
       "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/src\/gamecontroller.coffee",
-      "checkOutputStyle" : 0,
-      "minifyOutput" : 1,
-      "outputAbbreviatedPath" : "\/src\/gamecontroller.js",
-      "outputStyle" : 0,
-      "fileType" : 32
+      "outputPathIsSetByUser" : 1,
+      "inputAbbreviatedPath" : "\/buzz\/scss\/buzz.scss",
+      "outputStyle" : 3,
+      "shouldRunBless" : 0,
+      "outputAbbreviatedPath" : "\/buzz\/buzz.css",
+      "fileType" : 4,
+      "debugStyle" : 0
     },
     "\/docs\/map.html" : {
       "ignoreWasSetByUser" : 0,
@@ -311,6 +439,15 @@
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
       "inputAbbreviatedPath" : "\/docs\/map.html",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
+    "\/index.html" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/index.html",
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
@@ -326,6 +463,18 @@
       "outputStyle" : 0,
       "fileType" : 32
     },
+    "\/src\/gamecontroller.coffee" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/src\/gamecontroller.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 1,
+      "outputAbbreviatedPath" : "\/src\/gamecontroller.js",
+      "outputStyle" : 0,
+      "fileType" : 32
+    },
     "\/src\/levelLoader.coffee" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
@@ -337,6 +486,15 @@
       "outputAbbreviatedPath" : "\/src\/levelLoader.js",
       "outputStyle" : 0,
       "fileType" : 32
+    },
+    "\/buzz\/index.html" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/buzz\/index.html",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
     },
     "\/src\/modernizr.coffee" : {
       "ignoreWasSetByUser" : 0,
@@ -368,6 +526,30 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
+    "\/buzz\/src\/layer.coffee" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/buzz\/src\/layer.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 1,
+      "outputAbbreviatedPath" : "\/buzz\/src\/layer.js",
+      "outputStyle" : 0,
+      "fileType" : 32
+    },
+    "\/src\/clock.coffee" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/src\/clock.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 1,
+      "outputAbbreviatedPath" : "\/src\/clock.js",
+      "outputStyle" : 0,
+      "fileType" : 32
+    },
     "\/pong.html" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
@@ -376,18 +558,6 @@
       "inputAbbreviatedPath" : "\/pong.html",
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
-    },
-    "\/src\/entity.coffee" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/src\/entity.coffee",
-      "checkOutputStyle" : 0,
-      "minifyOutput" : 1,
-      "outputAbbreviatedPath" : "\/src\/entity.js",
-      "outputStyle" : 0,
-      "fileType" : 32
     }
   },
   "manualImportLinks" : [
