@@ -39,7 +39,7 @@ class Renderer
 
 	renderLayer: (layer) =>
 		if layer.visible
-			document.getElementById('level-container').appendChild layer.render()
+			$('#level-container').append layer.render()
 
 	handleContext: (e) =>
 		e.preventDefault()

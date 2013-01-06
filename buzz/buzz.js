@@ -531,7 +531,7 @@
 
     Renderer.prototype.renderLayer = function(layer) {
       if (layer.visible) {
-        return document.getElementById('level-container').appendChild(layer.render());
+        return $('#level-container').append(layer.render());
       }
     };
 
