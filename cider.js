@@ -287,14 +287,12 @@
       this.setPxSize = __bind(this.setPxSize, this);
 
       this.size = {
-        x: 100,
-        y: 50
+        x: 50,
+        y: 25
       };
-      this.tileSize = 16;
+      this.tileSize = 32;
+      this.maps = [];
       c.extend(this, options);
-      if (!((this.maps != null) && this.maps.length)) {
-        throw new Error('Cider Levels require at least one map');
-      }
       _ref = this.maps;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         map = _ref[_i];

@@ -7,4 +7,9 @@ ciderStuff =
 			dest[key] = val for key, val of source
 		dest
 
+# Preload the collisionmap sprite, sorta.
+collMap = document.createElement('img')
+collMap.src = 'img/collision.png'
+
+
 window.c = window.Cider = ciderStuff

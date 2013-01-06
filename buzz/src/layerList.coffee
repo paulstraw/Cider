@@ -14,7 +14,7 @@ class LayerList
 
 
 	bindEvents: =>
-		@el.on 'click', '.layer', @toggleActiveLayer
+		@el.on 'click', '.layer', @toggleCurrentLayer
 		@el.on 'click', '.layer .delete', @deleteLayer
 		@el.on 'click', '#add-layer', @addLayer
 		@el.on 'change', '.layer .toggle-visibility', @toggleLayerVisibility
@@ -25,13 +25,14 @@ class LayerList
 		e.stopPropagation()
 
 
-	toggleActiveLayer: (e) =>
+	toggleCurrentLayer: (e) =>
 		layerEl = $(e.currentTarget)
 		return if layerEl.hasClass 'current'
 
 		layerEl.addClass('current').siblings().removeClass('current')
 
 		layer = window.buzz.layers[parseInt(layerEl.data('layer-id'), 10)]
+		window.buzz.currentLayer = layer
 		window.buzz.layerOptions.load layer
 
 
@@ -43,6 +44,7 @@ class LayerList
 		layer = window.buzz.layers[layerId]
 
 		window.buzz.layerOptions.unload layer
+		window.buzz.currentLayer = null
 		delete window.buzz.layers[layerId]
 
 		layerEl.off()

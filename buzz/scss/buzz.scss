@@ -21,7 +21,7 @@ button { border: 1px solid #767676; border-top-color: #7D7D7D; border-bottom-col
 select { border: 1px solid #767676; }
 
 header {
-	height: 30px; @include background-y(#E5E5E5, #B9B8B9, #C5C5C5); color: #404040; @include text-shadow(0 1px rgba(255, 255, 255, 0.3)); @include box-shadow(inset 0 1px rgba(255, 255, 255, 0.5), inset 0 -1px rgba(255, 255, 255, 0.3)); border-bottom: 1px solid #A7A7A7; position: relative; z-index: 3;
+	height: 30px; @include background-y(#D4D4D4, #ADADAD, #B8B8B8); color: #333; @include text-shadow(0 1px rgba(255, 255, 255, 0.3)); @include box-shadow(inset 0 1px rgba(255, 255, 255, 0.5), inset 0 -1px rgba(255, 255, 255, 0.3)); border-bottom: 1px solid #686868; position: relative; z-index: 3;
 
 	h1 { float: left; font-size: 22px; margin: 1px 0 0 10px; }
 
@@ -36,8 +36,26 @@ header {
 	}
 }
 
+body { background: #f4f4f4; }
+
+div#rendering-container {
+	position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding-top: 30px; overflow: hidden;
+
+	div#inner {
+		position: absolute; cursor: none;
+
+		div.cursor { border: 1px solid #0d0; position: absolute; }
+
+		div#level-container {
+			border: 1px dashed #aaa;
+		}
+	}
+}
+
 aside {
-	position: absolute; top: 40px; right: 10px; width: 180px; background: rgba(0, 0, 0, 0.8); color: #f4f4f4;
+	position: absolute; top: 0; right: 0; padding-top: 36px; width: 180px; height: 100%; background: #E6EAEF; color: #333; border-left: 1px solid #B1B1B1;
+
+	h2 { color: #717E8B; text-transform: uppercase; font-size: 12px; padding: 6px 10px 2px; @include text-shadow(0 1px #fff); }
 
 	ul.options-container {
 		li {
@@ -45,31 +63,48 @@ aside {
 
 			&:first-child { margin-top: 0; }
 
-			div.key { font-size: 12px; margin-bottom: 2px; }
+			div.key { font-size: 12px; margin-top: 2px; float: left; text-align: right; width: 51px; }
 			div.val {
-				input, select { display: block; width: 100%; }
+				float: right; width: 95px;
+
+				input, select { display: block; width: 100%; border: 1px solid #C7CED6; @include border-radius(3px); font-size: 13px; }
+				input { padding: 1px 2px; }
+
+				&.xy {
+					label { float: left; width: 11px; padding-right: 1px; font-size: 11px; text-align: right; display: block; margin-top: 3px; }
+					input { float: left; width: 36px; }
+				}
 			}
 		}
 	}
 
+	div#level-options {
+		padding: 0; border-bottom: 1px solid #C7CED6;
+
+		ul { padding: 10px; }
+	}
+
 	div#layer-list {
 		h2 {
-			font-size: 16px; padding: 6px 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-
-			button#add-layer { display: block; float: right; }
+			button#add-layer { display: block; float: right; border: 0; @include box-shadow(none); background: transparent; font-size: 16px; color: #717E8B; font-weight: bold; margin-top: -4px; }
 		}
 
 		ul {
-			height: 150px; overflow-y: auto; border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+			max-height: 142px; overflow-y: auto; width: 100%;
 
 			li {
-				list-style: none; padding: 5px 10px; cursor: pointer; position: relative;
+				list-style: none; padding: 5px 10px; cursor: pointer; position: relative; height: 26px;
 
 				input[type="checkbox"] { float: left; display: block; margin: 2px 6px 0 0; }
-				span.name { display: block; float: left; width: 110px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-				button.delete { display: none; position: absolute; font-size: 12px; border: 0; @include box-shadow(none); background: transparent; top: 6px; right: 24px; color: #aaa; }
+				span.name { display: block; float: left; width: 110px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; }
+				button.delete { display: none; position: absolute; font-size: 12px; border: 0; @include box-shadow(none); background: transparent; top: 5px; right: 12px; color: #333; }
 
-				&.current { background: rgba(255, 255, 255, 0.1); }
+				&.current {
+					@include background-y(#C4CCDF, #9DAAC5, #ACB8D0); color: #fff; font-weight: bold; @include text-shadow(0 1px 1px rgba(0, 0, 0, 0.4)); border-top: 1px solid #BCC5D6; border-bottom: 1px solid #94A0B9; padding-top: 4px;
+
+					span.name { margin-top: -1px; }
+					button.delete { color: #fff; @include text-shadow(0 1px 1px rgba(0, 0, 0, 0.4)); font-weight: bold; top: 3px; }
+				}
 				&:hover {
 					button.delete { display: block; }
 				}
@@ -77,13 +112,11 @@ aside {
 		}
 	}
 
-	div#selected-options { padding: 10px; }
+	div#selected-options {
+		margin-top: 10px; padding: 10px; border-top: 1px solid #C7CED6;
 
-	div#level-options {
-		padding: 0;
+		&:empty { border-top: 0; }
 
-		h2 { font-size: 16px; padding: 6px 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
-
-		ul { padding: 10px; }
+		h2 { padding: 0 0 10px; }
 	}
 }

@@ -17,46 +17,46 @@
 		<script src="buzz.js"></script>
 	</head>
 
-	<body>
-		<div class="left">
-			<header>
-				<h1>Buzz <span class="level-name"></span></h1>
+<body>
+		<header>
+			<h1>Buzz <span class="level-name"></span></h1>
 
-				<menu id="global-toolbar">
-					<li>
-						<select id="zoom-level">
-							<option value="0.5">50%</option>
-							<option value="1" selected>100%</option>
-							<option value="2">200%</option>
-						</select>
-					</li>
-					<li>
-						<button id="import">Import</button>
-					</li>
-					<li>
-						<button id="export">Export</button>
-					</li>
-				</menu>
-			</header>
-			<div id="level">
-
-			</div>
+			<menu id="global-toolbar">
+				<li>
+					<select id="zoom-level">
+						<option value="0.5">50%</option>
+						<option value="1" selected>100%</option>
+						<option value="2">200%</option>
+					</select>
+				</li>
+				<li>
+					<button id="import">Import</button>
+				</li>
+				<li>
+					<button id="export">Export</button>
+				</li>
+			</menu>
+		</header>
+		<div id="rendering-container">
+			<div id="inner"></div>
 		</div>
 		<aside>
 			<div id="level-options">
 				<h2>Level</h2>
 				<ul class="options-container">
-					<li>
+					<li class="group">
 						<div class="key">Tile Size</div>
 						<div class="val">
 							<input type="number" class="tileSize">
 						</div>
 					</li>
-					<li>
+					<li class="group">
 						<div class="key">Size</div>
-						<div class="val">
-							<input type="number" class="x">
-							<input type="number" class="y">
+						<div class="val xy">
+							<label for="level-x">x:</label>
+							<input id="level-x" type="number" class="x">
+							<label for="level-y">y:</label>
+							<input id="level-y" type="number" class="y">
 						</div>
 					</li>
 				</ul>
@@ -71,9 +71,7 @@
 				</ul>
 			</div>
 
-			<div id="selected-options">
-
-			</div>
+			<div id="selected-options"></div>
 		</aside>
 	</body>
 </html>

@@ -1,14 +1,15 @@
 class LayerOptions
 	_template: (layer) ->
 		$("""
+			<h2>Layer Options</h2>
 			<ul class="options-container">
-				<li>
+				<li class="group">
 					<div class="key">Name</div>
 					<div class="val">
 						<input value="#{if layer.name then layer.name}" type="text" class="name">
 					</div>
 				</li>
-				<li>
+				<li class="group">
 					<div class="key">Type</div>
 					<div class="val">
 						<select class="type">
@@ -17,29 +18,25 @@ class LayerOptions
 						</select>
 					</div>
 				</li>
-				<li>
+				<li class="group">
 					<div class="key">Tile Size</div>
 					<div class="val">
 						<input value="#{if layer.tileSize then layer.tileSize}" type="number" class="tileSize">
 					</div>
 				</li>
-				<li>
+				<li class="group">
 					<div class="key">Distance</div>
 					<div class="val">
 						<input value="#{if layer.distance then layer.distance}" type="number" class="distance">
 					</div>
 				</li>
-				<li>
+				<li class="tileset-container group">
 					<div class="key">Tileset</div>
 					<div class="val">
-						<select class="tileset">
-							<option>some tileset</option>
-							<option>another tileset</option>
-							<option>a third tileset</option>
-						</select>
+						<select class="tileset"></select>
 					</div>
 				</li>
-				<li>
+				<li class="group">
 					<div class="key">zIndex</div>
 					<div class="val">
 						<input value="#{if layer.zIndex then layer.zIndex}" type="number" class="zIndex">
@@ -66,6 +63,14 @@ class LayerOptions
 
 		@el.html @_template(layer)
 
+		if @layer.type == c.mapType.collision
+			@el.find('.tileset-container').hide()
+
+		tilesetHtml = _.reduce window.buzz.resources, (memo, resource, name) =>
+			return memo + "<option #{if @layer.tilesetUrl == resource.src then 'selected'} value=\"#{resource.src}\">#{name}</option>"
+		, ''
+		@el.find('.tileset').html(tilesetHtml)
+
 	unload: (layer) =>
 		unless layer == @layer then return
 
@@ -79,7 +84,16 @@ class LayerOptions
 
 	updateLayerType: (e) =>
 		changed = $(e.target)
-		@layer.type = parseInt(changed.val(), 10)
+		type = parseInt(changed.val(), 10)
+
+		if type == c.mapType.collision
+			$('.tileset-container').hide()
+			@layer.tileset = ''
+			@layer.tilesetUrl = 'img/collision.png'
+		else
+			$('.tileset-container').show()
+
+		@layer.type = type
 
 	updateLayerTileSize: (e) =>
 		changed = $(e.target)
@@ -90,7 +104,8 @@ class LayerOptions
 		@layer.distance = parseInt(changed.val(), 10)
 
 	updateLayerTileset: (e) =>
-		@layer.tileSet = $(e.target).val()
+		@layer.tileset = @el.find(".tileset option[value=\"#{$(e.target).val()}\"]").text()
+		@layer.tilesetUrl = $(e.target).val()
 
 	updateLayerZindex: (e) =>
 		changed = $(e.target)

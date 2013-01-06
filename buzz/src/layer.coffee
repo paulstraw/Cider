@@ -6,6 +6,7 @@ class Layer
 		@type = c.mapType.regular
 		@distance = 1
 		@zIndex = 1
+		@tileSize = 32
 		@visible = true
 		@id = uniqueLayerId++
 
