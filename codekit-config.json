@@ -562,18 +562,6 @@
       "outputStyle" : 0,
       "fileType" : 32
     },
-    "\/src\/gamecontroller.coffee" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/src\/gamecontroller.coffee",
-      "checkOutputStyle" : 0,
-      "minifyOutput" : 1,
-      "outputAbbreviatedPath" : "\/src\/gamecontroller.js",
-      "outputStyle" : 0,
-      "fileType" : 32
-    },
     "\/src\/entity.coffee" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
@@ -583,6 +571,18 @@
       "checkOutputStyle" : 0,
       "minifyOutput" : 1,
       "outputAbbreviatedPath" : "\/src\/entity.js",
+      "outputStyle" : 0,
+      "fileType" : 32
+    },
+    "\/src\/gamecontroller.coffee" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/src\/gamecontroller.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 1,
+      "outputAbbreviatedPath" : "\/src\/gamecontroller.js",
       "outputStyle" : 0,
       "fileType" : 32
     },

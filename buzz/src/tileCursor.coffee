@@ -1,6 +1,46 @@
 class TileCursor
-	constructor: () ->
+	constructor: (@painter = false) ->
 		@el = $('<div class="cursor">')
+		@bindEvents()
+
+
+	bindEvents: =>
+		if @painter
+			@el.on 'mousedown', @startPainting
+			@el.on 'mouseup', @stopPainting
+
+
+	startPainting: (e) =>
+		unless e.which == 1 then return
+
+		@painting = true
+		@paint()
+
+
+	paint: (e) =>
+		unless @painting && @index? && window.buzz.currentLayer? then return
+
+		layer = window.buzz.currentLayer
+		tileSize = layer.tileSize
+		elPos = @el.position()
+		zoom = window.buzz.zoom
+
+		row = elPos.top / zoom / tileSize
+		col = elPos.left / zoom / tileSize
+
+		if layer.data[row]
+			layer.data[row][col] = @index
+		else
+			layer.data[row] = []
+			layer.data[row][col] = @index
+
+		window.buzz.renderer.renderLayers()
+
+
+	stopPainting: (e) =>
+		# For some reason, setting ANYTHING (even a random variable like `foo`) to false here messes stuff up. Other falsy values work. So confused.
+		@painting = 0
+
 
 	setSize: (size) =>
 		@size = size
@@ -9,14 +49,13 @@ class TileCursor
 		es.width = "#{size}px"
 		es.height = "#{size}px"
 
+
 	moveToClosest: (x, y) =>
 		es = @el[0].style
 		es.left = "#{Math.floor(x / @size) * @size}px"
 		es.top = "#{Math.floor(y / @size) * @size}px"
 
-
-	getPositionFromIndex: =>
-
+		if @painting then @paint()
 
 
 	setTile: (@index, @xPos, yPos) =>

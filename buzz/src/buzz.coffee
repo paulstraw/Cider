@@ -16,6 +16,7 @@
 $(document).ready ->
 	window.buzz =
 		layers: {}
+		zoom: 1
 		layerOptions: new LayerOptions()
 		levelOptions: new LevelOptions()
 		level: new Level()

@@ -235,18 +235,66 @@
 
   TileCursor = (function() {
 
-    function TileCursor() {
+    function TileCursor(painter) {
+      this.painter = painter != null ? painter : false;
       this.setTileset = __bind(this.setTileset, this);
 
       this.setTile = __bind(this.setTile, this);
 
-      this.getPositionFromIndex = __bind(this.getPositionFromIndex, this);
-
       this.moveToClosest = __bind(this.moveToClosest, this);
 
       this.setSize = __bind(this.setSize, this);
+
+      this.stopPainting = __bind(this.stopPainting, this);
+
+      this.paint = __bind(this.paint, this);
+
+      this.startPainting = __bind(this.startPainting, this);
+
+      this.bindEvents = __bind(this.bindEvents, this);
+
       this.el = $('<div class="cursor">');
+      this.bindEvents();
     }
+
+    TileCursor.prototype.bindEvents = function() {
+      if (this.painter) {
+        this.el.on('mousedown', this.startPainting);
+        return this.el.on('mouseup', this.stopPainting);
+      }
+    };
+
+    TileCursor.prototype.startPainting = function(e) {
+      if (e.which !== 1) {
+        return;
+      }
+      this.painting = true;
+      return this.paint();
+    };
+
+    TileCursor.prototype.paint = function(e) {
+      var col, elPos, layer, row, tileSize, zoom;
+      if (!(this.painting && (this.index != null) && (window.buzz.currentLayer != null))) {
+        return;
+      }
+      layer = window.buzz.currentLayer;
+      tileSize = layer.tileSize;
+      elPos = this.el.position();
+      zoom = window.buzz.zoom;
+      row = elPos.top / zoom / tileSize;
+      col = elPos.left / zoom / tileSize;
+      if (layer.data[row]) {
+        layer.data[row][col] = this.index;
+      } else {
+        layer.data[row] = [];
+        layer.data[row][col] = this.index;
+      }
+      return window.buzz.renderer.renderLayers();
+    };
+
+    TileCursor.prototype.stopPainting = function(e) {
+      return this.painting = 0;
+    };
 
     TileCursor.prototype.setSize = function(size) {
       var es;
@@ -260,10 +308,11 @@
       var es;
       es = this.el[0].style;
       es.left = "" + (Math.floor(x / this.size) * this.size) + "px";
-      return es.top = "" + (Math.floor(y / this.size) * this.size) + "px";
+      es.top = "" + (Math.floor(y / this.size) * this.size) + "px";
+      if (this.painting) {
+        return this.paint();
+      }
     };
-
-    TileCursor.prototype.getPositionFromIndex = function() {};
 
     TileCursor.prototype.setTile = function(index, xPos, yPos) {
       this.index = index;
@@ -429,6 +478,10 @@
 
       this.handleContext = __bind(this.handleContext, this);
 
+      this.renderLayer = __bind(this.renderLayer, this);
+
+      this.renderLayers = __bind(this.renderLayers, this);
+
       this.loadLevel = __bind(this.loadLevel, this);
 
       this.bindEvents = __bind(this.bindEvents, this);
@@ -458,9 +511,28 @@
         height: this.level.pxSize.y
       });
       this.inner.html(this.levelEl);
-      this.cursor = new TileCursor;
+      this.cursor = new TileCursor(true);
       this.inner.append(this.cursor.el);
-      return this.cursor.setSize(this.level.tileSize);
+      this.cursor.setSize(this.level.tileSize);
+      return this.renderLayers();
+    };
+
+    Renderer.prototype.renderLayers = function() {
+      var id, layer, _ref, _results;
+      this.el.find('#level-container').html('');
+      _ref = window.buzz.layers;
+      _results = [];
+      for (id in _ref) {
+        layer = _ref[id];
+        _results.push(this.renderLayer(layer));
+      }
+      return _results;
+    };
+
+    Renderer.prototype.renderLayer = function(layer) {
+      if (layer.visible) {
+        return document.getElementById('level-container').appendChild(layer.render());
+      }
     };
 
     Renderer.prototype.handleContext = function(e) {
@@ -498,6 +570,7 @@
     Renderer.prototype.handleZoomChange = function(e) {
       var zoom;
       zoom = $(e.target).val();
+      window.buzz.zoom = zoom;
       return this.inner.css('transform', "scale(" + zoom + ")");
     };
 
@@ -602,6 +675,7 @@
       window.buzz.currentLayer = null;
       delete window.buzz.layers[layerId];
       window.buzz.renderer.switchLayer();
+      window.buzz.renderer.renderLayers();
       layerEl.off();
       return layerEl.slideUp(180, function() {
         return layerEl.remove();
@@ -613,7 +687,8 @@
       clicked = $(e.currentTarget);
       layerEl = clicked.parent();
       layer = window.buzz.layers[parseInt(layerEl.data('layer-id'), 10)];
-      return layer.visible = !!clicked.prop('checked');
+      layer.visible = !!clicked.prop('checked');
+      return window.buzz.renderer.renderLayers();
     };
 
     LayerList.prototype.addLayer = function() {
@@ -643,6 +718,9 @@
   Layer = (function() {
 
     function Layer(options) {
+      this.renderTile = __bind(this.renderTile, this);
+
+      this.render = __bind(this.render, this);
       this.name = 'New Layer';
       this.type = c.mapType.regular;
       this.distance = 1;
@@ -650,8 +728,66 @@
       this.tileSize = 32;
       this.visible = true;
       this.id = uniqueLayerId++;
+      this.el = $('<div class="layer">');
+      this.data = [];
       c.extend(this, options);
     }
+
+    Layer.prototype.render = function() {
+      var col, i, img, j, mapContainer, mcs, row, tilesPerRow, _i, _j, _len, _len1, _ref;
+      if (!this.tileset) {
+        return;
+      }
+      if (this.tileset === 'cider collision') {
+        img = new Image;
+        img.src = 'img/collision.png';
+      } else {
+        img = window.buzz.resources[this.tileset];
+      }
+      mapContainer = document.createElement('div');
+      tilesPerRow = img.width / this.tileSize;
+      mapContainer.className = 'cider-map';
+      mapContainer.id = "cider-layer-" + this.id;
+      mcs = mapContainer.style;
+      mcs.position = 'absolute';
+      mcs.left = '0px';
+      mcs.top = '0px';
+      _ref = this.data;
+      for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+        row = _ref[i];
+        if (row) {
+          for (j = _j = 0, _len1 = row.length; _j < _len1; j = ++_j) {
+            col = row[j];
+            this.renderTile(mapContainer, row[j], i, j, img, tilesPerRow);
+          }
+        }
+      }
+      return mapContainer;
+    };
+
+    Layer.prototype.renderTile = function(mapContainer, tile, row, col, img, tilesPerRow) {
+      var currentColumn, currentRow, offX, offY, tcStyle, tileContainer, tileSize, xPos, yPos;
+      if (!tile) {
+        return;
+      }
+      tileSize = this.tileSize;
+      xPos = col * tileSize;
+      yPos = row * tileSize;
+      tileContainer = document.createElement('div');
+      tcStyle = tileContainer.style;
+      currentRow = Math.ceil(tile / tilesPerRow) - 1;
+      currentColumn = tile % tilesPerRow - 1;
+      offX = -(currentColumn * tileSize);
+      offY = -(currentRow * tileSize);
+      tcStyle.width = tcStyle.height = "" + tileSize + "px";
+      tcStyle.position = 'absolute';
+      tcStyle.left = "" + xPos + "px";
+      tcStyle.top = "" + yPos + "px";
+      tcStyle.backgroundImage = "url(" + img.src + ")";
+      tcStyle.backgroundPosition = "" + offX + "px " + offY + "px";
+      tcStyle.zIndex = this.zIndex || 1;
+      return mapContainer.appendChild(tileContainer);
+    };
 
     return Layer;
 
@@ -743,15 +879,17 @@
       } else {
         $('.tileset-container').show();
       }
+      this.layer.type = type;
       window.buzz.renderer.switchLayer();
-      return this.layer.type = type;
+      return window.buzz.renderer.renderLayers();
     };
 
     LayerOptions.prototype.updateLayerTileSize = function(e) {
       var changed;
       changed = $(e.target);
       this.layer.tileSize = parseInt(changed.val(), 10);
-      return window.buzz.renderer.switchLayer();
+      window.buzz.renderer.switchLayer();
+      return window.buzz.renderer.renderLayers();
     };
 
     LayerOptions.prototype.updateLayerDistance = function(e) {
@@ -763,13 +901,15 @@
     LayerOptions.prototype.updateLayerTileset = function(e) {
       this.layer.tileset = this.el.find(".tileset option[value=\"" + ($(e.target).val()) + "\"]").text();
       this.layer.tilesetUrl = $(e.target).val();
-      return window.buzz.renderer.switchLayer();
+      window.buzz.renderer.switchLayer();
+      return window.buzz.renderer.renderLayers();
     };
 
     LayerOptions.prototype.updateLayerZindex = function(e) {
       var changed;
       changed = $(e.target);
-      return this.layer.zIndex = parseInt(changed.val(), 10);
+      this.layer.zIndex = parseInt(changed.val(), 10);
+      return window.buzz.renderer.renderLayers();
     };
 
     return LayerOptions;
@@ -842,6 +982,7 @@
     var kicker;
     window.buzz = {
       layers: {},
+      zoom: 1,
       layerOptions: new LayerOptions(),
       levelOptions: new LevelOptions(),
       level: new Level(),

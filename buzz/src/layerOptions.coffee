@@ -93,14 +93,18 @@ class LayerOptions
 		else
 			$('.tileset-container').show()
 
-		window.buzz.renderer.switchLayer()
 
 		@layer.type = type
+
+		window.buzz.renderer.switchLayer()
+		window.buzz.renderer.renderLayers()
 
 	updateLayerTileSize: (e) =>
 		changed = $(e.target)
 		@layer.tileSize = parseInt(changed.val(), 10)
 		window.buzz.renderer.switchLayer()
+
+		window.buzz.renderer.renderLayers()
 
 	updateLayerDistance: (e) =>
 		changed = $(e.target)
@@ -110,7 +114,9 @@ class LayerOptions
 		@layer.tileset = @el.find(".tileset option[value=\"#{$(e.target).val()}\"]").text()
 		@layer.tilesetUrl = $(e.target).val()
 		window.buzz.renderer.switchLayer()
+		window.buzz.renderer.renderLayers()
 
 	updateLayerZindex: (e) =>
 		changed = $(e.target)
 		@layer.zIndex = parseInt(changed.val(), 10)
+		window.buzz.renderer.renderLayers()

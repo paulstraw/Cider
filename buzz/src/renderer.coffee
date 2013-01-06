@@ -24,10 +24,22 @@ class Renderer
 
 		@inner.html(@levelEl)
 
-		@cursor = new TileCursor
+		@cursor = new TileCursor(true)
 		@inner.append @cursor.el
 
 		@cursor.setSize(@level.tileSize)
+
+		@renderLayers()
+
+
+	renderLayers: =>
+		@el.find('#level-container').html('')
+		@renderLayer(layer) for id, layer of window.buzz.layers
+
+
+	renderLayer: (layer) =>
+		if layer.visible
+			document.getElementById('level-container').appendChild layer.render()
 
 	handleContext: (e) =>
 		e.preventDefault()
@@ -55,6 +67,7 @@ class Renderer
 
 	handleZoomChange: (e) =>
 		zoom = $(e.target).val()
+		window.buzz.zoom = zoom
 		@inner.css('transform', "scale(#{zoom})")
 
 	handleInnerMousemove: (e) =>

@@ -50,6 +50,7 @@ class LayerList
 		delete window.buzz.layers[layerId]
 
 		window.buzz.renderer.switchLayer()
+		window.buzz.renderer.renderLayers()
 
 		layerEl.off()
 		layerEl.slideUp 180, ->
@@ -62,6 +63,8 @@ class LayerList
 		layer = window.buzz.layers[parseInt(layerEl.data('layer-id'), 10)]
 
 		layer.visible = !!clicked.prop('checked')
+
+		window.buzz.renderer.renderLayers()
 
 
 	addLayer: =>
