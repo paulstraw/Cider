@@ -387,6 +387,17 @@
       "fileType" : 4,
       "debugStyle" : 0
     },
+    "\/buzz\/img\/delete.png" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/buzz\/img\/delete.png",
+      "processed" : 0,
+      "outputAbbreviatedPath" : "\/buzz\/img\/delete.png",
+      "initialSize" : 1156,
+      "fileType" : 8192
+    },
     "\/buzz\/scss\/mixins.scss" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,

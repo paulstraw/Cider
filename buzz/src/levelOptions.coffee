@@ -20,7 +20,7 @@ class LevelOptions
 
 		@level.setPxSize()
 
-		window.buzz.renderer.loadLevel(@level)
+		window.buzz.renderer.updateLevel()
 
 	updateLevelSize: (e) =>
 		@level.size =
@@ -29,4 +29,4 @@ class LevelOptions
 
 		@level.setPxSize()
 
-		window.buzz.renderer.loadLevel(@level)
+		window.buzz.renderer.updateLevel()

@@ -315,19 +315,26 @@
     };
 
     TileCursor.prototype.setTile = function(index, xPos, yPos) {
+      var layer;
       this.index = index;
-      this.xPos = xPos;
       if (this.index == null) {
         return;
       }
+      layer = window.buzz.currentLayer;
       if (this.index === 0) {
         return this.el.css({
           backgroundPosition: '9999px 9999px'
         });
       } else {
-        return this.el.css({
-          backgroundPosition: "" + (xPos - 1) + "px " + (yPos - 1) + "px"
-        });
+        if (layer.type === c.mapType.collision) {
+          return this.el.css({
+            backgroundPosition: "" + (xPos * (layer.tileSize / 32) - 1) + "px " + (yPos * (layer.tileSize / 32) - 1) + "px"
+          });
+        } else {
+          return this.el.css({
+            backgroundPosition: "" + (xPos - 1) + "px " + (yPos - 1) + "px"
+          });
+        }
       }
     };
 
@@ -343,8 +350,10 @@
         this.tileset = {
           src: 'img/collision.png'
         };
+        this.el.css('background-size', 256 * (window.buzz.currentLayer.tileSize / 32));
       } else {
         this.tileset = window.buzz.resources[setName];
+        this.el.css('background-size', 'auto');
       }
       return this.el.css({
         backgroundImage: "url(" + this.tileset.src + ")",
@@ -365,6 +374,8 @@
   TilePicker = (function() {
 
     function TilePicker() {
+      this.handleDeleteClick = __bind(this.handleDeleteClick, this);
+
       this.handleCursorClick = __bind(this.handleCursorClick, this);
 
       this.handleImgMousemove = __bind(this.handleImgMousemove, this);
@@ -379,7 +390,7 @@
       this.el = $('#tile-picker');
       $('body').append(this.el);
       this.inner = this.el.find('.inner');
-      this.img = this.el.find('img');
+      this.img = this.el.find('.tiles');
       this.cursor = new TileCursor;
       this.inner.append(this.cursor.el);
       this.bindEvents();
@@ -389,6 +400,7 @@
       $(document).on('keypress', this.maybeShowOrHide);
       this.el.on('click', this.hide);
       this.img.on('mousemove', this.handleImgMousemove);
+      this.el.on('click', '.delete', this.handleDeleteClick);
       return this.cursor.el.on('click', this.handleCursorClick);
     };
 
@@ -409,10 +421,11 @@
     };
 
     TilePicker.prototype.show = function() {
-      var setName;
+      var layer, setName;
+      layer = window.buzz.currentLayer;
       this.visible = true;
-      this.cursor.setSize(window.buzz.currentLayer.tileSize);
-      setName = window.buzz.currentLayer.tileset;
+      this.cursor.setSize(layer.type === c.mapType.collision ? 32 : layer.tileSize);
+      setName = layer.tileset;
       if (setName === 'cider collision') {
         this.setImg = new Image;
         this.setImg.src = 'img/collision.png';
@@ -420,6 +433,11 @@
         this.setImg = window.buzz.resources[setName];
       }
       this.img[0].src = this.setImg.src;
+      this.el.find('.delete').css({
+        left: -layer.tileSize,
+        width: layer.tileSize,
+        height: layer.tileSize
+      });
       this.inner.css({
         marginTop: -(this.setImg.height / 2),
         marginLeft: -(this.setImg.width / 2)
@@ -440,14 +458,28 @@
     };
 
     TilePicker.prototype.handleCursorClick = function(e) {
-      var currentColumn, currentRow, cursorPos, index, tilesPerRow;
+      var currentColumn, currentRow, cursorPos, index, layer, tilesPerRow;
       e.stopPropagation();
-      tilesPerRow = this.setImg.width / window.buzz.currentLayer.tileSize;
-      cursorPos = this.cursor.el.position();
-      currentColumn = (cursorPos.left / window.buzz.currentLayer.tileSize) + 1;
-      currentRow = cursorPos.top / window.buzz.currentLayer.tileSize;
+      layer = window.buzz.currentLayer;
+      if (layer.type === c.mapType.collision) {
+        tilesPerRow = this.setImg.width / 32;
+        cursorPos = this.cursor.el.position();
+        currentColumn = (cursorPos.left / 32) + 1;
+        currentRow = cursorPos.top / 32;
+      } else {
+        tilesPerRow = this.setImg.width / layer.tileSize;
+        cursorPos = this.cursor.el.position();
+        currentColumn = (cursorPos.left / layer.tileSize) + 1;
+        currentRow = cursorPos.top / layer.tileSize;
+      }
       index = (tilesPerRow * currentRow) + currentColumn;
       window.buzz.renderer.cursor.setTile(index, -cursorPos.left, -cursorPos.top);
+      return setTimeout(this.hide, 60);
+    };
+
+    TilePicker.prototype.handleDeleteClick = function(e) {
+      e.stopPropagation();
+      window.buzz.renderer.cursor.setTile(0);
       return setTimeout(this.hide, 60);
     };
 
@@ -482,6 +514,8 @@
 
       this.renderLayers = __bind(this.renderLayers, this);
 
+      this.updateLevel = __bind(this.updateLevel, this);
+
       this.loadLevel = __bind(this.loadLevel, this);
 
       this.bindEvents = __bind(this.bindEvents, this);
@@ -515,6 +549,19 @@
       this.inner.append(this.cursor.el);
       this.cursor.setSize(this.level.tileSize);
       return this.renderLayers();
+    };
+
+    Renderer.prototype.updateLevel = function() {
+      var level;
+      if (!window.buzz.level) {
+        return;
+      }
+      level = window.buzz.level;
+      this.levelEl.css({
+        width: level.pxSize.x,
+        height: level.pxSize.y
+      });
+      return this.cursor.setSize(window.buzz.currentLayer != null ? window.buzz.currentLayer.tileSize : level.tileSize);
     };
 
     Renderer.prototype.renderLayers = function() {
@@ -745,11 +792,16 @@
         img = window.buzz.resources[this.tileset];
       }
       mapContainer = document.createElement('div');
-      tilesPerRow = img.width / this.tileSize;
+      if (this.type === c.mapType.collision) {
+        tilesPerRow = img.width / 32;
+      } else {
+        tilesPerRow = img.width / this.tileSize;
+      }
       mapContainer.className = 'cider-map';
       mapContainer.id = "cider-layer-" + this.id;
       mcs = mapContainer.style;
       mcs.position = 'absolute';
+      mcs.zIndex = this.zIndex || 1;
       mcs.left = '0px';
       mcs.top = '0px';
       _ref = this.data;
@@ -777,15 +829,26 @@
       tcStyle = tileContainer.style;
       currentRow = Math.ceil(tile / tilesPerRow) - 1;
       currentColumn = tile % tilesPerRow - 1;
-      offX = -(currentColumn * tileSize);
-      offY = -(currentRow * tileSize);
+      if (this.type === c.mapType.collision) {
+        offX = -(currentColumn * 32) * (tileSize / 32);
+        offY = -(currentRow * 32) * (tileSize / 32);
+      } else {
+        offX = -(currentColumn * tileSize);
+        offY = -(currentRow * tileSize);
+      }
       tcStyle.width = tcStyle.height = "" + tileSize + "px";
       tcStyle.position = 'absolute';
       tcStyle.left = "" + xPos + "px";
       tcStyle.top = "" + yPos + "px";
       tcStyle.backgroundImage = "url(" + img.src + ")";
-      tcStyle.backgroundPosition = "" + offX + "px " + offY + "px";
       tcStyle.zIndex = this.zIndex || 1;
+      if (this.type === c.mapType.collision) {
+        tcStyle.backgroundSize = "" + (256 * (tileSize / 32)) + "px";
+        tcStyle.backgroundPosition = "" + offX + "px " + offY + "px";
+      } else {
+        tcStyle.backgroundSize = 'auto';
+        tcStyle.backgroundPosition = "" + offX + "px " + offY + "px";
+      }
       return mapContainer.appendChild(tileContainer);
     };
 
@@ -956,7 +1019,7 @@
       changed = $(e.target);
       this.level.tileSize = parseInt(changed.val(), 10);
       this.level.setPxSize();
-      return window.buzz.renderer.loadLevel(this.level);
+      return window.buzz.renderer.updateLevel();
     };
 
     LevelOptions.prototype.updateLevelSize = function(e) {
@@ -965,7 +1028,7 @@
         y: parseInt(this.el.find('.y').val(), 10)
       };
       this.level.setPxSize();
-      return window.buzz.renderer.loadLevel(this.level);
+      return window.buzz.renderer.updateLevel();
     };
 
     return LevelOptions;

@@ -615,9 +615,11 @@
         _ref1 = map.data;
         for (i = _j = 0, _len1 = _ref1.length; _j < _len1; i = ++_j) {
           row = _ref1[i];
-          for (j = _k = 0, _len2 = row.length; _k < _len2; j = ++_k) {
-            col = row[j];
-            this.createMapTile(mapContainer, map, row[j], i, j, img, tileSize, tilesPerRow);
+          if (row) {
+            for (j = _k = 0, _len2 = row.length; _k < _len2; j = ++_k) {
+              col = row[j];
+              this.createMapTile(mapContainer, map, row[j], i, j, img, tileSize, tilesPerRow);
+            }
           }
         }
         return this.game.el.appendChild(mapContainer);

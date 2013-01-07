@@ -6,6 +6,7 @@ class Renderer
 
 		@bindEvents()
 
+
 	bindEvents: () =>
 		@el.on 'mousedown', @handleMousedown
 		@el.on 'mouseup', @handleMouseup
@@ -13,6 +14,7 @@ class Renderer
 		@el.on 'contextmenu', @handleContext
 		@inner.on 'mousemove', @handleInnerMousemove
 		$('#zoom-level').on 'change', @handleZoomChange
+
 
 	loadLevel: (@level) =>
 		unless @level then throw 'Renderer.loadLevel requires a level'
@@ -30,6 +32,17 @@ class Renderer
 		@cursor.setSize(@level.tileSize)
 
 		@renderLayers()
+
+	updateLevel: =>
+		unless window.buzz.level then return
+
+		level = window.buzz.level
+
+		@levelEl.css
+			width: level.pxSize.x
+			height: level.pxSize.y
+
+		@cursor.setSize(if window.buzz.currentLayer? then window.buzz.currentLayer.tileSize else level.tileSize)
 
 
 	renderLayers: =>

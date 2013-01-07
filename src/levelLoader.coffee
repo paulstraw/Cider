@@ -26,8 +26,9 @@ class LevelLoader
 			mcs.top = '0px'
 
 			for row, i in map.data
-				for col, j in row
-					@createMapTile mapContainer, map, row[j], i, j, img, tileSize, tilesPerRow
+				if row
+					for col, j in row
+						@createMapTile mapContainer, map, row[j], i, j, img, tileSize, tilesPerRow
 
 			@game.el.appendChild mapContainer
 

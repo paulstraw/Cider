@@ -58,15 +58,22 @@ class TileCursor
 		if @painting then @paint()
 
 
-	setTile: (@index, @xPos, yPos) =>
+	setTile: (@index, xPos, yPos) =>
 		unless @index? then return
+
+		layer = window.buzz.currentLayer
 
 		if @index == 0
 			@el.css
 				backgroundPosition: '9999px 9999px'
 		else
-			@el.css
-				backgroundPosition: "#{xPos - 1}px #{yPos - 1}px" # Extra - 1 is to account for borders, it doesn't actually effect output.
+			# Extra - 1 is to account for borders, it doesn't actually effect output.
+			if layer.type == c.mapType.collision
+				@el.css
+					backgroundPosition: "#{xPos * (layer.tileSize / 32) - 1}px #{yPos * (layer.tileSize / 32) - 1}px"
+			else
+				@el.css
+					backgroundPosition: "#{xPos - 1}px #{yPos - 1}px"
 
 
 	setTileset: (setName) =>
@@ -80,8 +87,10 @@ class TileCursor
 
 		if setName == 'cider collision'
 			@tileset = {src: 'img/collision.png'}
+			@el.css 'background-size', 256 * (window.buzz.currentLayer.tileSize / 32)
 		else
 			@tileset = window.buzz.resources[setName]
+			@el.css 'background-size', 'auto'
 
 		@el.css
 			backgroundImage: "url(#{@tileset.src})"

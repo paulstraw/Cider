@@ -25,12 +25,17 @@ class Layer
 			img = window.buzz.resources[@tileset]
 
 		mapContainer = document.createElement 'div'
-		tilesPerRow = img.width / @tileSize
+
+		if @type == c.mapType.collision
+			tilesPerRow = img.width / 32
+		else
+			tilesPerRow = img.width / @tileSize
 
 		mapContainer.className = 'cider-map'
 		mapContainer.id = "cider-layer-#{@id}"
 		mcs = mapContainer.style
 		mcs.position = 'absolute'
+		mcs.zIndex = @zIndex || 1
 		mcs.left = '0px'
 		mcs.top = '0px'
 
@@ -54,15 +59,26 @@ class Layer
 
 		currentRow = Math.ceil((tile) / tilesPerRow) - 1
 		currentColumn = tile % tilesPerRow - 1
-		offX = - (currentColumn * tileSize)
-		offY = - (currentRow * tileSize)
+
+		if @type == c.mapType.collision
+			offX = - (currentColumn * 32) * (tileSize / 32)
+			offY = - (currentRow * 32) * (tileSize / 32)
+		else
+			offX = - (currentColumn * tileSize)
+			offY = - (currentRow * tileSize)
 
 		tcStyle.width = tcStyle.height = "#{tileSize}px"
 		tcStyle.position = 'absolute'
 		tcStyle.left = "#{xPos}px"
 		tcStyle.top = "#{yPos}px"
 		tcStyle.backgroundImage = "url(#{img.src})"
-		tcStyle.backgroundPosition = "#{offX}px #{offY}px"
 		tcStyle.zIndex = @zIndex || 1
+
+		if @type == c.mapType.collision
+			tcStyle.backgroundSize =  "#{256 * (tileSize / 32)}px"
+			tcStyle.backgroundPosition = "#{offX}px #{offY}px"
+		else
+			tcStyle.backgroundSize = 'auto'
+			tcStyle.backgroundPosition = "#{offX}px #{offY}px"
 
 		mapContainer.appendChild tileContainer
