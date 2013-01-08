@@ -10,3 +10,9 @@ class Map
 		c.extend this, options
 
 		if @type != c.mapType.collision && !@tileset then throw new Error 'Non-collision Cider Maps require a tileset.'
+
+		if @type != c.mapType.collision && typeof @tileset == 'string'
+			if window.Cider.resources[@tileset]
+				@tileset = window.Cider.resources[@tileset]
+			else
+				throw new Error 'The specified tileset doesn\'t exist in your game\'s resources. Maybe your Buzz config doesn\'t match your game\'s resource hash?.'

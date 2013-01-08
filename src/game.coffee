@@ -58,7 +58,8 @@ class Game
 		# Now that our DOM stuff is set up, create a new `GameController` for this game.
 		@controller = new c.GameController this
 
-		# Set up a loader.
+		# Set up a loader, and attach resources to the window.cider object for maps.
+		window.Cider.resources = @resources
 		@loader = new c.Loader this, @resources
 
 		# If this game is in debug mode, display FPS and other debug data.

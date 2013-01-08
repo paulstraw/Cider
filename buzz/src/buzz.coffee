@@ -1,3 +1,4 @@
+#@codekit-prepend '../../COPYING.coffee';
 #@codekit-prepend '../../src/map.coffee';
 #@codekit-prepend '../../src/level.coffee';
 #@codekit-prepend '../../src/loader.coffee';
@@ -7,14 +8,16 @@
 #@codekit-prepend 'tileCursor.coffee';
 #@codekit-prepend 'tilePicker.coffee';
 #@codekit-prepend 'renderer.coffee';
-#@codekit-prepend 'buzzGame.coffee';
 #@codekit-prepend 'layerList.coffee';
 #@codekit-prepend 'layer.coffee';
 #@codekit-prepend 'layerOptions.coffee';
 #@codekit-prepend 'levelOptions.coffee';
+#@codekit-prepend 'exporter.coffee';
+#@codekit-prepend 'importer.coffee';
 
 $(document).ready ->
 	window.buzz =
+		version: 0.1
 		layers: {}
 		zoom: 1
 		layerOptions: new LayerOptions()
@@ -28,7 +31,7 @@ $(document).ready ->
 		url: 'config.json'
 		success: (config) ->
 			unless config && config.resources
-				console.error 'Set up config.json (in the buzz directory) with appropriate values. An appropriate config file looks something like this:', {"resourcesPrefix": "../", "resources": {"box": "img/box.png", "bg tiles": "img/bgtiles.png", "fg tiles": "img/fgtiles.png", "stars": "img/stars.gif"}}
+				throw new Error 'Set up config.json (in the buzz directory) with appropriate values. See readme.md for an example, and other Buzz documentation.'
 
 			new Loader kicker, config.resources, config.resourcesPrefix
 
@@ -36,9 +39,14 @@ $(document).ready ->
 
 	kicker =
 		ready: ->
-			console.log 'all loaded', window.buzz.resources
 			window.buzz.layerList = new LayerList()
 
 			window.buzz.levelOptions.load window.buzz.level
 
 			window.buzz.renderer.loadLevel window.buzz.level
+
+			$('#export-trigger').on 'click', ->
+				new Exporter
+
+			$('#import-trigger').on 'click', ->
+				new Importer

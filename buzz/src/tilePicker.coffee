@@ -33,8 +33,9 @@ class TilePicker
 
 	show: =>
 		layer = window.buzz.currentLayer
+		size = if layer.type == c.mapType.collision then 32 else layer.tileSize
 		@visible = true
-		@cursor.setSize if layer.type == c.mapType.collision then 32 else layer.tileSize
+		@cursor.setSize size
 
 		setName = layer.tileset
 		if setName == 'cider collision'
@@ -50,9 +51,10 @@ class TilePicker
 			width: layer.tileSize
 			height: layer.tileSize
 
+		rCursorOff = window.buzz.renderer.cursor.el.offset()
 		@inner.css
-			marginTop: - (@setImg.height / 2)
-			marginLeft: - (@setImg.width / 2)
+			top: rCursorOff.top
+			left: rCursorOff.left + size
 
 		@el.fadeIn 60
 

@@ -1,2 +1,0 @@
-class BuzzGame
-	constructor: () ->

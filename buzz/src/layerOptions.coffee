@@ -93,6 +93,7 @@ class LayerOptions
 		else
 			$('.tileset-container').show()
 
+		changed.blur()
 
 		@layer.type = type
 
@@ -111,8 +112,12 @@ class LayerOptions
 		@layer.distance = parseInt(changed.val(), 10)
 
 	updateLayerTileset: (e) =>
-		@layer.tileset = @el.find(".tileset option[value=\"#{$(e.target).val()}\"]").text()
-		@layer.tilesetUrl = $(e.target).val()
+		changed = $(e.target)
+		@layer.tileset = @el.find(".tileset option[value=\"#{changed.val()}\"]").text()
+		@layer.tilesetUrl = changed.val()
+
+		changed.blur()
+
 		window.buzz.renderer.switchLayer()
 		window.buzz.renderer.renderLayers()
 

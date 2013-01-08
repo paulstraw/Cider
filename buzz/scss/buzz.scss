@@ -36,7 +36,7 @@ header {
 	}
 }
 
-body { background: #f4f4f4; }
+body { background: #f4f4f4; overflow: hidden; }
 
 div#rendering-container {
 	position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding-top: 30px; overflow: hidden;
@@ -49,6 +49,8 @@ div#rendering-container {
 		div#level-container, div#level-container * { pointer-events: none; }
 		div#level-container {
 			border: 1px dashed #aaa;
+
+			div.cider-map > div { background-repeat: no-repeat; position: absolute; }
 		}
 	}
 }
@@ -57,7 +59,8 @@ div#tile-picker {
 	display: none; background: rgba(255, 255, 255, 0.8); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999;
 
 	div.inner {
-		position: absolute; top: 50%; left: 50%;
+		position: absolute;
+
 		div.cursor { background-repeat: no-repeat; border: 1px solid #0d0; @include opacity(0.8); position: absolute; }
 
 		div.delete {
@@ -124,6 +127,10 @@ aside {
 				&:hover {
 					button.delete { display: block; }
 				}
+
+				&.ui-sortable-helper {
+					button.delete { display: none; }
+				}
 			}
 		}
 	}
@@ -134,5 +141,21 @@ aside {
 		&:empty { border-top: 0; }
 
 		h2 { padding: 0 0 10px; }
+	}
+}
+
+div.dialog-container {
+	background: rgba(255, 255, 255, 0.8); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; display: none;
+
+	div.inner {
+		@include background-y(#D4D4D4, #ADADAD, #B8B8B8); color: #333; @include text-shadow(0 1px rgba(255, 255, 255, 0.3)); @include box-shadow(inset 0 1px rgba(255, 255, 255, 0.5), inset 0 -1px rgba(255, 255, 255, 0.3)); border: 1px solid #686868; @include border-radius(4px); width: 600px; height: 400px; position: absolute; top: 50%; left: 50%; margin-top: -200px; margin-left: -300px; padding: 12px;
+
+		textarea { display: block; @include border-radius(4px); width: 100%; height: 330px; border: 1px solid #686868; font-size: 14px; font-family: "Inconsolata", "Consolas", monospace; padding: 4px; resize: none; @include box-shadow(inset 0 1px 3px rgba(0, 0, 0, 0.3)); background: #f4f4f4; color: #333; }
+
+		footer {
+			position: absolute; width: 100%; bottom: 0; left: 0; padding: 12px;
+
+			button { display: block; float: right; font-size: 16px; padding: 6px 18px; font-weight: bold; margin-left: 12px; }
+		}
 	}
 }

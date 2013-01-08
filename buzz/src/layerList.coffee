@@ -10,6 +10,9 @@ class LayerList
 
 	constructor: () ->
 		@el = $('#layer-list')
+
+		@el.find('ul').sortable()
+
 		@bindEvents()
 
 
@@ -67,8 +70,10 @@ class LayerList
 		window.buzz.renderer.renderLayers()
 
 
-	addLayer: =>
-		layer = new window.buzz.Layer
+	addLayer: (e, data, options) =>
+		if data && options then options.data = data
+
+		layer = new window.buzz.Layer(options)
 		listEl = @_layerTemplate(layer)
 
 		listEl.on 'updateName', ->

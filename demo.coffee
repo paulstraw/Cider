@@ -220,7 +220,7 @@ onReady = ->
 				distance: 3
 			})
 
-			someLevel = new c.Level this,
+			someLevel = new c.Level
 				tileSize: 16
 				size:
 					x: 40

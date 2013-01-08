@@ -12,7 +12,8 @@
 		<link rel="shortcut icon" href="img/favicon.png">
 		<link rel="stylesheet" media="screen, projection" href="buzz.css">
 
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script src="jquery.js"></script>
+		<script src="jquery-ui.js"></script>
 		<script src="underscore.js"></script>
 		<script src="buzz.js"></script>
 	</head>
@@ -30,10 +31,10 @@
 					</select>
 				</li>
 				<li>
-					<button id="import">Import</button>
+					<button id="import-trigger">Import</button>
 				</li>
 				<li>
-					<button id="export">Export</button>
+					<button id="export-trigger">Export</button>
 				</li>
 			</menu>
 		</header>
@@ -76,6 +77,25 @@
 
 		<div id="tile-picker">
 			<div class="inner"><div class="delete"></div><img class="tiles"></div>
+		</div>
+
+		<div class="dialog-container" id="export-dialog">
+			<div class="inner">
+				<textarea readonly></textarea>
+				<footer>
+					<button class="done">Done</button>
+				</footer>
+			</div>
+		</div>
+
+		<div class="dialog-container" id="import-dialog">
+			<div class="inner">
+				<textarea placeholder="Paste level data here (Current level data will be discarded)…"></textarea>
+				<footer>
+					<button class="import">Import</button>
+					<button class="cancel">Cancel</button>
+				</footer>
+			</div>
 		</div>
 	</body>
 </html>

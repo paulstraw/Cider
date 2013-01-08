@@ -58,7 +58,8 @@ class Layer
 		tcStyle = tileContainer.style
 
 		currentRow = Math.ceil((tile) / tilesPerRow) - 1
-		currentColumn = tile % tilesPerRow - 1
+		colTemp = tile % tilesPerRow
+		currentColumn = (if colTemp == 0 then tilesPerRow else colTemp) - 1
 
 		if @type == c.mapType.collision
 			offX = - (currentColumn * 32) * (tileSize / 32)
@@ -68,7 +69,6 @@ class Layer
 			offY = - (currentRow * tileSize)
 
 		tcStyle.width = tcStyle.height = "#{tileSize}px"
-		tcStyle.position = 'absolute'
 		tcStyle.left = "#{xPos}px"
 		tcStyle.top = "#{yPos}px"
 		tcStyle.backgroundImage = "url(#{img.src})"

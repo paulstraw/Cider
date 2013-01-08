@@ -262,6 +262,13 @@
       if (this.type !== c.mapType.collision && !this.tileset) {
         throw new Error('Non-collision Cider Maps require a tileset.');
       }
+      if (this.type !== c.mapType.collision && typeof this.tileset === 'string') {
+        if (window.Cider.resources[this.tileset]) {
+          this.tileset = window.Cider.resources[this.tileset];
+        } else {
+          throw new Error('The specified tileset doesn\'t exist in your game\'s resources. Maybe your Buzz config doesn\'t match your game\'s resource hash?.');
+        }
+      }
     }
 
     return Map;
@@ -276,9 +283,8 @@
 
   Level = (function() {
 
-    function Level(game, options) {
+    function Level(options) {
       var map, _i, _len, _ref;
-      this.game = game;
       if (options == null) {
         options = {};
       }
@@ -648,7 +654,7 @@
     };
 
     LevelLoader.prototype.createMapTile = function(mapContainer, map, tile, row, col, img, tileSize, tilesPerRow) {
-      var currentColumn, currentRow, offX, offY, tcStyle, tileContainer, xPos, yPos;
+      var colTemp, currentColumn, currentRow, offX, offY, tcStyle, tileContainer, xPos, yPos;
       if (!tile) {
         return;
       }
@@ -658,7 +664,8 @@
       tileContainer = document.createElement('div');
       tcStyle = tileContainer.style;
       currentRow = Math.ceil(tile / tilesPerRow) - 1;
-      currentColumn = tile % tilesPerRow - 1;
+      colTemp = tile % tilesPerRow;
+      currentColumn = (colTemp === 0 ? tilesPerRow : colTemp) - 1;
       offX = -(currentColumn * tileSize);
       offY = -(currentRow * tileSize);
       tcStyle.width = tcStyle.height = "" + tileSize + "px";
@@ -750,6 +757,7 @@
       this.createElements();
       this.initializeElements();
       this.controller = new c.GameController(this);
+      window.Cider.resources = this.resources;
       this.loader = new c.Loader(this, this.resources);
       if (this.debug) {
         this.initializeDebugMode();

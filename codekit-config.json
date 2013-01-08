@@ -11,6 +11,17 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
+    "\/buzz\/jquery.js" : {
+      "ignoreWasSetByUser" : 1,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/buzz\/jquery.js",
+      "outputStyle" : 1,
+      "syntaxCheckerStyle" : 1,
+      "outputAbbreviatedPath" : "\/buzz\/jquery-ck.js",
+      "fileType" : 64
+    },
     "\/src\/map.coffee" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
@@ -45,8 +56,8 @@
       "fileType" : 2048
     },
     "\/buzz\/underscore.js" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
+      "ignoreWasSetByUser" : 1,
+      "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
       "inputAbbreviatedPath" : "\/buzz\/underscore.js",
@@ -154,6 +165,18 @@
       "outputStyle" : 0,
       "fileType" : 32
     },
+    "\/buzz\/src\/exporter.coffee" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/buzz\/src\/exporter.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 1,
+      "outputAbbreviatedPath" : "\/buzz\/src\/exporter.js",
+      "outputStyle" : 0,
+      "fileType" : 32
+    },
     "\/buzz\/buzz.js" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
@@ -173,6 +196,17 @@
       "inputAbbreviatedPath" : "\/docs\/docco.css",
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 16
+    },
+    "\/buzz\/jquery-ui.js" : {
+      "ignoreWasSetByUser" : 1,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/buzz\/jquery-ui.js",
+      "outputStyle" : 1,
+      "syntaxCheckerStyle" : 1,
+      "outputAbbreviatedPath" : "\/buzz\/jquery-ui-ck.js",
+      "fileType" : 64
     },
     "\/src\/platformerEntity.coffee" : {
       "ignoreWasSetByUser" : 0,
@@ -219,17 +253,6 @@
       "outputStyle" : 0,
       "fileType" : 32
     },
-    "\/buzz\/src\/renderer.js" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/buzz\/src\/renderer.js",
-      "outputStyle" : 1,
-      "syntaxCheckerStyle" : 1,
-      "outputAbbreviatedPath" : "\/buzz\/src\/renderer-ck.js",
-      "fileType" : 64
-    },
     "\/img\/fgtiles.png" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
@@ -250,18 +273,6 @@
       "checkOutputStyle" : 0,
       "minifyOutput" : 0,
       "outputAbbreviatedPath" : "\/buzz\/buzz.js",
-      "outputStyle" : 0,
-      "fileType" : 32
-    },
-    "\/buzz\/src\/buzzGame.coffee" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/buzz\/src\/buzzGame.coffee",
-      "checkOutputStyle" : 0,
-      "minifyOutput" : 1,
-      "outputAbbreviatedPath" : "\/buzz\/src\/buzzGame.js",
       "outputStyle" : 0,
       "fileType" : 32
     },
@@ -320,6 +331,15 @@
       "syntaxCheckerStyle" : 1,
       "outputAbbreviatedPath" : "\/pong-ck.js",
       "fileType" : 64
+    },
+    "\/docs\/animation.html" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/docs\/animation.html",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
     },
     "\/docs\/cider.html" : {
       "ignoreWasSetByUser" : 0,
@@ -387,16 +407,14 @@
       "fileType" : 4,
       "debugStyle" : 0
     },
-    "\/buzz\/img\/delete.png" : {
+    "\/docs\/levelLoader.html" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/buzz\/img\/delete.png",
-      "processed" : 0,
-      "outputAbbreviatedPath" : "\/buzz\/img\/delete.png",
-      "initialSize" : 1156,
-      "fileType" : 8192
+      "inputAbbreviatedPath" : "\/docs\/levelLoader.html",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
     },
     "\/buzz\/scss\/mixins.scss" : {
       "ignoreWasSetByUser" : 0,
@@ -449,6 +467,17 @@
       "inputAbbreviatedPath" : "\/docs\/platformerEntity.html",
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
+    },
+    "\/buzz\/img\/delete.png" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/buzz\/img\/delete.png",
+      "processed" : 0,
+      "outputAbbreviatedPath" : "\/buzz\/img\/delete.png",
+      "initialSize" : 1156,
+      "fileType" : 8192
     },
     "\/src\/levelLoader.coffee" : {
       "ignoreWasSetByUser" : 0,
@@ -539,6 +568,15 @@
       "outputStyle" : 0,
       "fileType" : 32
     },
+    "\/docs\/loader.html" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/docs\/loader.html",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
     "\/buzz\/img\/collision.png" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
@@ -609,6 +647,18 @@
       "outputStyle" : 0,
       "fileType" : 32
     },
+    "\/buzz\/src\/importer.coffee" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/buzz\/src\/importer.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 1,
+      "outputAbbreviatedPath" : "\/buzz\/src\/importer.js",
+      "outputStyle" : 0,
+      "fileType" : 32
+    },
     "\/docs\/game.html" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
@@ -618,16 +668,14 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
-    "\/buzz\/src\/levelLoader.js" : {
+    "\/docs\/init.html" : {
       "ignoreWasSetByUser" : 0,
-      "ignore" : 1,
+      "ignore" : 0,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/buzz\/src\/levelLoader.js",
-      "outputStyle" : 1,
-      "syntaxCheckerStyle" : 1,
-      "outputAbbreviatedPath" : "\/buzz\/src\/levelLoader-ck.js",
-      "fileType" : 64
+      "inputAbbreviatedPath" : "\/docs\/init.html",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
     }
   },
   "manualImportLinks" : [

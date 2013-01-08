@@ -1,0 +1,81 @@
+<!DOCTYPE html>  <html> <head>   <title>loader.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="animation.html">                 animation.coffee               </a>                                           <a class="source" href="cider.html">                 cider.coffee               </a>                                           <a class="source" href="clock.html">                 clock.coffee               </a>                                           <a class="source" href="entity.html">                 entity.coffee               </a>                                           <a class="source" href="game.html">                 game.coffee               </a>                                           <a class="source" href="gamecontroller.html">                 gamecontroller.coffee               </a>                                           <a class="source" href="init.html">                 init.coffee               </a>                                           <a class="source" href="level.html">                 level.coffee               </a>                                           <a class="source" href="levelLoader.html">                 levelLoader.coffee               </a>                                           <a class="source" href="loader.html">                 loader.coffee               </a>                                           <a class="source" href="map.html">                 map.coffee               </a>                                           <a class="source" href="modernizr.html">                 modernizr.coffee               </a>                                           <a class="source" href="platformerEntity.html">                 platformerEntity.coffee               </a>                        </div>         </div>       </div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               loader.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="k">class</span> <span class="nx">Loader</span>
+  <span class="nv">constructor: </span><span class="nf">(@parent, @resources = {}, @resourcesPrefix = &#39;&#39;) -&gt;</span>
+    <span class="vi">@percentComplete = </span><span class="mi">0</span>
+    <span class="vi">@completed = </span><span class="mi">0</span>
+    <span class="vi">@resourceCount = </span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">@resources</span><span class="p">).</span><span class="nx">length</span>
+
+    <span class="nx">@_initializeResource</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">val</span> <span class="k">for</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">val</span> <span class="k">of</span> <span class="nx">@resources</span>
+
+  <span class="nv">_initializeResource: </span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">val</span><span class="p">)</span> <span class="o">=&gt;</span>
+    <span class="k">if</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="nx">val</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>By convention, an array means we've got an audio element.</p>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="nv">audioElement = </span><span class="k">new</span> <span class="nx">Audio</span><span class="p">()</span>
+
+      <span class="k">for</span> <span class="nx">resourceUrl</span> <span class="k">in</span> <span class="nx">val</span>
+        <span class="nv">sourceElement = </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s">&#39;source&#39;</span><span class="p">)</span>
+        <span class="nv">sourceElement.src = </span><span class="nx">@resourcesPrefix</span> <span class="o">+</span> <span class="p">(</span><span class="nx">resourceUrl</span><span class="p">)</span>
+
+        <span class="nx">audioElement</span><span class="p">.</span><span class="nx">appendChild</span> <span class="nx">sourceElement</span>
+
+      <span class="nx">audioElement</span><span class="p">.</span><span class="nx">addEventListener</span> <span class="s">&#39;canplaythrough&#39;</span><span class="p">,</span> <span class="nx">@_soundLoaded</span>
+      <span class="nx">audioElement</span><span class="p">.</span><span class="nx">addEventListener</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">@_soundError</span>
+      <span class="nx">@_loadSound</span> <span class="nx">audioElement</span>
+
+      <span class="nx">@resources</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">audioElement</span>
+    <span class="k">else</span></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>Not an array? Load it as an image.</p>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="nv">imgElement = </span><span class="k">new</span> <span class="nx">Image</span><span class="p">()</span>
+
+      <span class="nx">imgElement</span><span class="p">.</span><span class="nx">addEventListener</span> <span class="s">&#39;load&#39;</span><span class="p">,</span> <span class="nx">@_imageLoaded</span>
+      <span class="nx">imgElement</span><span class="p">.</span><span class="nx">addEventListener</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">@_imageError</span></pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>There's no need to have a <code>_loadImage</code> method or similar, because images start loading as soon as we set their <code>src</code> attribute.</p>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="nv">imgElement.src = </span><span class="nx">@resourcesPrefix</span> <span class="o">+</span> <span class="p">(</span><span class="nx">val</span><span class="p">)</span>
+
+      <span class="nx">@resources</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">imgElement</span>
+
+  <span class="nv">_loadSound: </span><span class="p">(</span><span class="nx">el</span><span class="p">)</span> <span class="o">=&gt;</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span> <span class="nx">el</span>
+    <span class="nv">el.volume = </span><span class="mi">0</span>
+    <span class="nx">el</span><span class="p">.</span><span class="nx">play</span><span class="p">()</span>
+
+  <span class="nv">_soundLoaded: </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span>
+    <span class="nv">el = </span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span>
+    <span class="nx">el</span><span class="p">.</span><span class="nx">pause</span><span class="p">()</span>
+    <span class="nv">el.currentTime = </span><span class="mi">0</span>
+
+    <span class="nx">el</span><span class="p">.</span><span class="nx">removeEventListener</span> <span class="s">&#39;canplaythrough&#39;</span><span class="p">,</span> <span class="nx">@_soundLoad</span>
+    <span class="nx">el</span><span class="p">.</span><span class="nx">removeEventListener</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">@_soundError</span>
+
+    <span class="nx">@_updateComplete</span><span class="p">()</span>
+
+  <span class="nv">_soundError: </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span>
+    <span class="nv">el = </span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span>
+
+    <span class="nx">el</span><span class="p">.</span><span class="nx">removeEventListener</span> <span class="s">&#39;canplaythrough&#39;</span><span class="p">,</span> <span class="nx">@_soundLoad</span>
+    <span class="nx">el</span><span class="p">.</span><span class="nx">removeEventListener</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">@_soundError</span>
+
+    <span class="nv">src = </span><span class="nx">el</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">.</span><span class="nx">src</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">src</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">src</span><span class="p">.</span><span class="nx">lastIndexOf</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">))</span><span class="si">}</span><span class="s"> failed to load.&quot;</span>
+
+    <span class="nx">@_updateComplete</span><span class="p">()</span>
+
+  <span class="nv">_imageLoaded: </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span>
+    <span class="nv">el = </span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span>
+
+    <span class="nx">el</span><span class="p">.</span><span class="nx">removeEventListener</span> <span class="s">&#39;load&#39;</span><span class="p">,</span> <span class="nx">@_imageLoaded</span>
+    <span class="nx">el</span><span class="p">.</span><span class="nx">removeEventListener</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">@_imageError</span>
+
+    <span class="nx">@_updateComplete</span><span class="p">()</span>
+
+  <span class="nv">_imageError: </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span>
+    <span class="nv">el = </span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span>
+
+    <span class="nx">el</span><span class="p">.</span><span class="nx">removeEventListener</span> <span class="s">&#39;load&#39;</span><span class="p">,</span> <span class="nx">@_imageLoaded</span>
+    <span class="nx">el</span><span class="p">.</span><span class="nx">removeEventListener</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">@_imageError</span>
+
+    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">el</span><span class="p">.</span><span class="nx">src</span><span class="si">}</span><span class="s"> failed to load.&quot;</span>
+
+  <span class="nv">_updateComplete: </span><span class="o">=&gt;</span>
+    <span class="nx">@completed</span><span class="o">++</span>
+    <span class="vi">@percentComplete = </span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">@completed</span> <span class="o">/</span> <span class="nx">@resourceCount</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nx">@percentComplete</span> <span class="o">==</span> <span class="mi">100</span></pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <p>Setting volumes back here seems to get rid of the short clip playing after everything's loaded.</p>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">el</span> <span class="k">of</span> <span class="nx">@resources</span>
+        <span class="k">if</span> <span class="nx">el</span><span class="p">.</span><span class="nx">tagName</span> <span class="o">==</span> <span class="s">&#39;AUDIO&#39;</span> <span class="k">then</span> <span class="nv">el.volume = </span><span class="mi">1</span>
+
+      <span class="nx">@parent</span><span class="o">?</span><span class="p">.</span><span class="nx">ready</span><span class="o">?</span><span class="p">()</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 

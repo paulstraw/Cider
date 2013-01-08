@@ -77,7 +77,8 @@ class LevelLoader
 		tcStyle = tileContainer.style
 
 		currentRow = Math.ceil((tile) / tilesPerRow) - 1
-		currentColumn = tile % tilesPerRow - 1
+		colTemp = tile % tilesPerRow
+		currentColumn = (if colTemp == 0 then tilesPerRow else colTemp) - 1
 		offX = - (currentColumn * tileSize)
 		offY = - (currentRow * tileSize)
 

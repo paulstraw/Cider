@@ -1,5 +1,5 @@
 class Level
-	constructor: (@game, options = {}) ->
+	constructor: (options = {}) ->
 		# Width and height for Levels are in tiles, not pixels
 		@size = {x: 50, y: 25}
 		@tileSize = 32
