@@ -1082,13 +1082,13 @@
   Exporter = (function() {
 
     Exporter.prototype._mapTemplate = function(memo, layer) {
-      return memo + ("new c.Map(" + (JSON.stringify(layer.data)) + ",\n{\"name\": \"" + layer.name + "\", \"type\": " + layer.type + ", \"tileSize\": " + layer.tileSize + ", \"distance\": " + layer.distance + ", \"zIndex\": " + layer.zIndex + ", \"tileset\": \"" + layer.tileset + "\"}}),");
+      return memo + ("new c.Map(" + (JSON.stringify(layer.data)) + ",\n{\"name\": \"" + layer.name + "\", \"type\": " + layer.type + ", \"tileSize\": " + layer.tileSize + ", \"distance\": " + layer.distance + ", \"zIndex\": " + layer.zIndex + ", \"tileset\": \"" + layer.tileset + "\"}),");
     };
 
     Exporter.prototype._dataTemplate = function(level, layers) {
       var mapData;
       mapData = _.reduce(layers, this._mapTemplate, '');
-      return "new c.Level({\"tileSize\": " + level.tileSize + ", \"size\": {\"x\": " + level.size.x + ", \"y\": " + level.size.y + "},\n	\"maps\": [" + mapData + "]\n});";
+      return "new c.Level({\"tileSize\": " + level.tileSize + ", \"size\": {\"x\": " + level.size.x + ", \"y\": " + level.size.y + "},\n\"maps\": [" + mapData + "]\n});";
     };
 
     function Exporter() {

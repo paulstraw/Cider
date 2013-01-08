@@ -2,7 +2,7 @@ class Exporter
 	_mapTemplate: (memo, layer) =>
 		memo + """
 new c.Map(#{JSON.stringify(layer.data)},
-{"name": "#{layer.name}", "type": #{layer.type}, "tileSize": #{layer.tileSize}, "distance": #{layer.distance}, "zIndex": #{layer.zIndex}, "tileset": "#{layer.tileset}"}}),
+{"name": "#{layer.name}", "type": #{layer.type}, "tileSize": #{layer.tileSize}, "distance": #{layer.distance}, "zIndex": #{layer.zIndex}, "tileset": "#{layer.tileset}"}),
 		"""
 
 # {"name": "#{layer.name}", "type": #{layer.type}, "tileSize": #{layer.tileSize}, "distance": #{layer.distance}, "zIndex": #{layer.zIndex}, "tileset": #{if layer.type == c.mapType.collision then null else "\"#{layer.tileset}\""}}),
@@ -11,7 +11,7 @@ new c.Map(#{JSON.stringify(layer.data)},
 
 		"""
 new c.Level({"tileSize": #{level.tileSize}, "size": {"x": #{level.size.x}, "y": #{level.size.y}},
-	"maps": [#{mapData}]
+"maps": [#{mapData}]
 });
 		"""
 
