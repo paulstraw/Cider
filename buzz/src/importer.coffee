@@ -12,7 +12,7 @@ class Importer
 
 	remove: =>
 		@el.fadeOut 120, =>
-			@el.find('textarea').html('')
+			@el.find('textarea').val ''
 
 	import: =>
 		data = @el.find('textarea').val()
@@ -29,6 +29,9 @@ class Importer
 		levelObject.tileSize = level.tileSize
 		levelObject.setPxSize()
 
+		# Remove old layers.
+		$('#layer-list').find('.delete').trigger('click')
+
 		for map in data.match(/c\.Map\((\[[^\n]+\],\n\{[^\}]+\})/g)
 			[fullMatch, data, options] = map.match(/c\.Map\((\[[^\n]+\]),\n(\{[^\}]+\})/)
 			data = JSON.parse(data)
@@ -38,6 +41,7 @@ class Importer
 				options.tilesetUrl = window.buzz.resources[options.tileset].src
 
 			window.buzz.layerList.addLayer(null, data, options)
+
 
 		window.buzz.renderer.updateLevel()
 		window.buzz.renderer.renderLayers()

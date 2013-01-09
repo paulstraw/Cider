@@ -662,7 +662,11 @@
       var zoom;
       zoom = $(e.target).val();
       window.buzz.zoom = zoom;
-      return this.inner.css('transform', "scale(" + zoom + ")");
+      return this.inner.css({
+        transform: "scale(" + zoom + ")",
+        top: 30,
+        left: 0
+      });
     };
 
     Renderer.prototype.handleInnerMousemove = function(e) {
@@ -1122,7 +1126,7 @@
     Exporter.prototype.remove = function() {
       var _this = this;
       return this.el.fadeOut(120, function() {
-        return _this.el.find('textarea').html('');
+        return _this.el.find('textarea').val('');
       });
     };
 
@@ -1168,7 +1172,7 @@
     Importer.prototype.remove = function() {
       var _this = this;
       return this.el.fadeOut(120, function() {
-        return _this.el.find('textarea').html('');
+        return _this.el.find('textarea').val('');
       });
     };
 
@@ -1186,6 +1190,7 @@
       levelObject.size.y = level.size.y;
       levelObject.tileSize = level.tileSize;
       levelObject.setPxSize();
+      $('#layer-list').find('.delete').trigger('click');
       _ref = data.match(/c\.Map\((\[[^\n]+\],\n\{[^\}]+\})/g);
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         map = _ref[_i];

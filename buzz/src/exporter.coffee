@@ -32,7 +32,7 @@ new c.Level({"tileSize": #{level.tileSize}, "size": {"x": #{level.size.x}, "y": 
 
 	remove: =>
 		@el.fadeOut 120, =>
-			@el.find('textarea').html ''
+			@el.find('textarea').val ''
 
 	generateData: =>
 		level = window.buzz.level

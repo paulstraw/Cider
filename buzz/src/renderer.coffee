@@ -81,7 +81,10 @@ class Renderer
 	handleZoomChange: (e) =>
 		zoom = $(e.target).val()
 		window.buzz.zoom = zoom
-		@inner.css('transform', "scale(#{zoom})")
+		@inner.css
+			transform: "scale(#{zoom})"
+			top: 30
+			left: 0
 
 	handleInnerMousemove: (e) =>
 		if @dragStart then return
