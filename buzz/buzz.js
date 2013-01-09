@@ -463,7 +463,7 @@
     };
 
     TilePicker.prototype.show = function() {
-      var layer, rCursorOff, setName, size;
+      var layer, overflowDistance, rCursorOff, setName, size;
       layer = window.buzz.currentLayer;
       size = layer.type === c.mapType.collision ? 32 : layer.tileSize;
       this.visible = true;
@@ -486,6 +486,18 @@
         top: rCursorOff.top,
         left: rCursorOff.left + size
       });
+      console.log(rCursorOff, rCursorOff.top, this.img[0].height, $(window).height());
+      if (rCursorOff.top + this.img[0].height > $(window).innerHeight()) {
+        overflowDistance = (rCursorOff.top + this.img[0].height) - $(window).innerHeight();
+        this.zoomFactor = 1 - (overflowDistance / this.img[0].height);
+        this.inner.css({
+          transform: "scale(" + this.zoomFactor + ")",
+          transformOrigin: 'left top'
+        });
+      } else {
+        this.zoomFactor = 1;
+        this.inner.css('transform', "scale(1)");
+      }
       return this.el.fadeIn(60);
     };
 
@@ -513,6 +525,11 @@
       } else {
         tilesPerRow = this.setImg.width / layer.tileSize;
         cursorPos = this.cursor.el.position();
+        if (this.zoomfactor !== 1) {
+          cursorPos.left = Math.round(cursorPos.left / this.zoomFactor);
+          cursorPos.top = Math.round(cursorPos.top / this.zoomFactor);
+        }
+        console.log(this.zoomFactor);
         currentColumn = (cursorPos.left / layer.tileSize) + 1;
         currentRow = cursorPos.top / layer.tileSize;
       }
