@@ -1303,7 +1303,7 @@
   $(document).ready(function() {
     var kicker;
     window.buzz = {
-      version: 0.1,
+      version: '0.1.3',
       layers: {},
       zoom: 1,
       layerOptions: new LayerOptions(),
@@ -1331,8 +1331,13 @@
         $('#export-trigger').on('click', function() {
           return new Exporter;
         });
-        return $('#import-trigger').on('click', function() {
+        $('#import-trigger').on('click', function() {
           return new Importer;
+        });
+        return $(window).on('beforeunload', function() {
+          if (Object.keys(window.buzz.layers).length) {
+            return 'Any unsaved changes will be lost if you leave this page.';
+          }
         });
       }
     };

@@ -41,7 +41,7 @@ New layers (which translate to Cider `Maps` on export) are created by clicking t
 * Tileset: Loaded from the resources specified in `config.json`. When converted to Cider maps, these will appear with the "friendly" name (e.g., `tileset: 'fg tiles'`), so you should make sure your Buzz config's resources match up with your game's.
 * zIndex: Does what it says on the tin. Lower numbers get drawn behind higher numbers. Cider `Entities` have a default z-index of `99`, so you'll want to keep that in mind if any of your layers should be drawn in front of your entities.
 
-Once you've selected a layer's tileset (and changed its tile size appropriately), you can start drawing. Simply put your mouse over the main canvas and left-click (dragging works, too). Press space to bring up the tile selection screen, then click on a tile (or the "delete" icon) to change your brush.
+Once you've selected a layer's tileset (and changed its tile size appropriately), you can start drawing. Simply put your mouse over the main canvas and left-click (dragging works, too). Press space to bring up the tile selection screen, then click on a tile (or the "delete" icon) to change your brush. You can also hold cmd/ctrl and click to select whatever tile is below your cursor on the currently selected layer.
 
 ---
 

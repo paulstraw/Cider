@@ -17,7 +17,7 @@
 
 $(document).ready ->
 	window.buzz =
-		version: 0.1
+		version: '0.1.3'
 		layers: {}
 		zoom: 1
 		layerOptions: new LayerOptions()
@@ -50,3 +50,7 @@ $(document).ready ->
 
 			$('#import-trigger').on 'click', ->
 				new Importer
+
+			$(window).on 'beforeunload', ->
+				if Object.keys(window.buzz.layers).length
+					return 'Any unsaved changes will be lost if you leave this page.'
