@@ -8,13 +8,58 @@ class TileCursor
 		if @painter
 			@el.on 'mousedown', @startPainting
 			@el.on 'mouseup', @stopPainting
+			$(document).on 'keydown', @handleDocKeydown
+			$(document).on 'keyup', @handleDocKeyup
 
 
 	startPainting: (e) =>
 		unless e.which == 1 then return
 
-		@painting = true
-		@paint()
+		if @picking && window.buzz.currentLayer?
+			@pickTile()
+		else
+			@painting = true
+			@paint()
+
+	pickTile: =>
+		unless window.buzz.currentLayer? then return
+
+		layer = window.buzz.currentLayer
+		tileSize = layer.tileSize
+		elPos = @el.position()
+		zoom = window.buzz.zoom
+
+		tileRow = elPos.top / zoom / tileSize
+		tileCol = elPos.left / zoom / tileSize
+		index = if layer.data[tileRow] && layer.data[tileRow][tileCol] then layer.data[tileRow][tileCol] else 0
+
+		if index == 0
+			@setTile 0
+			return
+
+		if layer.tileset == 'cider collision'
+			img = new Image
+			img.src = 'img/collision.png'
+		else
+			img = window.buzz.resources[layer.tileset]
+
+		if layer.type == c.mapType.collision
+			tilesPerRow = img.width / 32
+		else
+			tilesPerRow = img.width / layer.tileSize
+
+		tileRow = Math.ceil((index) / tilesPerRow) - 1
+		colTemp = index % tilesPerRow
+		tileCol = (if colTemp == 0 then tilesPerRow else colTemp) - 1
+
+		if layer.type == c.mapType.collision
+			offX = - (tileCol * 32) * (layer.tileSize / 32)
+			offY = - (tileRow * 32) * (layer.tileSize / 32)
+		else
+			offX = - (tileCol * layer.tileSize)
+			offY = - (tileRow * layer.tileSize)
+
+		@setTile index, offX, offY
 
 
 	paint: (e) =>
@@ -28,11 +73,8 @@ class TileCursor
 		row = elPos.top / zoom / tileSize
 		col = elPos.left / zoom / tileSize
 
-		if layer.data[row]
-			layer.data[row][col] = @index
-		else
-			layer.data[row] = []
-			layer.data[row][col] = @index
+		layer.data[row] ?= []
+		layer.data[row][col] = @index
 
 		window.buzz.renderer.renderLayers()
 
@@ -96,3 +138,13 @@ class TileCursor
 			backgroundImage: "url(#{@tileset.src})"
 			# It's fine to set this statically, since we always reset to index 1 when switching
 			backgroundPosition: '0 0'
+
+	handleDocKeydown: (e) =>
+		if e.which in [17, 91]
+			@picking = true
+			@el.addClass('picking')
+
+	handleDocKeyup: (e) =>
+		if e.which in [17, 91]
+			@picking = false
+			@el.removeClass('picking')

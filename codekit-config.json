@@ -2,6 +2,15 @@
   "CodeKitInfo" : "This is a CodeKit project configuration file. It is designed to sync project settings across multiple machines. Modifying the contents of this file can be a poor life decision if you don't know what you're doing. This file is not useful unless accompanied by the project that created it in CodeKit. For more information, see: http:\/\/incident57.com\/codekit",
   "creatorBuild" : "8241",
   "files" : {
+    "\/docs\/init.html" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/docs\/init.html",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
     "\/buzz\/jquery.js" : {
       "ignoreWasSetByUser" : 1,
       "ignore" : 1,
@@ -12,15 +21,6 @@
       "syntaxCheckerStyle" : 1,
       "outputAbbreviatedPath" : "\/buzz\/jquery-ck.js",
       "fileType" : 64
-    },
-    "\/docs\/init.html" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/docs\/init.html",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
     },
     "\/src\/map.coffee" : {
       "ignoreWasSetByUser" : 0,
@@ -121,6 +121,15 @@
       "initialSize" : 5381,
       "fileType" : 8192
     },
+    "\/index.html" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/index.html",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
     "\/demo.js" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
@@ -131,15 +140,6 @@
       "syntaxCheckerStyle" : 1,
       "outputAbbreviatedPath" : "\/demo-ck.js",
       "fileType" : 64
-    },
-    "\/index.html" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/index.html",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
     },
     "\/buzz\/src\/layer.coffee" : {
       "ignoreWasSetByUser" : 0,
@@ -407,14 +407,16 @@
       "fileType" : 4,
       "debugStyle" : 0
     },
-    "\/docs\/levelLoader.html" : {
+    "\/buzz\/img\/delete.png" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/docs\/levelLoader.html",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
+      "inputAbbreviatedPath" : "\/buzz\/img\/delete.png",
+      "processed" : 0,
+      "outputAbbreviatedPath" : "\/buzz\/img\/delete.png",
+      "initialSize" : 1156,
+      "fileType" : 8192
     },
     "\/buzz\/scss\/mixins.scss" : {
       "ignoreWasSetByUser" : 0,
@@ -468,16 +470,14 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
-    "\/buzz\/img\/delete.png" : {
+    "\/docs\/levelLoader.html" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/buzz\/img\/delete.png",
-      "processed" : 0,
-      "outputAbbreviatedPath" : "\/buzz\/img\/delete.png",
-      "initialSize" : 1156,
-      "fileType" : 8192
+      "inputAbbreviatedPath" : "\/docs\/levelLoader.html",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
     },
     "\/src\/levelLoader.coffee" : {
       "ignoreWasSetByUser" : 0,
@@ -520,18 +520,6 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 16
     },
-    "\/COPYING.coffee" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/COPYING.coffee",
-      "checkOutputStyle" : 0,
-      "minifyOutput" : 1,
-      "outputAbbreviatedPath" : "\/COPYING.js",
-      "outputStyle" : 0,
-      "fileType" : 32
-    },
     "\/src\/level.coffee" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
@@ -541,6 +529,18 @@
       "checkOutputStyle" : 0,
       "minifyOutput" : 1,
       "outputAbbreviatedPath" : "\/src\/level.js",
+      "outputStyle" : 0,
+      "fileType" : 32
+    },
+    "\/COPYING.coffee" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/COPYING.coffee",
+      "checkOutputStyle" : 0,
+      "minifyOutput" : 1,
+      "outputAbbreviatedPath" : "\/COPYING.js",
       "outputStyle" : 0,
       "fileType" : 32
     },

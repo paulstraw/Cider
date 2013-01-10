@@ -56,7 +56,6 @@ class TilePicker
 			top: rCursorOff.top
 			left: rCursorOff.left + size
 
-		console.log rCursorOff, rCursorOff.top, @img[0].height, $(window).height()
 		if rCursorOff.top + @img[0].height > $(window).innerHeight()
 			overflowDistance = (rCursorOff.top + @img[0].height) - $(window).innerHeight()
 			@zoomFactor = 1 - (overflowDistance / @img[0].height)
@@ -95,7 +94,7 @@ class TilePicker
 			if @zoomfactor != 1
 				cursorPos.left = Math.round(cursorPos.left / @zoomFactor)
 				cursorPos.top = Math.round(cursorPos.top / @zoomFactor)
-			console.log @zoomFactor
+
 			currentColumn = (cursorPos.left / layer.tileSize) + 1
 			currentRow = (cursorPos.top / layer.tileSize)
 

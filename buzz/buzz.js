@@ -279,6 +279,10 @@
 
     function TileCursor(painter) {
       this.painter = painter != null ? painter : false;
+      this.handleDocKeyup = __bind(this.handleDocKeyup, this);
+
+      this.handleDocKeydown = __bind(this.handleDocKeydown, this);
+
       this.setTileset = __bind(this.setTileset, this);
 
       this.setTile = __bind(this.setTile, this);
@@ -291,6 +295,8 @@
 
       this.paint = __bind(this.paint, this);
 
+      this.pickTile = __bind(this.pickTile, this);
+
       this.startPainting = __bind(this.startPainting, this);
 
       this.bindEvents = __bind(this.bindEvents, this);
@@ -302,7 +308,9 @@
     TileCursor.prototype.bindEvents = function() {
       if (this.painter) {
         this.el.on('mousedown', this.startPainting);
-        return this.el.on('mouseup', this.stopPainting);
+        this.el.on('mouseup', this.stopPainting);
+        $(document).on('keydown', this.handleDocKeydown);
+        return $(document).on('keyup', this.handleDocKeyup);
       }
     };
 
@@ -310,12 +318,56 @@
       if (e.which !== 1) {
         return;
       }
-      this.painting = true;
-      return this.paint();
+      if (this.picking && (window.buzz.currentLayer != null)) {
+        return this.pickTile();
+      } else {
+        this.painting = true;
+        return this.paint();
+      }
+    };
+
+    TileCursor.prototype.pickTile = function() {
+      var colTemp, elPos, img, index, layer, offX, offY, tileCol, tileRow, tileSize, tilesPerRow, zoom;
+      if (window.buzz.currentLayer == null) {
+        return;
+      }
+      layer = window.buzz.currentLayer;
+      tileSize = layer.tileSize;
+      elPos = this.el.position();
+      zoom = window.buzz.zoom;
+      tileRow = elPos.top / zoom / tileSize;
+      tileCol = elPos.left / zoom / tileSize;
+      index = layer.data[tileRow] && layer.data[tileRow][tileCol] ? layer.data[tileRow][tileCol] : 0;
+      if (index === 0) {
+        this.setTile(0);
+        return;
+      }
+      if (layer.tileset === 'cider collision') {
+        img = new Image;
+        img.src = 'img/collision.png';
+      } else {
+        img = window.buzz.resources[layer.tileset];
+      }
+      if (layer.type === c.mapType.collision) {
+        tilesPerRow = img.width / 32;
+      } else {
+        tilesPerRow = img.width / layer.tileSize;
+      }
+      tileRow = Math.ceil(index / tilesPerRow) - 1;
+      colTemp = index % tilesPerRow;
+      tileCol = (colTemp === 0 ? tilesPerRow : colTemp) - 1;
+      if (layer.type === c.mapType.collision) {
+        offX = -(tileCol * 32) * (layer.tileSize / 32);
+        offY = -(tileRow * 32) * (layer.tileSize / 32);
+      } else {
+        offX = -(tileCol * layer.tileSize);
+        offY = -(tileRow * layer.tileSize);
+      }
+      return this.setTile(index, offX, offY);
     };
 
     TileCursor.prototype.paint = function(e) {
-      var col, elPos, layer, row, tileSize, zoom;
+      var col, elPos, layer, row, tileSize, zoom, _base, _ref;
       if (!(this.painting && (this.index != null) && (window.buzz.currentLayer != null))) {
         return;
       }
@@ -325,12 +377,10 @@
       zoom = window.buzz.zoom;
       row = elPos.top / zoom / tileSize;
       col = elPos.left / zoom / tileSize;
-      if (layer.data[row]) {
-        layer.data[row][col] = this.index;
-      } else {
-        layer.data[row] = [];
-        layer.data[row][col] = this.index;
+      if ((_ref = (_base = layer.data)[row]) == null) {
+        _base[row] = [];
       }
+      layer.data[row][col] = this.index;
       return window.buzz.renderer.renderLayers();
     };
 
@@ -401,6 +451,22 @@
         backgroundImage: "url(" + this.tileset.src + ")",
         backgroundPosition: '0 0'
       });
+    };
+
+    TileCursor.prototype.handleDocKeydown = function(e) {
+      var _ref;
+      if ((_ref = e.which) === 17 || _ref === 91) {
+        this.picking = true;
+        return this.el.addClass('picking');
+      }
+    };
+
+    TileCursor.prototype.handleDocKeyup = function(e) {
+      var _ref;
+      if ((_ref = e.which) === 17 || _ref === 91) {
+        this.picking = false;
+        return this.el.removeClass('picking');
+      }
     };
 
     return TileCursor;
@@ -486,7 +552,6 @@
         top: rCursorOff.top,
         left: rCursorOff.left + size
       });
-      console.log(rCursorOff, rCursorOff.top, this.img[0].height, $(window).height());
       if (rCursorOff.top + this.img[0].height > $(window).innerHeight()) {
         overflowDistance = (rCursorOff.top + this.img[0].height) - $(window).innerHeight();
         this.zoomFactor = 1 - (overflowDistance / this.img[0].height);
@@ -529,7 +594,6 @@
           cursorPos.left = Math.round(cursorPos.left / this.zoomFactor);
           cursorPos.top = Math.round(cursorPos.top / this.zoomFactor);
         }
-        console.log(this.zoomFactor);
         currentColumn = (cursorPos.left / layer.tileSize) + 1;
         currentRow = cursorPos.top / layer.tileSize;
       }
