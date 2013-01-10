@@ -98,14 +98,14 @@ class LayerOptions
 		@layer.type = type
 
 		window.buzz.renderer.switchLayer()
-		window.buzz.renderer.renderLayers()
+		window.buzz.renderer.renderLayer @layer
 
 	updateLayerTileSize: (e) =>
 		changed = $(e.target)
 		@layer.tileSize = parseInt(changed.val(), 10)
 		window.buzz.renderer.switchLayer()
 
-		window.buzz.renderer.renderLayers()
+		window.buzz.renderer.renderLayer @layer
 
 	updateLayerDistance: (e) =>
 		changed = $(e.target)
@@ -119,9 +119,9 @@ class LayerOptions
 		changed.blur()
 
 		window.buzz.renderer.switchLayer()
-		window.buzz.renderer.renderLayers()
+		window.buzz.renderer.renderLayer @layer
 
 	updateLayerZindex: (e) =>
 		changed = $(e.target)
 		@layer.zIndex = parseInt(changed.val(), 10)
-		window.buzz.renderer.renderLayers()
+		window.buzz.renderer.renderLayer @layer

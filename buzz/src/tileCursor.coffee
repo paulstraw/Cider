@@ -76,7 +76,7 @@ class TileCursor
 		layer.data[row] ?= []
 		layer.data[row][col] = @index
 
-		window.buzz.renderer.renderLayers()
+		window.buzz.renderer.renderLayer layer
 
 
 	stopPainting: (e) =>

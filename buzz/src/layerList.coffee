@@ -67,7 +67,7 @@ class LayerList
 
 		layer.visible = !!clicked.prop('checked')
 
-		window.buzz.renderer.renderLayers()
+		window.buzz.renderer.renderLayer layer
 
 
 	addLayer: (e, data, options) =>

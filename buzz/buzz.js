@@ -381,7 +381,7 @@
         _base[row] = [];
       }
       layer.data[row][col] = this.index;
-      return window.buzz.renderer.renderLayers();
+      return window.buzz.renderer.renderLayer(layer);
     };
 
     TileCursor.prototype.stopPainting = function(e) {
@@ -702,6 +702,7 @@
     };
 
     Renderer.prototype.renderLayer = function(layer) {
+      $("#cider-layer-" + layer.id).remove();
       if (layer.visible) {
         return $('#level-container').append(layer.render());
       }
@@ -851,7 +852,7 @@
       layerEl = clicked.parent();
       layer = window.buzz.layers[parseInt(layerEl.data('layer-id'), 10)];
       layer.visible = !!clicked.prop('checked');
-      return window.buzz.renderer.renderLayers();
+      return window.buzz.renderer.renderLayer(layer);
     };
 
     LayerList.prototype.addLayer = function(e, data, options) {
@@ -1064,7 +1065,7 @@
       changed.blur();
       this.layer.type = type;
       window.buzz.renderer.switchLayer();
-      return window.buzz.renderer.renderLayers();
+      return window.buzz.renderer.renderLayer(this.layer);
     };
 
     LayerOptions.prototype.updateLayerTileSize = function(e) {
@@ -1072,7 +1073,7 @@
       changed = $(e.target);
       this.layer.tileSize = parseInt(changed.val(), 10);
       window.buzz.renderer.switchLayer();
-      return window.buzz.renderer.renderLayers();
+      return window.buzz.renderer.renderLayer(this.layer);
     };
 
     LayerOptions.prototype.updateLayerDistance = function(e) {
@@ -1088,14 +1089,14 @@
       this.layer.tilesetUrl = changed.val();
       changed.blur();
       window.buzz.renderer.switchLayer();
-      return window.buzz.renderer.renderLayers();
+      return window.buzz.renderer.renderLayer(this.layer);
     };
 
     LayerOptions.prototype.updateLayerZindex = function(e) {
       var changed;
       changed = $(e.target);
       this.layer.zIndex = parseInt(changed.val(), 10);
-      return window.buzz.renderer.renderLayers();
+      return window.buzz.renderer.renderLayer(this.layer);
     };
 
     return LayerOptions;
@@ -1271,7 +1272,8 @@
       levelObject.size.y = level.size.y;
       levelObject.tileSize = level.tileSize;
       levelObject.setPxSize();
-      $('#layer-list').find('.delete').trigger('click');
+      $('#layer-list').find('li').off().remove();
+      window.buzz.layers = {};
       _ref = data.match(/c\.Map\((\[[^\n]+\],\n\{[^\}]+\})/g);
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         map = _ref[_i];

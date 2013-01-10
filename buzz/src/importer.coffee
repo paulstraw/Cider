@@ -30,7 +30,8 @@ class Importer
 		levelObject.setPxSize()
 
 		# Remove old layers.
-		$('#layer-list').find('.delete').trigger('click')
+		$('#layer-list').find('li').off().remove()
+		window.buzz.layers = {}
 
 		for map in data.match(/c\.Map\((\[[^\n]+\],\n\{[^\}]+\})/g)
 			[fullMatch, data, options] = map.match(/c\.Map\((\[[^\n]+\]),\n(\{[^\}]+\})/)

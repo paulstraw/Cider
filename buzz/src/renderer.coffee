@@ -51,6 +51,8 @@ class Renderer
 
 
 	renderLayer: (layer) =>
+		$("#cider-layer-#{layer.id}").remove()
+
 		if layer.visible
 			$('#level-container').append layer.render()
 
